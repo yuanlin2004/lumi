@@ -101,12 +101,6 @@ class Attention:
         xk = self.wk_matmul(kv)
         xv = self.wv_matmul(kv)
 
-        if self.kv_cache is not None:
-            (k_cache, v_cache) = self.kv_cache
-            xk = np.concatenate((k_cache, xk), axis=0)
-            xv = np.concatenate((v_cache, xv), axis=0)
-        self.kv_cache = (xk, xv)
-
         (seq, dim) = xq.shape  # [seq, dim]
         head_size = dim // self.n_heads
         xxq = np.reshape(xq, (-1, self.n_heads, head_size)).transpose(
@@ -122,9 +116,16 @@ class Attention:
         # apply position embedding
         if not self.pos_emb is None:
             xxq = self.pos_emb(xxq, start_pos)
-            xxk = self.pos_emb(xxk)  # always start from position 0
+            xxk = self.pos_emb(xxk, start_pos) 
 
         xxk = np.moveaxis(xxk, -1, -2)  # same as xxk.transpose([0,2,1])
+
+        if self.kv_cache is not None:
+            (k_cache, v_cache) = self.kv_cache
+            xxk = np.concatenate((k_cache, xxk), axis=2)
+            xxv = np.concatenate((v_cache, xxv), axis=1)
+        self.kv_cache = (xxk, xxv)
+
         scores = np.matmul(xxq, xxk)
         # print(f"score before masking {scores}")
 
