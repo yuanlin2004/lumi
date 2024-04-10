@@ -1,0 +1,7 @@
+set -x
+
+python llama2-np.py -t ~/tokenizer.model -w ~/w.lmw -i "There are three red balls and four green balls in the bag. If I take out" 
+
+# It is easy
+# Once upon
+# Special counsel Jack Smith urged the Supreme Court on Monday to reject
