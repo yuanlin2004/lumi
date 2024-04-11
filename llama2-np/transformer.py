@@ -3,6 +3,8 @@ from logging import getLogger
 
 import numpy as np
 
+from decotimer import *
+
 logger = getLogger(__name__)
 
 
@@ -14,6 +16,7 @@ class Linear:
         self.bias = bias
         return
 
+    @decotimer
     def __call__(self, x):
         y = np.matmul(x, self.weight)
         if self.bias:
@@ -34,6 +37,7 @@ class FeedForward:
         self.silu = SiLU()
         return
 
+    @decotimer
     def __call__(self, x):
         return self.w2(self.w3(x) * self.silu(self.w1(x)))
 
@@ -49,6 +53,7 @@ class RMSNorm:
 
 
 class RoPE:
+    @decotimer
     def __call__(self, x, start_pos=0):
         dim = x.shape[-1]
         s = x.shape[-2]
@@ -65,6 +70,7 @@ class RoPE:
 
 
 class Softmax:
+    @decotimer
     def __call__(self, x):
         exp_x = np.exp(x - np.max(x, axis=-1, keepdims=True))
         return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
@@ -93,6 +99,7 @@ class Attention:
         self.kv_cache = None
         return
 
+    @decotimer
     def __call__(self, q, start_pos, no_masking, kv=None):
         # self attention when kv is None
         if kv is None:
@@ -122,7 +129,7 @@ class Attention:
 
         if self.kv_cache is not None:
             (k_cache, v_cache) = self.kv_cache
-            xxk = np.concatenate((k_cache, xxk), axis=2)
+            xxk = np.concatenate((k_cache, xxk), axis=2) # k is transposed
             xxv = np.concatenate((v_cache, xxv), axis=1)
         self.kv_cache = (xxk, xxv)
 

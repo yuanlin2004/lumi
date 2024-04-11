@@ -4,6 +4,7 @@ import os
 import random
 import time
 
+from decotimer import *
 # from cProfile import Profile
 from typing import List, Literal, Optional, Tuple, TypedDict
 
@@ -139,6 +140,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "--nomask", action="store_true", help="do not use causal mask - just for play"
     )
+    parser.add_argument(
+        "--timer", action="store_true", help="enable timer for methods"
+    )
     args = parser.parse_args()
 
     token_file = args.t
@@ -148,6 +152,8 @@ if __name__ == "__main__":
         level=args.loglevel,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
+
+    decotimer_set(args.timer)
 
     llama = Llama(weight_file, token_file, 2048)
     print()
