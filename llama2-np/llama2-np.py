@@ -13,6 +13,7 @@ import numpy as np
 from read_lumi import read_lumi
 from tokenizer import Tokenizer
 from transformer import *
+from sysutil import *
 
 
 logger = logging.getLogger(__name__)
@@ -33,8 +34,7 @@ class Llama:
     ) -> "Llama":
         random.seed(seed)
         self.tokenizer = Tokenizer(model_path=tokenizer_path)
-        (params, weight_dict) = read_lumi(model_path, skip_weight=False)
-        # (params, weight_dict) = read_lumi(model_path, skip_weight=True)
+        (params, weight_dict) = read_lumi(model_path) 
         self.params = params
         self.model = Transformer(params, weight_dict)
 
@@ -106,6 +106,8 @@ class Llama:
             print(f"{s}", flush=True)
             print("")
 
+            report_mem()
+
             # the generate() is stateful, so only need to feed in the last token generated
             in_tokens = [generated_token]
 
@@ -115,6 +117,8 @@ class Llama:
 if __name__ == "__main__":
 
     max_n_tokens = 64
+
+    report_mem()
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -157,6 +161,7 @@ if __name__ == "__main__":
 
     llama = Llama(weight_file, token_file, 2048)
     print()
+    report_mem()
     llama.text_completion(
         args.i, max_n_tokens, one_a_time=args.fill1, no_masking=args.nomask
     )
