@@ -4,6 +4,7 @@ from logging import getLogger
 import numpy as np
 
 from decotimer import *
+from config import *
 
 logger = getLogger(__name__)
 
@@ -87,7 +88,7 @@ class Attention:
     """
 
     def __init__(
-        self, wq_weight, wk_weight, wv_weight, wo_weight, pos_emb=None, n_heads=1
+        self, wq_weight, wk_weight, wv_weight, wo_weight, pos_emb=None, n_heads=1, no_kv_cache=False
     ):
         self.n_heads = n_heads
         self.softmax = Softmax()
@@ -96,6 +97,7 @@ class Attention:
         self.wv_matmul = Linear(wv_weight)
         self.wo_matmul = Linear(wo_weight)
         self.pos_emb = pos_emb
+        self.no_kv_cache = no_kv_cache
         self.kv_cache = None
         return
 
@@ -127,11 +129,12 @@ class Attention:
 
         xxk = np.moveaxis(xxk, -1, -2)  # same as xxk.transpose([0,2,1])
 
-        if self.kv_cache is not None:
-            (k_cache, v_cache) = self.kv_cache
-            xxk = np.concatenate((k_cache, xxk), axis=2) # k is transposed
-            xxv = np.concatenate((v_cache, xxv), axis=1)
-        self.kv_cache = (xxk, xxv)
+        if not self.no_kv_cache:
+            if self.kv_cache is not None:
+                (k_cache, v_cache) = self.kv_cache
+                xxk = np.concatenate((k_cache, xxk), axis=2) # k is transposed
+                xxv = np.concatenate((v_cache, xxv), axis=1)
+            self.kv_cache = (xxk, xxv)
 
         scores = np.matmul(xxq, xxk)
         # print(f"score before masking {scores}")
@@ -169,9 +172,10 @@ class TransformerBlock:
         w_ffd_w2,
         w_ffd_w3,
         w_ffd_norm,
+        exp_args,
     ):
         self.att_rmsnorm = RMSNorm(w_att_norm)
-        self.attention = Attention(w_q, w_k, w_v, w_o, RoPE(), n_heads)
+        self.attention = Attention(w_q, w_k, w_v, w_o, RoPE(), n_heads, no_kv_cache=exp_args.no_kv_cache)
         self.ffd_rmsnorm = RMSNorm(w_ffd_norm)
         self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3)
         return
@@ -196,7 +200,7 @@ class TransformerBlock:
 
 
 class Transformer:
-    def __init__(self, params, weight_dict):
+    def __init__(self, params, weight_dict, exp_args):
         self.embedding_tab = weight_dict["tok_embeddings.weight"]
         self.n_layers = params["n_layers"]
         self.transformer_blocks = []
@@ -212,6 +216,7 @@ class Transformer:
                 weight_dict[f"layers.{i}.feed_forward.w2.weight"],
                 weight_dict[f"layers.{i}.feed_forward.w3.weight"],
                 weight_dict[f"layers.{i}.ffn_norm.weight"],
+                exp_args,
             )
             self.transformer_blocks.append(tf_block)
         self.rmsnorm = RMSNorm(weight_dict["norm.weight"])

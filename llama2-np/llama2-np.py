@@ -14,6 +14,7 @@ from read_lumi import read_lumi
 from tokenizer import Tokenizer
 from transformer import *
 from sysutil import *
+from config import *
 
 
 logger = logging.getLogger(__name__)
@@ -30,13 +31,14 @@ class Llama:
         model_path: str,
         tokenizer_path: str,
         max_seq_len: int,
+        exp_args,
         seed: int = 34,
     ) -> "Llama":
         random.seed(seed)
         self.tokenizer = Tokenizer(model_path=tokenizer_path)
         (params, weight_dict) = read_lumi(model_path) 
         self.params = params
-        self.model = Transformer(params, weight_dict)
+        self.model = Transformer(params, weight_dict, exp_args)
 
     def generate(
         self, input_tokens: List[int], start_pos, no_masking  # list of tokens
@@ -44,6 +46,7 @@ class Llama:
         """
         Give a list of tokens converted from the input prompt, generate an output token
         """
+        print(len(input_tokens))
         logits = self.model(input_tokens, start_pos, no_masking)[-1]
         logger.debug(f"logits[0]: {logits[0]}")
         assert len(logits) == self.params["vocab_size"]
@@ -60,7 +63,7 @@ class Llama:
         self,
         prompt_str: str,
         max_num_gen_tokens: int,
-        one_a_time=False,
+        exp_args,
         no_masking=False,
     ):
         """
@@ -72,7 +75,7 @@ class Llama:
         max_tokens = max_num_gen_tokens
 
         len_prompt = len(input_tokens)
-        if one_a_time:
+        if exp_args.one_a_time:
             # feed the token in the prompt one a time
             output_tokens = []
             in_tokens = [input_tokens[0]]
@@ -91,7 +94,7 @@ class Llama:
             logger.debug(f"generated token: {generated_token}")
             if generated_token == self.tokenizer.eos_id:
                 break
-            if one_a_time:
+            if exp_args.one_a_time:
                 if i < (len_prompt - 1):
                     generated_token = input_tokens[i + 1]
                 i += 1
@@ -108,8 +111,11 @@ class Llama:
 
             report_mem()
 
-            # the generate() is stateful, so only need to feed in the last token generated
-            in_tokens = [generated_token]
+            if exp_args.no_kv_cache:
+                in_tokens = output_tokens
+            else:
+                # kv cache is stateful, so only need to feed in the last token generated
+                in_tokens = [generated_token]
 
         return
 
@@ -131,6 +137,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-fill1",
         action="store_true",
+        default=False,
         help="force one token at a time in the fill stage",
     )
     parser.add_argument(
@@ -143,6 +150,9 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--nomask", action="store_true", help="do not use causal mask - just for play"
+    )
+    parser.add_argument(
+        "--nokvcache", action="store_true", default=False, help="do not use kv cache"
     )
     parser.add_argument(
         "--timer", action="store_true", help="enable timer for methods"
@@ -159,9 +169,11 @@ if __name__ == "__main__":
 
     decotimer_set(args.timer)
 
-    llama = Llama(weight_file, token_file, 2048)
+    exp_args = ExperimentArgs(no_kv_cache=args.nokvcache, one_a_time=args.fill1)
+
+    llama = Llama(weight_file, token_file, 2048, exp_args)
     print()
     report_mem()
     llama.text_completion(
-        args.i, max_n_tokens, one_a_time=args.fill1, no_masking=args.nomask
+        args.i, max_n_tokens, exp_args, no_masking=args.nomask
     )
