@@ -39,6 +39,7 @@ class Llama:
         (params, weight_dict) = read_lumi(model_path) 
         self.params = params
         self.model = Transformer(params, weight_dict, exp_args)
+        self.max_seq_len = max_seq_len
 
     def generate(
         self, input_tokens: List[int], start_pos, no_masking  # list of tokens
@@ -46,7 +47,6 @@ class Llama:
         """
         Give a list of tokens converted from the input prompt, generate an output token
         """
-        print(len(input_tokens))
         logits = self.model(input_tokens, start_pos, no_masking)[-1]
         logger.debug(f"logits[0]: {logits[0]}")
         assert len(logits) == self.params["vocab_size"]
@@ -62,7 +62,6 @@ class Llama:
     def text_completion(
         self,
         prompt_str: str,
-        max_num_gen_tokens: int,
         exp_args,
         no_masking=False,
     ):
@@ -71,10 +70,8 @@ class Llama:
         """
         input_tokens = self.tokenizer.encode(prompt_str, bos=True, eos=False)
 
-        # fix me to be limited by context window size
-        max_tokens = max_num_gen_tokens
-
         len_prompt = len(input_tokens)
+        print(f"max seq lenght: {self.max_seq_len}   lenght of input prompt: {len_prompt}")
         if exp_args.one_a_time:
             # feed the token in the prompt one a time
             output_tokens = []
@@ -85,7 +82,7 @@ class Llama:
             in_tokens = input_tokens[:]
 
         i = 0
-        while i < (max_tokens - len_prompt + 1):
+        while i < self.max_seq_len :
             start_time = time.perf_counter()
             generated_token = int(self.generate(in_tokens, i, no_masking))
             end_time = time.perf_counter()
@@ -93,6 +90,7 @@ class Llama:
 
             logger.debug(f"generated token: {generated_token}")
             if generated_token == self.tokenizer.eos_id:
+                print("EOS generated")
                 break
             if exp_args.one_a_time:
                 if i < (len_prompt - 1):
@@ -116,13 +114,15 @@ class Llama:
             else:
                 # kv cache is stateful, so only need to feed in the last token generated
                 in_tokens = [generated_token]
+        if i >= self.max_seq_len:
+            print(f"max {i} tokens reached")
 
         return
 
 
 if __name__ == "__main__":
 
-    max_n_tokens = 64
+    max_n_tokens = 128
 
     report_mem()
 
@@ -141,7 +141,7 @@ if __name__ == "__main__":
         help="force one token at a time in the fill stage",
     )
     parser.add_argument(
-        "--seqlength", type=int, dest="max_n_tokens", help="max sequence length"
+        "--seqlength", type=int, default=max_n_tokens, help="max sequence length"
     )
     parser.add_argument(
         "--loglevel",
@@ -162,6 +162,8 @@ if __name__ == "__main__":
     token_file = args.t
     weight_file = args.w
 
+    max_n_tokens = args.seqlength
+
     logging.basicConfig(
         level=args.loglevel,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -171,9 +173,10 @@ if __name__ == "__main__":
 
     exp_args = ExperimentArgs(no_kv_cache=args.nokvcache, one_a_time=args.fill1)
 
-    llama = Llama(weight_file, token_file, 2048, exp_args)
+    llama = Llama(weight_file, token_file, max_n_tokens, exp_args)
     print()
     report_mem()
+    print(max_n_tokens)
     llama.text_completion(
-        args.i, max_n_tokens, exp_args, no_masking=args.nomask
+        args.i, exp_args, no_masking=args.nomask
     )

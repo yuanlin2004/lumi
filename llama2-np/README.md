@@ -24,7 +24,6 @@ The correctness is verfied by comparing the generated text and values of some in
 
 There are three red balls and four green balls in the bag. If I take out one ball at random, what is the probability that it is a red ball?
 The probability of getting a red ball is 3/7.
-The probability of getting a red ball is 3/7.
 ...
 ```
 
