@@ -13,3 +13,5 @@ The project consists of two components
 2. a [blog series](https://yuanlin2004.github.io/lumi-blog) which tell stories, lessons and learnings that cannot be easily conveyed by code and documents. 
 
 This is the code repo. 
+
+The starting project is [`llama2-np.py`](https://github.com/yuanlin2004/lumi/tree/main/llama2-np) - an implementation of llama2 in numpy.
