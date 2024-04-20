@@ -49,12 +49,12 @@ class Llama:
         """
         logits = self.model(input_tokens, start_pos, no_masking)[-1]
         logger.debug(f"logits[0]: {logits[0]}")
-        assert len(logits) == self.params["vocab_size"]
+        assert len(logits) == self.params["vocab_size"], f"{len(logits)} vs {self.params['vocab_size']}"
         result = self.sample(logits)
         return result
 
     def sample(self, logits):
-        assert len(logits) == self.params["vocab_size"]
+        assert len(logits) == self.params["vocab_size"], f"{len(logits)} vs {self.params['vocab_size']}"
         # Just give the top one for now
         result = np.argmax(logits)  # scalar
         return result
