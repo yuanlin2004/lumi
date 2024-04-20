@@ -1,7 +1,10 @@
 set -x
 
-python llama2-np.py -t ~/tokenizer.model -w ~/w.lmw -i "There are three red balls and four green balls in the bag. If I take out" 
+#python llama2-np.py -t ~/tokenizer.model -w t.lmw -i "There are three red balls and four green balls in the bag. If I take out" 
+#python llama2-np.py -t ~/tokenizer.model -w t.lmw -i "There are three red balls and four green balls in the bag. If I take out" --timer 
 
 # It is easy
 # Once upon
 # Special counsel Jack Smith urged the Supreme Court on Monday to reject
+
+python llama2-np.py --seqlength=512 -t ~/tokenizer.model -w t.lmw -i "Just when you thought the Bay Area real estate market could not get any crazier than it is already, a house in Cupertino, basically the size of a hotel room, sold on Friday after just six days on the market. The house does not even have any sort of heating nor a stove, and it is just 384 square feet. The seller’s agent says there were over 100 potential buyers through the home during an open house last weekend. A contract has now been signed with a buyer and the house should be officially off the market by the weekend.  It takes" --nokvcache

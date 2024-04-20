@@ -183,19 +183,19 @@ class TransformerBlock:
     def __call__(self, x, start_pos, no_masking):
         # x = x + self.attention(self.att_rmsnorm(x))
         norm = self.att_rmsnorm(x)
-        logger.debug(f"att rmsnorm [500] {norm[0][500]}")
+        logger.debug(f"att rmsnorm [50] {norm[0][50]}")
         att = self.attention(norm, start_pos, no_masking)
-        logger.debug(f"att [500] {att[0][500]}")
+        logger.debug(f"att [50] {att[0][50]}")
         x = x + att
-        logger.debug(f"rescon1 [500] {x[0][500]}")
+        logger.debug(f"rescon1 [50] {x[0][50]}")
 
         # x = x + self.feedforward(self.ffd_rmsnorm(x))
         norm = self.ffd_rmsnorm(x)
-        logger.debug(f"ffd rmsnorm [500] {norm[0][500]}")
+        logger.debug(f"ffd rmsnorm [50] {norm[0][50]}")
         ffd = self.feedforward(norm)
-        logger.debug(f"ffd [500] {ffd[0][500]}")
+        logger.debug(f"ffd [50] {ffd[0][50]}")
         x = x + ffd
-        logger.debug(f"rescon2 [500] {x[0][500]}")
+        logger.debug(f"rescon2 [50] {x[0][50]}")
         return x
 
 
@@ -226,7 +226,7 @@ class Transformer:
     def __call__(self, input_tokens, start_pos, no_masking):
         logger.debug(f"input tokens: {input_tokens}")
         x = self.embedding_tab[input_tokens]
-        logger.debug(f"input embedding [500]: {x[0][500]}")
+        logger.debug(f"input embedding [50]: {x[0][50]}")
         i = 0
         for b in self.transformer_blocks:
             print(".", end="", flush=True)

@@ -61,13 +61,14 @@ def export_lumi(params, state_dict, filepath, n_records=-1):
     # 3. params
     log(f"write params {params}")
     p = struct.pack(
-        "iiiiiif",
+        "iiiiiiif",
         params["dim"],
         params["n_layers"],
         params["n_heads"],
+        params["n_kv_heads"],
         params["multiple_of"],
-        state_dict["tok_embeddings.weight"].shape[0],  # vocab_size
-        2048,  # max_seq_len
+        params['vocab_size'], #state_dict["tok_embeddings.weight"].shape[0],  # vocab_size
+        params['max_seq_len'], #2048,  # max_seq_len
         params["norm_eps"],
     )
     out_file.write(p)
@@ -104,12 +105,16 @@ def export_lumi(params, state_dict, filepath, n_records=-1):
     log(f"... {elapsed_time:.2f} seconds.")
 
 
-def read_meta(model_path):
+def read_meta_llama(model_path):
     log("reading params.json")
     params_path = os.path.join(model_path, "params.json")
     with open(params_path) as f:
         params = json.load(f)
         print(params)
+    params.setdefault('n_kv_heads', params['n_heads'])
+    params.setdefault('max_seq_len', 2048)
+    params['vocab_size'] = 32000 # already set to -1, so no setdefault()
+
 
     log("reading consolatated.*.pth")
     start_time = time.time()
@@ -139,6 +144,30 @@ def read_meta(model_path):
 
     return (params, state_dict)
 
+def read_tinystories_pt(model_path):
+    log(f"reading {model_path}")
+    start_time = time.time()
+    content = torch.load(model_path, map_location="cpu") 
+    elapsed_time = time.time() - start_time
+    log(f"... {elapsed_time:.2f} seconds.")
+
+    state_dict = {}
+    model = content['model']
+    for name in list(model):
+        state_dict[name] = model[name]
+
+    params = {}
+    args = content['model_args']
+    params['dim'] = args['dim']
+    params['n_layers'] = args['n_layers']
+    params['n_heads'] = args['n_heads']
+    params['n_kv_heads'] = args['n_kv_heads']
+    params['multiple_of'] = args['multiple_of']
+    params['vocab_size'] = args['vocab_size']
+    params['max_seq_len'] = args['max_seq_len']
+    params['norm_eps'] = 1e-05
+
+    return (params, state_dict)
 
 def compare(meta_params, meta_dict, lumi_params, lumi_dict, n_records):
     for p in list(meta_params):
@@ -163,8 +192,13 @@ def compare(meta_params, meta_dict, lumi_params, lumi_dict, n_records):
 
 
 if __name__ == "__main__":
+    '''
+    % python convert /mnt/data1t/llama-2-7b llama-2-7b.lmw -t
+    % python convert /mnt/data1t/llama-2-7b llama-2-7b.lmw 
+    % python convert /home/yuan/DLModels/TinyStories/stories15M.pt stories15M.lmw 
+    '''
     parser = argparse.ArgumentParser()
-    parser.add_argument("metapath", type=str, help="input path of meta llama model")
+    parser.add_argument("input_path", type=str, help="input path of input model")
     parser.add_argument("lumipath", type=str, help="output path of lumi model")
     parser.add_argument(
         "-t",
@@ -173,9 +207,17 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    log(f"input: {args.metapath}")
+    log(f"input: {args.input_path}")
     log(f"output: {args.lumipath}")
-    (meta_params, meta_dict) = read_meta(args.metapath)
+
+    # Detect the model and process accordingly
+    if "llama-2" in args.input_path:
+        (meta_params, meta_dict) = read_meta_llama(args.input_path)
+    elif "stories" in args.input_path:
+        (meta_params, meta_dict) = read_tinystories_pt(args.input_path)
+    else:
+        print("Unknown model type")
+        exit()
 
     if args.t:
         n_records = 15

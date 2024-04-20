@@ -26,15 +26,16 @@ def read_lumi(model_path, n_records=-1, skip_weight=False):
 
     # 3. params
     lumi_params = {}
-    p = struct.unpack("iiiiiif", file.read(28))
+    p = struct.unpack("iiiiiiif", file.read(32))
     logger.debug(f"params {p}")
     lumi_params["dim"] = p[0]
     lumi_params["n_layers"] = p[1]
     lumi_params["n_heads"] = p[2]
-    lumi_params["multiple_of"] = p[3]
-    lumi_params["vocab_size"] = p[4]
-    lumi_params["max_seq_len"] = p[5]
-    lumi_params["norm_eps"] = p[6]
+    lumi_params["n_kv_heads"] = p[3]
+    lumi_params["multiple_of"] = p[4]
+    lumi_params["vocab_size"] = p[5]
+    lumi_params["max_seq_len"] = p[6]
+    lumi_params["norm_eps"] = p[7]
 
     # 4. weight data
     n = 0
