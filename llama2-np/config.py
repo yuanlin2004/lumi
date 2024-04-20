@@ -9,3 +9,5 @@ class ExperimentArgs:
     # generation
     one_a_time: bool = False
 
+    # report
+    report_mem: bool = False

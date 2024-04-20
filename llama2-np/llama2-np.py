@@ -82,11 +82,14 @@ class Llama:
             in_tokens = input_tokens[:]
 
         i = 0
+        n_generated = 0
+        all_start_time = time.perf_counter()
         while i < self.max_seq_len :
             start_time = time.perf_counter()
             generated_token = int(self.generate(in_tokens, i, no_masking))
             end_time = time.perf_counter()
             print(f" {end_time-start_time:0.4f} seconds")
+            n_generated +=1
 
             logger.debug(f"generated token: {generated_token}")
             if generated_token == self.tokenizer.eos_id:
@@ -107,13 +110,18 @@ class Llama:
             print(f"{s}", flush=True)
             print("")
 
-            report_mem()
+            if exp_args.report_mem:
+                report_mem()
 
             if exp_args.no_kv_cache:
                 in_tokens = output_tokens
             else:
                 # kv cache is stateful, so only need to feed in the last token generated
                 in_tokens = [generated_token]
+
+        all_end_time = time.perf_counter()
+        print(f"{n_generated/(all_end_time - all_start_time):0.4f} tok/s")
+        
         if i >= self.max_seq_len:
             print(f"max {i} tokens reached")
 
@@ -123,8 +131,6 @@ class Llama:
 if __name__ == "__main__":
 
     max_n_tokens = 128
-
-    report_mem()
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -157,6 +163,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "--timer", action="store_true", help="enable timer for methods"
     )
+    parser.add_argument(
+        "--reportmem", action="store_true", default=False, help="report memory usage"
+    )
     args = parser.parse_args()
 
     token_file = args.t
@@ -168,15 +177,15 @@ if __name__ == "__main__":
         level=args.loglevel,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
-
     decotimer_set(args.timer)
+    exp_args = ExperimentArgs(no_kv_cache=args.nokvcache, one_a_time=args.fill1, report_mem=args.reportmem)
 
-    exp_args = ExperimentArgs(no_kv_cache=args.nokvcache, one_a_time=args.fill1)
-
+    if exp_args.report_mem:
+        report_mem()
     llama = Llama(weight_file, token_file, max_n_tokens, exp_args)
     print()
-    report_mem()
-    print(max_n_tokens)
+    if exp_args.report_mem:
+        report_mem()
     llama.text_completion(
         args.i, exp_args, no_masking=args.nomask
     )
