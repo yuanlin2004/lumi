@@ -6,7 +6,7 @@ Currently it implements an inference flow using `numpy` only, except for the tok
 
 
 - fp32
-- tested with 7B model only
+- tested with llama2-7B model and TinyStories models only
 - no GQA yet (not used by the 7B model), only MHA.
 - a simple sampler that greedily picks the token with the highest score
 - ~35 sec/token (Ryzen 7 7700x, 32GB RAM)
