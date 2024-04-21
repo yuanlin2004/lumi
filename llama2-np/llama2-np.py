@@ -38,7 +38,7 @@ class Llama:
         self.tokenizer = Tokenizer(model_path=tokenizer_path)
         (params, weight_dict) = read_lumi(model_path) 
         self.params = params
-        self.model = Transformer(params, weight_dict, exp_args)
+        self.model = Transformer(params, weight_dict, max_seq_len, exp_args)
         self.max_seq_len = max_seq_len
 
     def generate(
@@ -161,6 +161,9 @@ if __name__ == "__main__":
         "--nokvcache", action="store_true", default=False, help="do not use kv cache"
     )
     parser.add_argument(
+        "--useinplacekvcache", action="store_true", default=False, help="use in-place kv cache"
+    )
+    parser.add_argument(
         "--timer", action="store_true", help="enable timer for methods"
     )
     parser.add_argument(
@@ -178,7 +181,10 @@ if __name__ == "__main__":
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
     decotimer_set(args.timer)
-    exp_args = ExperimentArgs(no_kv_cache=args.nokvcache, one_a_time=args.fill1, report_mem=args.reportmem)
+    exp_args = ExperimentArgs(no_kv_cache=args.nokvcache,
+                              one_a_time=args.fill1, 
+                              report_mem=args.reportmem,
+                              use_in_place_kv_cache=args.useinplacekvcache)
 
     if exp_args.report_mem:
         report_mem()

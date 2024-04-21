@@ -88,7 +88,7 @@ class Attention:
     """
 
     def __init__(
-        self, wq_weight, wk_weight, wv_weight, wo_weight, pos_emb=None, n_heads=1, no_kv_cache=False
+        self, wq_weight, wk_weight, wv_weight, wo_weight, max_seq_len, exp_args, pos_emb=None, n_heads=1, 
     ):
         self.n_heads = n_heads
         self.softmax = Softmax()
@@ -97,8 +97,15 @@ class Attention:
         self.wv_matmul = Linear(wv_weight)
         self.wo_matmul = Linear(wo_weight)
         self.pos_emb = pos_emb
-        self.no_kv_cache = no_kv_cache
-        self.kv_cache = None
+        self.no_kv_cache = exp_args.no_kv_cache
+        self.use_in_place_kv_cache = exp_args.use_in_place_kv_cache
+        self.k_cache = None
+        self.v_cache = None
+        if not exp_args.no_kv_cache:
+            if exp_args.use_in_place_kv_cache:
+                head_size = wq_weight.shape[1] // n_heads
+                self.k_cache = np.zeros([n_heads, head_size, max_seq_len], dtype=np.float32)
+                self.v_cache = np.zeros([n_heads, max_seq_len, head_size], dtype=np.float32)
         return
 
     @decotimer
@@ -122,19 +129,24 @@ class Attention:
             1, 0, 2
         )  # (n_heads, s, head_size)
 
-        # apply position embedding
         if not self.pos_emb is None:
             xxq = self.pos_emb(xxq, start_pos)
             xxk = self.pos_emb(xxk, start_pos) 
 
-        xxk = np.moveaxis(xxk, -1, -2)  # same as xxk.transpose([0,2,1])
+        xxk = np.moveaxis(xxk, -1, -2)  # same as xxk.transpose([0,2,1]) (n_heads, head_size, s)
 
         if not self.no_kv_cache:
-            if self.kv_cache is not None:
-                (k_cache, v_cache) = self.kv_cache
-                xxk = np.concatenate((k_cache, xxk), axis=2) # k is transposed
-                xxv = np.concatenate((v_cache, xxv), axis=1)
-            self.kv_cache = (xxk, xxv)
+            if self.use_in_place_kv_cache:
+                self.k_cache[:,:,start_pos:start_pos+seq] = xxk
+                self.v_cache[:,start_pos:start_pos+seq,:] = xxv
+                xxk = self.k_cache[:, :, :start_pos+seq]
+                xxv = self.v_cache[:,:start_pos+seq,:]
+            else:
+                if self.k_cache is not None:
+                    xxk = np.concatenate((self.k_cache, xxk), axis=2) # k is transposed
+                    xxv = np.concatenate((self.v_cache, xxv), axis=1)
+                self.k_cache = xxk
+                self.v_cache = xxv
 
         scores = np.matmul(xxq, xxk)
         # print(f"score before masking {scores}")
@@ -172,10 +184,11 @@ class TransformerBlock:
         w_ffd_w2,
         w_ffd_w3,
         w_ffd_norm,
+        max_seq_len: int, 
         exp_args,
     ):
         self.att_rmsnorm = RMSNorm(w_att_norm)
-        self.attention = Attention(w_q, w_k, w_v, w_o, RoPE(), n_heads, no_kv_cache=exp_args.no_kv_cache)
+        self.attention = Attention(w_q, w_k, w_v, w_o, max_seq_len, exp_args, RoPE(), n_heads)
         self.ffd_rmsnorm = RMSNorm(w_ffd_norm)
         self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3)
         return
@@ -200,7 +213,7 @@ class TransformerBlock:
 
 
 class Transformer:
-    def __init__(self, params, weight_dict, exp_args):
+    def __init__(self, params, weight_dict, max_seq_len, exp_args):
         self.embedding_tab = weight_dict["tok_embeddings.weight"]
         self.n_layers = params["n_layers"]
         self.transformer_blocks = []
@@ -216,6 +229,7 @@ class Transformer:
                 weight_dict[f"layers.{i}.feed_forward.w2.weight"],
                 weight_dict[f"layers.{i}.feed_forward.w3.weight"],
                 weight_dict[f"layers.{i}.ffn_norm.weight"],
+                max_seq_len,
                 exp_args,
             )
             self.transformer_blocks.append(tf_block)
