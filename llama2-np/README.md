@@ -27,4 +27,19 @@ The probability of getting a red ball is 3/7.
 ...
 ```
 
+## Llama2 under 250 LoC: `compat-llama2-np.py`
+
+`compat-llama2-np.py` is a variant of `llama2-np.py` under 250, exclusing the tokenizer code and the weight reading code. It strips out many experimental features and debugging utilites. 
+
+Since it does not have the boilerplate code, `compat-llama2-np.py` is somewhat more readable than `llama2-np.py` in terms of illustrating the llama2 network architecture. 
+
+```
+%  python compat-llama2-np.py -t tokenizer.model -w stories15M.lmw  -i 'There are three red balls and four green balls in the bag. If I take out' --seqlength 128
+...
+There are three red balls and four green balls in the bag. If I take out the red ball, I will be very happy. But I need to be careful. I don't want to get hurt."
+The red balls were very excited. They wanted to play with the red ball. So, they started to roll and bounce. They were having so much fun.
+But then, something unexpected happened. The red ball rolled out of the bag and into a big puddle. The red ball was sad. The red ball said, "I'm sorry, red ball. I didn't mean to
+45.2931 tok/sec
+```
+
 
