@@ -18,6 +18,7 @@ import time
 
 import numpy as np
 import torch
+import safetensors.torch
 
 from read_lumi import read_lumi
 
@@ -169,6 +170,62 @@ def read_tinystories_pt(model_path):
 
     return (params, state_dict)
 
+def read_tinyllama(model_path):
+    log(f"reading {model_path}")
+    start_time = time.time()
+    if "Chat" in model_path:
+        params_path = os.path.join(model_path, "model.safetensors")
+        model = safetensors.torch.load_file(params_path)
+    else:
+        params_path = os.path.join(model_path, "pytorch_model.bin")
+        model = torch.load(params_path, map_location="cpu")
+    elapsed_time = time.time() - start_time
+    log(f"... {elapsed_time:.2f} seconds.")
+
+    state_dict = {}
+    for name in list(model):
+        if name == 'lm_head.weight':
+            state_dict["output.weight"] = model[name]
+        elif name == 'model.embed_tokens.weight':
+            state_dict["tok_embeddings.weight"] = model[name]
+        elif name == 'model.norm.weight':
+            state_dict["norm.weight"] = model[name]
+        elif 'layers' in name:
+            t = name.split('.')
+            if t[3] == 'input_layernorm':
+                state_dict["layers."+t[2]+".attention_norm.weight"] = model[name]
+            if t[3] == 'post_attention_layernorm':
+                state_dict["layers."+t[2]+".ffn_norm.weight"] = model[name]
+            elif t[4] == 'q_proj':
+                state_dict["layers."+t[2]+".attention.wq.weight"] = model[name]
+            elif t[4] == 'k_proj':
+                state_dict["layers."+t[2]+".attention.wk.weight"] = model[name]
+            elif t[4] == 'v_proj':
+                state_dict["layers."+t[2]+".attention.wv.weight"] = model[name]
+            elif t[4] == 'o_proj':
+                state_dict["layers."+t[2]+".attention.wo.weight"] = model[name]
+            elif t[4] == 'gate_proj':
+                state_dict["layers."+t[2]+".feed_forward.w3.weight"] = model[name]
+            elif t[4] == 'up_proj':
+                state_dict["layers."+t[2]+".feed_forward.w1.weight"] = model[name]
+            elif t[4] == 'down_proj':
+                state_dict["layers."+t[2]+".feed_forward.w2.weight"] = model[name]
+        else:
+            print(f"unknown weight {name}")
+            exit()
+
+    params = {}
+    params['dim'] = 2048
+    params['n_layers'] = 22 
+    params['n_heads'] = 32 
+    params['n_kv_heads'] = 4 
+    params['multiple_of'] = 8 # just a guess 
+    params['vocab_size'] = 32000 
+    params['max_seq_len'] = 1024  # just a guess
+    params['norm_eps'] = 1e-05
+
+    return (params, state_dict)
+
 def compare(meta_params, meta_dict, lumi_params, lumi_dict, n_records):
     for p in list(meta_params):
         if p == "vocab_size" and meta_params[p] == -1:
@@ -193,9 +250,14 @@ def compare(meta_params, meta_dict, lumi_params, lumi_dict, n_records):
 
 if __name__ == "__main__":
     '''
-    % python convert /mnt/data1t/llama-2-7b llama-2-7b.lmw -t
-    % python convert /mnt/data1t/llama-2-7b llama-2-7b.lmw 
-    % python convert /home/yuan/DLModels/TinyStories/stories15M.pt stories15M.lmw 
+    Directory as the input path
+    % python convert.py /mnt/data1t/llama-2-7b llama-2-7b.lmw -t
+    % python convert.py /mnt/data1t/llama-2-7b llama-2-7b.lmw 
+    % python convert.py /mnt/data1t/DL-Models/TinyLlama/1.1B-Chat-v1.0 tinyllama-1.1b-chat.lmw 
+    % python convert.py /mnt/data1t/DL-Models/TinyLlama/1.1B-3T tinyllama-1.1b.lmw 
+
+    File as the input path
+    % python convert.py /home/yuan/DLModels/TinyStories/stories15M.pt stories15M.lmw 
     '''
     parser = argparse.ArgumentParser()
     parser.add_argument("input_path", type=str, help="input path of input model")
@@ -215,6 +277,8 @@ if __name__ == "__main__":
         (meta_params, meta_dict) = read_meta_llama(args.input_path)
     elif "stories" in args.input_path:
         (meta_params, meta_dict) = read_tinystories_pt(args.input_path)
+    elif "TinyLlama" in args.input_path:
+        (meta_params, meta_dict) = read_tinyllama(args.input_path)
     else:
         print("Unknown model type")
         exit()
