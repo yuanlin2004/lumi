@@ -29,7 +29,7 @@ The probability of getting a red ball is 3/7.
 
 ## Llama2 under 250 LoC: `compat-llama2-np.py`
 
-`compat-llama2-np.py` is a variant of `llama2-np.py` under 250, excluding the tokenizer code and the weight reading code. It strips out many experimental features and debugging utilities. 
+`compat-llama2-np.py` is a variant of `llama2-np.py` under 250 LoC, excluding the tokenizer code and the weight reading code. It strips out many experimental features and debugging utilities. 
 
 Since it does not have the boilerplate code, `compat-llama2-np.py` is somewhat more readable than `llama2-np.py` in terms of illustrating the llama2 network architecture. 
 
