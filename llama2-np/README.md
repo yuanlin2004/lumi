@@ -27,6 +27,16 @@ The probability of getting a red ball is 3/7.
 ...
 ```
 
+## Models Supported
+
+| Model Name | Size | Precision |
+| ---------- | ---- | ---- |
+| llama2     | 7B   | fp32     |
+| TinyStories  | 15M   | fp32     |
+| TinyStories  | 42M   | fp32     |
+| TinyStories  | 110M   | fp32     |
+
+
 ## `compat-llama2-np.py`: Llama2 under 250 LoC
 
 `compat-llama2-np.py` is a variant of `llama2-np.py` under 250 LoC, excluding the tokenizer code and the weight reading code. It strips out many experimental features and debugging utilities. 
