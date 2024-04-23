@@ -88,9 +88,19 @@ class Attention:
     """
 
     def __init__(
-        self, wq_weight, wk_weight, wv_weight, wo_weight, max_seq_len, exp_args, pos_emb=None, n_heads=1, 
+        self,
+        wq_weight,
+        wk_weight,
+        wv_weight,
+        wo_weight,
+        max_seq_len,
+        exp_args,
+        pos_emb,
+        n_heads,
+        n_kv_heads,
     ):
         self.n_heads = n_heads
+        self.n_kv_heads = n_kv_heads
         self.softmax = Softmax()
         self.wq_matmul = Linear(wq_weight)
         self.wk_matmul = Linear(wk_weight)
@@ -103,9 +113,15 @@ class Attention:
         self.v_cache = None
         if not exp_args.no_kv_cache:
             if exp_args.use_in_place_kv_cache:
-                head_size = wq_weight.shape[1] // n_heads
-                self.k_cache = np.zeros([n_heads, head_size, max_seq_len], dtype=np.float32)
-                self.v_cache = np.zeros([n_heads, max_seq_len, head_size], dtype=np.float32)
+                head_size = wq_weight.shape[0] // n_heads
+                assert head_size == wk_weight.shape[0] // n_kv_heads
+                assert head_size == wv_weight.shape[0] // n_kv_heads
+                self.k_cache = np.zeros(
+                    [n_kv_heads, head_size, max_seq_len], dtype=np.float32
+                )
+                self.v_cache = np.zeros(
+                    [n_kv_heads, max_seq_len, head_size], dtype=np.float32
+                )
         return
 
     @decotimer
@@ -122,31 +138,39 @@ class Attention:
         xxq = np.reshape(xq, (-1, self.n_heads, head_size)).transpose(
             1, 0, 2
         )  # (n_heads, s, head_size)
-        xxk = np.reshape(xk, (-1, self.n_heads, head_size)).transpose(
+        xxk = np.reshape(xk, (-1, self.n_kv_heads, head_size)).transpose(
             1, 0, 2
-        )  # (n_heads, s, head_size)
-        xxv = np.reshape(xv, (-1, self.n_heads, head_size)).transpose(
+        )  # (n_kv_heads, s, head_size)
+        xxv = np.reshape(xv, (-1, self.n_kv_heads, head_size)).transpose(
             1, 0, 2
-        )  # (n_heads, s, head_size)
+        )  # (n_kv_heads, s, head_size)
+
 
         if not self.pos_emb is None:
             xxq = self.pos_emb(xxq, start_pos)
-            xxk = self.pos_emb(xxk, start_pos) 
+            xxk = self.pos_emb(xxk, start_pos)
 
-        xxk = np.moveaxis(xxk, -1, -2)  # same as xxk.transpose([0,2,1]) (n_heads, head_size, s)
+        xxk = np.moveaxis(
+            xxk, -1, -2
+        )  # same as xxk.transpose([0,2,1]) (n_kv_heads, head_size, s)
 
         if not self.no_kv_cache:
             if self.use_in_place_kv_cache:
-                self.k_cache[:,:,start_pos:start_pos+seq] = xxk
-                self.v_cache[:,start_pos:start_pos+seq,:] = xxv
-                xxk = self.k_cache[:, :, :start_pos+seq]
-                xxv = self.v_cache[:,:start_pos+seq,:]
+                self.k_cache[:, :, start_pos : start_pos + seq] = xxk
+                self.v_cache[:, start_pos : start_pos + seq, :] = xxv
+                xxk = self.k_cache[:, :, : start_pos + seq]
+                xxv = self.v_cache[:, : start_pos + seq, :]
             else:
                 if self.k_cache is not None:
-                    xxk = np.concatenate((self.k_cache, xxk), axis=2) # k is transposed
+                    xxk = np.concatenate((self.k_cache, xxk), axis=2)  # k is transposed
                     xxv = np.concatenate((self.v_cache, xxv), axis=1)
                 self.k_cache = xxk
                 self.v_cache = xxv
+
+        if self.n_kv_heads != self.n_heads:
+            rep = self.n_heads // self.n_kv_heads
+            xxk = np.repeat(xxk, rep, axis=0)
+            xxv = np.repeat(xxv, rep, axis=0)
 
         scores = np.matmul(xxq, xxk)
         # print(f"score before masking {scores}")
@@ -176,6 +200,7 @@ class TransformerBlock:
         self,
         w_att_norm,
         n_heads,
+        n_kv_heads,
         w_q,
         w_k,
         w_v,
@@ -184,11 +209,13 @@ class TransformerBlock:
         w_ffd_w2,
         w_ffd_w3,
         w_ffd_norm,
-        max_seq_len: int, 
+        max_seq_len: int,
         exp_args,
     ):
         self.att_rmsnorm = RMSNorm(w_att_norm)
-        self.attention = Attention(w_q, w_k, w_v, w_o, max_seq_len, exp_args, RoPE(), n_heads)
+        self.attention = Attention(
+            w_q, w_k, w_v, w_o, max_seq_len, exp_args, RoPE(), n_heads, n_kv_heads
+        )
         self.ffd_rmsnorm = RMSNorm(w_ffd_norm)
         self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3)
         return
@@ -221,6 +248,7 @@ class Transformer:
             tf_block = TransformerBlock(
                 weight_dict[f"layers.{i}.attention_norm.weight"],
                 params["n_heads"],
+                params["n_kv_heads"],
                 weight_dict[f"layers.{i}.attention.wq.weight"],
                 weight_dict[f"layers.{i}.attention.wk.weight"],
                 weight_dict[f"layers.{i}.attention.wv.weight"],
