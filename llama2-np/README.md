@@ -1,26 +1,21 @@
-# llama2-np.py
+# llama-np.py
 
-This is to play with Meta's llama2 model. 
+This is to play with models based on Meta's llama2 and llama3.
 
-Currently it implements an inference flow using `numpy` only, except for the tokenizer which uses [sentencepiece](https://github.com/google/sentencepiece).
-
+Currently it implements an inference flow using `numpy` only, except for the tokenizer.
 
 - fp32
-- tested with llama2-7B model and TinyStories models only
-- no GQA yet (not used by the 7B model), only MHA.
 - a simple sampler that greedily picks the token with the highest score
 
-`llama2-np.py` implements different options for experimental purposes.  
+`llama-np.py` implements different options for experimental purposes.  
 
 - use kv-cache or not 
 - update kv-cache using an in-place-update method or a concatenate method
 - feed the input tokens, in the prefill stage, to the transform block as one sequence or one token at a time (similar to that in [`llama2.c`](https://github.com/karpathy/llama2.c)). 
 
-The correctness is verified by comparing the generated text and values of some intermediate tensors in `llama2-np.py` with those from `llama2.c`, both using the llama2-7B model. 
-
 
 ```sh
-% python llama2-np.py -t ~/tokenizer.model -w ~/w.lmw -i "There are three red balls and four green balls in the bag. If I take out" 
+% python llama-np.py -t ~/tokenizer.model -w ~/model.lmw -i "There are three red balls and four green balls in the bag. If I take out" 
 
 There are three red balls and four green balls in the bag. If I take out one ball at random, what is the probability that it is a red ball?
 The probability of getting a red ball is 3/7.
@@ -31,7 +26,9 @@ The probability of getting a red ball is 3/7.
 
 | Model Name | Size | Precision |
 | ---------- | ---- | ---- |
+| llama3     | 8B   | fp32     |
 | llama2     | 7B   | fp32     |
+| TinyStories  | 260K   | fp32     |
 | TinyStories  | 15M   | fp32     |
 | TinyStories  | 42M   | fp32     |
 | TinyStories  | 110M   | fp32     |
