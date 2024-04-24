@@ -125,14 +125,14 @@ Lily was sad and didn't know what to do. She said, "I'm sorry, Lily. I didn't kn
 Lily didn't want to help her mom, so she said, "I'm sorry, mom. I didn't know what to do." Her mom said, "Don't worry, Lily. We can help you."
 ```
 
-## `compat-llama2-np.py`: Llama2 under 250 LoC
+## `compat-llama-np.py`: Llama2/Llama3 under 250 LoC
 
-`compat-llama2-np.py` is a variant of `llama2-np.py` under 250 LoC, excluding the tokenizer code and the weight reading code. It strips out many experimental features and debugging utilities. 
+`compat-llama-np.py` is a variant of `llama-np.py` under 250 LoC, excluding the tokenizer code and the weight reading code. It strips out many experimental features and debugging utilities. 
 
-Since it does not have the boilerplate code, `compat-llama2-np.py` is somewhat more readable than `llama2-np.py` in terms of illustrating the llama2 network architecture. 
+Since it does not have the boilerplate code, `compat-llama-np.py` is somewhat more readable than `llama-np.py` in terms of illustrating the llama network architecture. 
 
 ```
-%  python compat-llama2-np.py -t tokenizer.model -w stories15M.lmw  -i 'There are three red balls and four green balls in the bag. If I take out' --seqlength 128
+%  python compat-llama-np.py -t tokenizer.model -w stories15M.lmw  -i 'There are three red balls and four green balls in the bag. If I take out' --seqlength 128
 ...
 There are three red balls and four green balls in the bag. If I take out the red ball, I will be very happy. But I need to be careful. I don't want to get hurt."
 The red balls were very excited. They wanted to play with the red ball. So, they started to roll and bounce. They were having so much fun.
