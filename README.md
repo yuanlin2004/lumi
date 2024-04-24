@@ -14,4 +14,4 @@ The project consists of two components
 
 This is the code repo. 
 
-The starting project is [`llama2-np.py`](https://github.com/yuanlin2004/lumi/tree/main/llama2-np) - an implementation of llama2 in numpy.
+The starting project is [`llama-np.py`](https://github.com/yuanlin2004/lumi/tree/main/llama-np) - an implementation of llama2 and llama3 in numpy.
