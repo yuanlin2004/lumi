@@ -11,7 +11,7 @@ from typing import List, Literal, Optional, Tuple, TypedDict
 import numpy as np
 
 from read_lumi import read_lumi
-from tokenizer import Tokenizer
+from tokenizer import Tokenizer_Llama3, Tokenizer_Llama2
 from transformer import *
 from sysutil import *
 from config import *
@@ -35,7 +35,10 @@ class Llama:
         seed: int = 34,
     ) -> "Llama":
         random.seed(seed)
-        self.tokenizer = Tokenizer(model_path=tokenizer_path)
+        if ('llama-3' in model_path.lower()) or ('llama3' in model_path.lower()):
+            self.tokenizer = Tokenizer_Llama3(model_path=tokenizer_path)
+        else:
+            self.tokenizer = Tokenizer_Llama2(model_path=tokenizer_path)
         (params, weight_dict) = read_lumi(model_path) 
         self.params = params
         self.model = Transformer(params, weight_dict, max_seq_len, exp_args)

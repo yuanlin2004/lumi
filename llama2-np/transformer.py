@@ -54,11 +54,14 @@ class RMSNorm:
 
 
 class RoPE:
+    def __init__(self, theta=10000):
+        self.theta = theta
+
     @decotimer
     def __call__(self, x, start_pos=0):
         dim = x.shape[-1]
         s = x.shape[-2]
-        theta = 10000 ** (-2.0 * np.array([t // 2 for t in range(dim)]) / dim)
+        theta = self.theta ** (-2.0 * np.array([t // 2 for t in range(dim)]) / dim)
         m = np.arange(start_pos, s + start_pos).reshape(-1, 1)
         m_theta = m * theta  # outer product
         cos = np.cos(m_theta)
@@ -78,15 +81,6 @@ class Softmax:
 
 
 class Attention:
-    """
-    Assume there is no batch dimension
-
-    About KV Cache implementation
-        The current implementation uses concat to update the cache, which involves many memory copies.
-        The Meta implementation needs the kv cache inside the attention class as a member (max size)
-        and uses inplace update.
-    """
-
     def __init__(
         self,
         wq_weight,
@@ -145,10 +139,8 @@ class Attention:
             1, 0, 2
         )  # (n_kv_heads, s, head_size)
 
-
-        if not self.pos_emb is None:
-            xxq = self.pos_emb(xxq, start_pos)
-            xxk = self.pos_emb(xxk, start_pos)
+        xxq = self.pos_emb(xxq, start_pos)
+        xxk = self.pos_emb(xxk, start_pos)
 
         xxk = np.moveaxis(
             xxk, -1, -2
@@ -210,11 +202,12 @@ class TransformerBlock:
         w_ffd_w3,
         w_ffd_norm,
         max_seq_len: int,
+        rope_theta,
         exp_args,
     ):
         self.att_rmsnorm = RMSNorm(w_att_norm)
         self.attention = Attention(
-            w_q, w_k, w_v, w_o, max_seq_len, exp_args, RoPE(), n_heads, n_kv_heads
+            w_q, w_k, w_v, w_o, max_seq_len, exp_args, RoPE(rope_theta), n_heads, n_kv_heads
         )
         self.ffd_rmsnorm = RMSNorm(w_ffd_norm)
         self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3)
@@ -258,6 +251,7 @@ class Transformer:
                 weight_dict[f"layers.{i}.feed_forward.w3.weight"],
                 weight_dict[f"layers.{i}.ffn_norm.weight"],
                 max_seq_len,
+                params["rope_theta"],
                 exp_args,
             )
             self.transformer_blocks.append(tf_block)
