@@ -2,7 +2,7 @@
 
 This is to play with models based on Meta's llama2 and llama3.
 
-Currently it implements an inference flow using `numpy` only, except for the tokenizer.
+Currently it implements an inference flow from scratch using `numpy` only, except for the tokenizer.
 
 - fp32
 - a simple sampler that greedily picks the token with the highest score
@@ -36,10 +36,10 @@ The probability of getting a red ball is 3/7.
 
 ## Run the Models
 
-There are two steps in order to run an existing a model - convert the weights, run the model. 
+There are two steps run an existing model - convert the weights, run the model. 
 
 ### Weight Conversion
-Model weights need to be converted into the `lumi weight` format (.lmw) before being fed into `llama-np.py`. The `convert.py` script does the magic. It can read pytorch checkpoint (.pt) files.  Handling of Huggingface `.safetensors` files and `pytorch_model.bin` files is also implemented but inference results are wrong for unknown reasons.
+Model weights need to be converted into the `lumi weight` format (.lmw) before being fed into `llama-np.py`. The `convert.py` script does the magic. It can read pytorch checkpoint (.pt) files.  Handling of Huggingface `.safetensors` files and `pytorch_model.bin` files is also implemented but inference results are wrong for some unknown reasons right now.
 
 Due to the specifics of individual models, `convert.py` contains many hard-coded logics.
 
