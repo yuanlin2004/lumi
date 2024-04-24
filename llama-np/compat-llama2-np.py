@@ -5,7 +5,7 @@ import time
 
 import numpy as np
 from read_lumi import read_lumi
-from tokenizer import Tokenizer
+from tokenizer import Tokenizer_Llama3, Tokenizer_Llama2
 
 
 class Linear:
@@ -41,9 +41,12 @@ class RMSNorm:
 
 
 class RoPE:
+    def __init__(self, theta=10000):
+        self.theta = theta
+
     def __call__(self, x, start_pos=0):
         dim, s = x.shape[-1], x.shape[-2]
-        theta = 10000 ** (-2.0 * np.array([t // 2 for t in range(dim)]) / dim)
+        theta = self.theta ** (-2.0 * np.array([t // 2 for t in range(dim)]) / dim)
         m = np.arange(start_pos, s + start_pos).reshape(-1, 1)
         m_theta = m * theta  # outer product
         cos, sin = np.cos(m_theta), np.sin(m_theta)
@@ -60,12 +63,11 @@ class Softmax:
 
 
 class Attention:
-    def __init__(self, wq_weight, wk_weight, wv_weight, wo_weight, n_heads):
-        self.n_heads = n_heads
-        self.softmax = Softmax()
+    def __init__(self, wq_weight, wk_weight, wv_weight, wo_weight, pos_emb, n_heads, n_kv_heads):
+        self.n_heads, self.n_kv_heads = n_heads, n_kv_heads
+        self.softmax, self.pos_emb = Softmax(), pos_emb
         self.wq, self.wk = Linear(wq_weight), Linear(wk_weight)
         self.wv, self.wo = Linear(wv_weight), Linear(wo_weight)
-        self.pos_emb = RoPE()
         self.k_cache, self.v_cache = None, None
 
     def __call__(self, q, start_pos):
@@ -76,10 +78,10 @@ class Attention:
         xxq = np.reshape(xq, (-1, self.n_heads, head_size)).transpose(
             1, 0, 2
         )  # (n_heads, s, head_size)
-        xxk = np.reshape(xk, (-1, self.n_heads, head_size)).transpose(
+        xxk = np.reshape(xk, (-1, self.n_kv_heads, head_size)).transpose(
             1, 0, 2
         )  # (n_heads, s, head_size)
-        xxv = np.reshape(xv, (-1, self.n_heads, head_size)).transpose(
+        xxv = np.reshape(xv, (-1, self.n_kv_heads, head_size)).transpose(
             1, 0, 2
         )  # (n_heads, s, head_size)
 
@@ -95,6 +97,11 @@ class Attention:
             xxv = np.concatenate((self.v_cache, xxv), axis=1)
         self.k_cache = xxk
         self.v_cache = xxv
+
+        if self.n_kv_heads != self.n_heads:
+            rep = self.n_heads // self.n_kv_heads
+            xxk = np.repeat(xxk, rep, axis=0)
+            xxv = np.repeat(xxv, rep, axis=0)
 
         scores = np.matmul(xxq, xxk)
 
@@ -112,6 +119,7 @@ class TransformerBlock:
         self,
         w_att_norm,
         n_heads,
+        n_kv_heads,
         w_q,
         w_k,
         w_v,
@@ -120,9 +128,10 @@ class TransformerBlock:
         w_ffd_w2,
         w_ffd_w3,
         w_ffd_norm,
+        rope_theta,
     ):
         self.att_rmsnorm = RMSNorm(w_att_norm)
-        self.attention = Attention(w_q, w_k, w_v, w_o, n_heads)
+        self.attention = Attention(w_q, w_k, w_v, w_o, RoPE(rope_theta), n_heads, n_kv_heads)
         self.ffd_rmsnorm = RMSNorm(w_ffd_norm)
         self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3)
 
@@ -140,6 +149,7 @@ class Transformer:
             tf_block = TransformerBlock(
                 weight_dict[f"layers.{i}.attention_norm.weight"],
                 params["n_heads"],
+                params["n_kv_heads"],
                 weight_dict[f"layers.{i}.attention.wq.weight"],
                 weight_dict[f"layers.{i}.attention.wk.weight"],
                 weight_dict[f"layers.{i}.attention.wv.weight"],
@@ -148,6 +158,7 @@ class Transformer:
                 weight_dict[f"layers.{i}.feed_forward.w2.weight"],
                 weight_dict[f"layers.{i}.feed_forward.w3.weight"],
                 weight_dict[f"layers.{i}.ffn_norm.weight"],
+                params["rope_theta"]
             )
             self.transformer_blocks.append(tf_block)
         self.rmsnorm = RMSNorm(weight_dict["norm.weight"])
@@ -164,7 +175,10 @@ class Transformer:
 class Llama:
     def __init__(self, model_path, tokenizer_path, max_seq_len, seed=34):
         random.seed(seed)
-        self.tokenizer = Tokenizer(model_path=tokenizer_path)
+        if ('llama-3' in model_path.lower()) or ('llama3' in model_path.lower()):
+            self.tokenizer = Tokenizer_Llama3(model_path=tokenizer_path)
+        else:
+            self.tokenizer = Tokenizer_Llama2(model_path=tokenizer_path)
         (params, weight_dict) = read_lumi(model_path)
         self.params = params
         self.model = Transformer(params, weight_dict)
