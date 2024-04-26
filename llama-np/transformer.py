@@ -13,7 +13,7 @@ class Linear:
     def __init__(self, weight, bias=None):
         # weight is always 2-D
         # the current implementation does not support
-        self.weight = weight.T
+        self.weight = weight.T.copy()
         self.bias = bias
         return
 
