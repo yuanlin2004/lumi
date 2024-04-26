@@ -40,9 +40,20 @@ class Llama:
         else:
             self.tokenizer = Tokenizer_Llama2(model_path=tokenizer_path)
         (params, weight_dict) = read_lumi(model_path) 
+
+        print("Building the network . ", end="", flush=True)
+        start_time = time.perf_counter()
         self.params = params
+        # Note: some weights in weight_dict will be 'del'ed in the following call,
+        # to keep the memory footprint small, as transposed copies will be made. 
         self.model = Transformer(params, weight_dict, max_seq_len, exp_args)
+
+        # just to tighten up the loose end
+        del weight_dict
+
         self.max_seq_len = max_seq_len
+        end_time = time.perf_counter()
+        print(f"{end_time-start_time} seconds")
 
     def generate(
         self, input_tokens: List[int], start_pos, no_masking  # list of tokens
