@@ -5,13 +5,14 @@ import random
 import time
 
 from decotimer import *
+
 # from cProfile import Profile
 from typing import List, Literal, Optional, Tuple, TypedDict
 
 import numpy as np
 
 from read_lumi import read_lumi
-from tokenizer import Tokenizer_Llama3, Tokenizer_Llama2
+from tokenizer import Tokenizer_Llama2, Tokenizer_Llama3
 from transformer import *
 from sysutil import *
 from config import *
@@ -35,17 +36,19 @@ class Llama:
         seed: int = 34,
     ) -> "Llama":
         random.seed(seed)
-        if ('llama-3' in model_path.lower()) or ('llama3' in model_path.lower()):
+        if ("llama-3" in model_path.lower()) or ("llama3" in model_path.lower()):
             self.tokenizer = Tokenizer_Llama3(model_path=tokenizer_path)
+            self.llama_version = 3
         else:
             self.tokenizer = Tokenizer_Llama2(model_path=tokenizer_path)
-        (params, weight_dict) = read_lumi(model_path) 
+            self.llama_version = 2
+        (params, weight_dict) = read_lumi(model_path)
 
         print("Building the network . ", end="", flush=True)
         start_time = time.perf_counter()
         self.params = params
         # Note: some weights in weight_dict will be 'del'ed in the following call,
-        # to keep the memory footprint small, as transposed copies will be made. 
+        # to keep the memory footprint small, as transposed copies will be made.
         self.model = Transformer(params, weight_dict, max_seq_len, exp_args)
 
         # just to tighten up the loose end
@@ -53,22 +56,26 @@ class Llama:
 
         self.max_seq_len = max_seq_len
         end_time = time.perf_counter()
-        print(f"{end_time-start_time} seconds")
+        print(f"{end_time-start_time:0.4f} seconds")
 
     def generate(
-        self, input_tokens: List[int], start_pos, no_masking  # list of tokens
+        self, input_tokens: List[int], start_pos, print_dot, no_masking  # list of tokens
     ) -> int:  # a token
         """
         Give a list of tokens converted from the input prompt, generate an output token
         """
-        logits = self.model(input_tokens, start_pos, no_masking)[-1]
+        logits = self.model(input_tokens, start_pos, print_dot, no_masking)[-1]
         logger.debug(f"logits[0]: {logits[0]}")
-        assert len(logits) == self.params["vocab_size"], f"{len(logits)} vs {self.params['vocab_size']}"
+        assert (
+            len(logits) == self.params["vocab_size"]
+        ), f"{len(logits)} vs {self.params['vocab_size']}"
         result = self.sample(logits)
         return result
 
     def sample(self, logits):
-        assert len(logits) == self.params["vocab_size"], f"{len(logits)} vs {self.params['vocab_size']}"
+        assert (
+            len(logits) == self.params["vocab_size"]
+        ), f"{len(logits)} vs {self.params['vocab_size']}"
         # Just give the top one for now
         result = np.argmax(logits)  # scalar
         return result
@@ -77,7 +84,9 @@ class Llama:
         self,
         prompt_str: str,
         exp_args,
+        emit_one_token,
         no_masking=False,
+
     ):
         """
         Given an inpout string (prompt), generate and print out a text string for completion
@@ -85,7 +94,9 @@ class Llama:
         input_tokens = self.tokenizer.encode(prompt_str, bos=True, eos=False)
 
         len_prompt = len(input_tokens)
-        print(f"max seq lenght: {self.max_seq_len}   lenght of input prompt: {len_prompt}")
+        print(
+            f"max seq lenght: {self.max_seq_len}   lenght of input prompt: {len_prompt}"
+        )
         if exp_args.one_a_time:
             # feed the token in the prompt one a time
             output_tokens = []
@@ -95,19 +106,32 @@ class Llama:
             output_tokens = input_tokens[:]
             in_tokens = input_tokens[:]
 
+        # The sentencepiece tokenizer (used by llama 2) does not emit space when given one token at 
+        # a time. So it is better to emit (decode and print) all tokens together.
+        # The tiktoken tokenizer (used by llama 3) does not have this issue.
+        if emit_one_token is None:
+            #emit_one_token = (self.llama_version == 3)
+            emit_one_token = False 
+
+        if emit_one_token:
+            s = self.tokenizer.decode(output_tokens)
+            print(f"{s}", flush=True, end="")
+
         i = 0
         n_generated = 0
         all_start_time = time.perf_counter()
-        while i < self.max_seq_len :
+        while i < self.max_seq_len:
             start_time = time.perf_counter()
-            generated_token = int(self.generate(in_tokens, i, no_masking))
+            generated_token = int(self.generate(in_tokens, i, (not emit_one_token), no_masking))
             end_time = time.perf_counter()
-            print(f" {end_time-start_time:0.4f} seconds")
-            n_generated +=1
+            if not emit_one_token:
+                print(f" {end_time-start_time:0.4f} seconds")
+            n_generated += 1
 
             logger.debug(f"generated token: {generated_token}")
             if generated_token == self.tokenizer.eos_id:
-                print("EOS generated")
+                if not emit_one_token:
+                    print("EOS generated")
                 break
             if exp_args.one_a_time:
                 if i < (len_prompt - 1):
@@ -119,10 +143,14 @@ class Llama:
                 else:
                     i += 1
             output_tokens.append(generated_token)
-            s = self.tokenizer.decode(output_tokens)
-            print("")
-            print(f"{s}", flush=True)
-            print("")
+            if emit_one_token:
+                s = self.tokenizer.decode([generated_token])
+                print(f"{s}", flush=True, end="")
+            else:
+                s = self.tokenizer.decode(output_tokens)
+                print("")
+                print(f"{s}", flush=True)
+                print("")
 
             if exp_args.report_mem:
                 report_mem()
@@ -134,8 +162,10 @@ class Llama:
                 in_tokens = [generated_token]
 
         all_end_time = time.perf_counter()
+        if emit_one_token:
+            print()
         print(f"{n_generated/(all_end_time - all_start_time):0.4f} tok/s")
-        
+
         if i >= self.max_seq_len:
             print(f"max {i} tokens reached")
 
@@ -175,14 +205,32 @@ if __name__ == "__main__":
         "--nokvcache", action="store_true", default=False, help="do not use kv cache"
     )
     parser.add_argument(
-        "--useinplacekvcache", action="store_true", default=False, help="use in-place kv cache"
+        "--useinplacekvcache",
+        action="store_true",
+        default=False,
+        help="use in-place kv cache",
     )
-    parser.add_argument(
-        "--timer", action="store_true", help="enable timer for methods"
-    )
+    parser.add_argument("--timer", action="store_true", help="enable timer for methods")
     parser.add_argument(
         "--reportmem", action="store_true", default=False, help="report memory usage"
     )
+
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        "--emit-one-token",
+        action="store_true",
+        dest="emit_one_token",
+        default=None,
+        help="emit one token, default for llama 3 models",
+    )
+    group.add_argument(
+        "--emit-all-tokens",
+        action="store_false",
+        dest="emit_one_token",
+        default=None,
+        help="emit all tokens, default for llama 2 models",
+    )
+
     args = parser.parse_args()
 
     token_file = args.t
@@ -195,10 +243,12 @@ if __name__ == "__main__":
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
     decotimer_set(args.timer)
-    exp_args = ExperimentArgs(no_kv_cache=args.nokvcache,
-                              one_a_time=args.fill1, 
-                              report_mem=args.reportmem,
-                              use_in_place_kv_cache=args.useinplacekvcache)
+    exp_args = ExperimentArgs(
+        no_kv_cache=args.nokvcache,
+        one_a_time=args.fill1,
+        report_mem=args.reportmem,
+        use_in_place_kv_cache=args.useinplacekvcache,
+    )
 
     if exp_args.report_mem:
         report_mem()
@@ -206,6 +256,4 @@ if __name__ == "__main__":
     print()
     if exp_args.report_mem:
         report_mem()
-    llama.text_completion(
-        args.i, exp_args, no_masking=args.nomask
-    )
+    llama.text_completion(args.i, exp_args, args.emit_one_token, no_masking=args.nomask) 

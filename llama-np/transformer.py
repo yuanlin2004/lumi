@@ -285,13 +285,14 @@ class Transformer:
         del weight_dict["output.weight"]
         return
 
-    def __call__(self, input_tokens, start_pos, no_masking):
+    def __call__(self, input_tokens, start_pos, print_dot, no_masking):
         logger.debug(f"input tokens: {input_tokens}")
         x = self.embedding_tab[input_tokens]
         logger.debug(f"input embedding [50]: {x[0][50]}")
         i = 0
         for b in self.transformer_blocks:
-            print(".", end="", flush=True)
+            if print_dot:
+                print(".", end="", flush=True)
             logger.debug(f"== layer {i} ==")
             x = b(x, start_pos, no_masking)
             i += 1
