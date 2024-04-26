@@ -27,7 +27,11 @@ class Linear:
 
 class SiLU:
     def __call__(self, x):
-        return x * (1 / (1 + np.exp(-x)))
+        #t = np.exp(-x)
+        #np.add(1,t,out=t)
+        #np.divide(x,t,out=t)
+        #return t
+        return x / (1 + np.exp(-x))
 
 
 class FeedForward:
@@ -40,6 +44,9 @@ class FeedForward:
 
     @decotimer
     def __call__(self, x):
+        #t = self.w3(x)
+        #np.multiply(t, self.silu(self.w1(x)), out=t)
+        #return self.w2(t)
         return self.w2(self.w3(x) * self.silu(self.w1(x)))
 
 
@@ -48,6 +55,7 @@ class RMSNorm:
         self.eps = eps
         self.weight = weight
 
+    @decotimer
     def __call__(self, x):
         rms = np.sqrt(np.mean(np.square(x), axis=-1, keepdims=True) + self.eps)
         return x / rms * self.weight
@@ -234,6 +242,14 @@ class TransformerBlock:
 
 class Transformer:
     def __init__(self, params, weight_dict, max_seq_len, exp_args):
+        # To do
+        # - instead of deleting the weight_dict key-val here, we 
+        # should delete them at the caller, i.e. Llama.__init__().
+        # Right now, this function is destructive to weight_dict, while
+        # it should be read-only. 
+        # This may be difficult to do, as we need to do it layer 
+        # by layer, otherwise the memory footprint would still be 
+        # too large. 
         self.embedding_tab = weight_dict["tok_embeddings.weight"]
         self.n_layers = params["n_layers"]
         self.transformer_blocks = []
@@ -254,9 +270,19 @@ class Transformer:
                 params["rope_theta"],
                 exp_args,
             )
+            del weight_dict[f"layers.{i}.attention.wq.weight"]
+            del weight_dict[f"layers.{i}.attention.wk.weight"]
+            del weight_dict[f"layers.{i}.attention.wv.weight"]
+            del weight_dict[f"layers.{i}.attention.wo.weight"]
+            del weight_dict[f"layers.{i}.feed_forward.w1.weight"]
+            del weight_dict[f"layers.{i}.feed_forward.w2.weight"]
+            del weight_dict[f"layers.{i}.feed_forward.w3.weight"]
+            del weight_dict[f"layers.{i}.ffn_norm.weight"]           
             self.transformer_blocks.append(tf_block)
+
         self.rmsnorm = RMSNorm(weight_dict["norm.weight"])
         self.lm_head = Linear(weight_dict["output.weight"])
+        del weight_dict["output.weight"]
         return
 
     def __call__(self, input_tokens, start_pos, no_masking):
