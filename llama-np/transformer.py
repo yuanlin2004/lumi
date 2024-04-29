@@ -13,29 +13,35 @@ logger = getLogger(__name__)
 
 
 class Linear:
-    def __init__(self, weight, bias=None, cupy=False):
+    def __init__(self, weight, bias=None, use_cupy=False, gpuw=False):
         # weight is always 2-D
         # the current implementation does not support
-        if cupy:
+        if use_cupy:
             # no need to make a copy
-            self.weight = weight.T
+            if gpuw:
+                self.weight = cupy.asarray(weight.T)
+            else:
+                self.weight = weight.T
         else:
             self.weight = weight.T.copy()
 
         self.bias = bias
-        self.cupy = cupy
+        self.use_cupy = use_cupy
+        self.gpuw = gpuw
         return
 
     @decotimer
     def __call__(self, x):
-        if cupy:
-            x = cupy.asarray(x)
-            w = cupy.asarray(self.weight)
+        if self.use_cupy:
+            if self.gpuw:
+                w = self.weight
+            else:
+                w = cupy.asarray(self.weight)
             y = cupy.matmul(x,w)
             if self.bias:
                 b = cupy.asarray(self.bias)
                 y = y + b 
-            return cupy.asnumpy(y)
+            return y
 
         y = np.matmul(x, self.weight)
         if self.bias:
@@ -54,9 +60,9 @@ class SiLU:
 
 class FeedForward:
     def __init__(self, w1, w2, w3, exp_args):
-        self.w1 = Linear(w1, cupy=exp_args.use_cupy)
-        self.w2 = Linear(w2, cupy=exp_args.use_cupy)
-        self.w3 = Linear(w3, cupy=exp_args.use_cupy)
+        self.w1 = Linear(w1, use_cupy=exp_args.use_cupy)
+        self.w2 = Linear(w2, use_cupy=exp_args.use_cupy)
+        self.w3 = Linear(w3, use_cupy=exp_args.use_cupy)
         self.silu = SiLU()
         return
 
@@ -69,14 +75,23 @@ class FeedForward:
 
 
 class RMSNorm:
-    def __init__(self, weight, eps: float = 1e-5):
+    def __init__(self, weight, eps: float = 1e-5, use_cupy=False, gpuw=False):
         self.eps = eps
-        self.weight = weight
+        if use_cupy and gpuw:
+            self.weight = cupy.asarray(weight)
+        else:
+            self.weight = weight
+        self.use_cupy = use_cupy
+        self.gpuw = gpuw
 
     @decotimer
     def __call__(self, x):
+        if self.use_cupy and (not self.gpuw):
+            w = cupy.asarray(self.weight)
+        else:
+            w = self.weight
         rms = np.sqrt(np.mean(np.square(x), axis=-1, keepdims=True) + self.eps)
-        return x / rms * self.weight
+        return x / rms * w 
 
 
 class RoPE:
@@ -122,10 +137,10 @@ class Attention:
         self.n_heads = n_heads
         self.n_kv_heads = n_kv_heads
         self.softmax = Softmax()
-        self.wq_matmul = Linear(wq_weight, cupy=exp_args.use_cupy)
-        self.wk_matmul = Linear(wk_weight, cupy=exp_args.use_cupy)
-        self.wv_matmul = Linear(wv_weight, cupy=exp_args.use_cupy)
-        self.wo_matmul = Linear(wo_weight, cupy=exp_args.use_cupy)
+        self.wq_matmul = Linear(wq_weight, use_cupy=exp_args.use_cupy, gpuw=True)
+        self.wk_matmul = Linear(wk_weight, use_cupy=exp_args.use_cupy, gpuw=True)
+        self.wv_matmul = Linear(wv_weight, use_cupy=exp_args.use_cupy, gpuw=True)
+        self.wo_matmul = Linear(wo_weight, use_cupy=exp_args.use_cupy, gpuw=True)
         self.pos_emb = pos_emb
         self.no_kv_cache = exp_args.no_kv_cache
         self.use_in_place_kv_cache = exp_args.use_in_place_kv_cache
@@ -231,11 +246,11 @@ class TransformerBlock:
         rope_theta,
         exp_args,
     ):
-        self.att_rmsnorm = RMSNorm(w_att_norm)
+        self.att_rmsnorm = RMSNorm(w_att_norm, use_cupy=exp_args.use_cupy, gpuw=True)
         self.attention = Attention(
             w_q, w_k, w_v, w_o, max_seq_len, exp_args, RoPE(rope_theta), n_heads, n_kv_heads
         )
-        self.ffd_rmsnorm = RMSNorm(w_ffd_norm)
+        self.ffd_rmsnorm = RMSNorm(w_ffd_norm, use_cupy=exp_args.use_cupy, gpuw=True)
         self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3, exp_args)
         return
 
@@ -260,6 +275,10 @@ class TransformerBlock:
 
 class Transformer:
     def __init__(self, params, weight_dict, max_seq_len, exp_args):
+        if exp_args.use_cupy:
+            global np
+            np = cupy
+
         # To do
         # - instead of deleting the weight_dict key-val here, we 
         # should delete them at the caller, i.e. Llama.__init__().
@@ -298,14 +317,19 @@ class Transformer:
             del weight_dict[f"layers.{i}.ffn_norm.weight"]           
             self.transformer_blocks.append(tf_block)
 
-        self.rmsnorm = RMSNorm(weight_dict["norm.weight"])
-        self.lm_head = Linear(weight_dict["output.weight"],cupy=exp_args.use_cupy)
+        self.rmsnorm = RMSNorm(weight_dict["norm.weight"], use_cupy=exp_args.use_cupy, gpuw=True)
+        self.lm_head = Linear(weight_dict["output.weight"],use_cupy=exp_args.use_cupy, gpuw=True)
         del weight_dict["output.weight"]
         return
 
-    def __call__(self, input_tokens, start_pos, print_dot, no_masking):
+    def __call__(self, input_tokens, start_pos, print_dot, no_masking, use_cupy):
+        if use_cupy:
+            global np
+            np = cupy
         logger.debug(f"input tokens: {input_tokens}")
         x = self.embedding_tab[input_tokens]
+        if use_cupy:
+            x = cupy.asarray(x)
         logger.debug(f"input embedding [50]: {x[0][50]}")
         i = 0
         for b in self.transformer_blocks:
@@ -314,4 +338,7 @@ class Transformer:
             logger.debug(f"== layer {i} ==")
             x = b(x, start_pos, no_masking)
             i += 1
-        return self.lm_head(self.rmsnorm(x))
+        result = self.lm_head(self.rmsnorm(x))
+        if use_cupy:
+            result = cupy.asnumpy(result)
+        return result

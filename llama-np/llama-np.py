@@ -59,12 +59,12 @@ class Llama:
         print(f"{end_time-start_time:0.4f} seconds")
 
     def generate(
-        self, input_tokens: List[int], start_pos, print_dot, no_masking  # list of tokens
+        self, input_tokens: List[int], start_pos, print_dot, no_masking, use_cupy  # list of tokens
     ) -> int:  # a token
         """
         Give a list of tokens converted from the input prompt, generate an output token
         """
-        logits = self.model(input_tokens, start_pos, print_dot, no_masking)[-1]
+        logits = self.model(input_tokens, start_pos, print_dot, no_masking, use_cupy)[-1]
         logger.debug(f"logits[0]: {logits[0]}")
         assert (
             len(logits) == self.params["vocab_size"]
@@ -122,7 +122,7 @@ class Llama:
         all_start_time = time.perf_counter()
         while i < self.max_seq_len:
             start_time = time.perf_counter()
-            generated_token = int(self.generate(in_tokens, i, (not emit_one_token), no_masking))
+            generated_token = int(self.generate(in_tokens, i, (not emit_one_token), no_masking, exp_args.use_cupy))
             end_time = time.perf_counter()
             if not emit_one_token:
                 print(f" {end_time-start_time:0.4f} seconds")
