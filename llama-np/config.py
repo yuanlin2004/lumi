@@ -11,3 +11,6 @@ class ExperimentArgs:
 
     # report
     report_mem: bool = False
+
+    # use cupy
+    use_cupy: bool = False

@@ -211,6 +211,7 @@ if __name__ == "__main__":
         help="use in-place kv cache",
     )
     parser.add_argument("--timer", action="store_true", help="enable timer for methods")
+    parser.add_argument("--cupy", action="store_true", default=False, help="use cupy")
     parser.add_argument(
         "--reportmem", action="store_true", default=False, help="report memory usage"
     )
@@ -248,6 +249,7 @@ if __name__ == "__main__":
         one_a_time=args.fill1,
         report_mem=args.reportmem,
         use_in_place_kv_cache=args.useinplacekvcache,
+        use_cupy=args.cupy,
     )
 
     if exp_args.report_mem:

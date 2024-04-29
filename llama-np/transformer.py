@@ -1,7 +1,10 @@
 import math
 from logging import getLogger
 
-import numpy as np
+import numpy 
+import cupy 
+
+np = numpy
 
 from decotimer import *
 from config import *
@@ -10,15 +13,30 @@ logger = getLogger(__name__)
 
 
 class Linear:
-    def __init__(self, weight, bias=None):
+    def __init__(self, weight, bias=None, cupy=False):
         # weight is always 2-D
         # the current implementation does not support
-        self.weight = weight.T.copy()
+        if cupy:
+            # no need to make a copy
+            self.weight = weight.T
+        else:
+            self.weight = weight.T.copy()
+
         self.bias = bias
+        self.cupy = cupy
         return
 
     @decotimer
     def __call__(self, x):
+        if cupy:
+            x = cupy.asarray(x)
+            w = cupy.asarray(self.weight)
+            y = cupy.matmul(x,w)
+            if self.bias:
+                b = cupy.asarray(self.bias)
+                y = y + b 
+            return cupy.asnumpy(y)
+
         y = np.matmul(x, self.weight)
         if self.bias:
             y = y + self.bias
@@ -35,10 +53,10 @@ class SiLU:
 
 
 class FeedForward:
-    def __init__(self, w1, w2, w3):
-        self.w1 = Linear(w1)
-        self.w2 = Linear(w2)
-        self.w3 = Linear(w3)
+    def __init__(self, w1, w2, w3, exp_args):
+        self.w1 = Linear(w1, cupy=exp_args.use_cupy)
+        self.w2 = Linear(w2, cupy=exp_args.use_cupy)
+        self.w3 = Linear(w3, cupy=exp_args.use_cupy)
         self.silu = SiLU()
         return
 
@@ -104,10 +122,10 @@ class Attention:
         self.n_heads = n_heads
         self.n_kv_heads = n_kv_heads
         self.softmax = Softmax()
-        self.wq_matmul = Linear(wq_weight)
-        self.wk_matmul = Linear(wk_weight)
-        self.wv_matmul = Linear(wv_weight)
-        self.wo_matmul = Linear(wo_weight)
+        self.wq_matmul = Linear(wq_weight, cupy=exp_args.use_cupy)
+        self.wk_matmul = Linear(wk_weight, cupy=exp_args.use_cupy)
+        self.wv_matmul = Linear(wv_weight, cupy=exp_args.use_cupy)
+        self.wo_matmul = Linear(wo_weight, cupy=exp_args.use_cupy)
         self.pos_emb = pos_emb
         self.no_kv_cache = exp_args.no_kv_cache
         self.use_in_place_kv_cache = exp_args.use_in_place_kv_cache
@@ -218,7 +236,7 @@ class TransformerBlock:
             w_q, w_k, w_v, w_o, max_seq_len, exp_args, RoPE(rope_theta), n_heads, n_kv_heads
         )
         self.ffd_rmsnorm = RMSNorm(w_ffd_norm)
-        self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3)
+        self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3, exp_args)
         return
 
     def __call__(self, x, start_pos, no_masking):
@@ -281,7 +299,7 @@ class Transformer:
             self.transformer_blocks.append(tf_block)
 
         self.rmsnorm = RMSNorm(weight_dict["norm.weight"])
-        self.lm_head = Linear(weight_dict["output.weight"])
+        self.lm_head = Linear(weight_dict["output.weight"],cupy=exp_args.use_cupy)
         del weight_dict["output.weight"]
         return
 
