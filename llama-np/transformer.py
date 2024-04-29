@@ -1,8 +1,9 @@
 import math
 from logging import getLogger
 
-import numpy 
-import cupy 
+import cupy
+
+import numpy
 
 np = numpy
 
@@ -37,10 +38,10 @@ class Linear:
                 w = self.weight
             else:
                 w = cupy.asarray(self.weight)
-            y = cupy.matmul(x,w)
+            y = cupy.matmul(x, w)
             if self.bias:
                 b = cupy.asarray(self.bias)
-                y = y + b 
+                y = y + b
             return y
 
         y = np.matmul(x, self.weight)
@@ -51,10 +52,10 @@ class Linear:
 
 class SiLU:
     def __call__(self, x):
-        #t = np.exp(-x)
-        #np.add(1,t,out=t)
-        #np.divide(x,t,out=t)
-        #return t
+        # t = np.exp(-x)
+        # np.add(1,t,out=t)
+        # np.divide(x,t,out=t)
+        # return t
         return x / (1 + np.exp(-x))
 
 
@@ -68,9 +69,9 @@ class FeedForward:
 
     @decotimer
     def __call__(self, x):
-        #t = self.w3(x)
-        #np.multiply(t, self.silu(self.w1(x)), out=t)
-        #return self.w2(t)
+        # t = self.w3(x)
+        # np.multiply(t, self.silu(self.w1(x)), out=t)
+        # return self.w2(t)
         return self.w2(self.w3(x) * self.silu(self.w1(x)))
 
 
@@ -91,7 +92,7 @@ class RMSNorm:
         else:
             w = self.weight
         rms = np.sqrt(np.mean(np.square(x), axis=-1, keepdims=True) + self.eps)
-        return x / rms * w 
+        return x / rms * w
 
 
 class RoPE:
@@ -248,7 +249,15 @@ class TransformerBlock:
     ):
         self.att_rmsnorm = RMSNorm(w_att_norm, use_cupy=exp_args.use_cupy, gpuw=True)
         self.attention = Attention(
-            w_q, w_k, w_v, w_o, max_seq_len, exp_args, RoPE(rope_theta), n_heads, n_kv_heads
+            w_q,
+            w_k,
+            w_v,
+            w_o,
+            max_seq_len,
+            exp_args,
+            RoPE(rope_theta),
+            n_heads,
+            n_kv_heads,
         )
         self.ffd_rmsnorm = RMSNorm(w_ffd_norm, use_cupy=exp_args.use_cupy, gpuw=True)
         self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3, exp_args)
@@ -280,13 +289,13 @@ class Transformer:
             np = cupy
 
         # To do
-        # - instead of deleting the weight_dict key-val here, we 
+        # - instead of deleting the weight_dict key-val here, we
         # should delete them at the caller, i.e. Llama.__init__().
         # Right now, this function is destructive to weight_dict, while
-        # it should be read-only. 
-        # This may be difficult to do, as we need to do it layer 
-        # by layer, otherwise the memory footprint would still be 
-        # too large. 
+        # it should be read-only.
+        # This may be difficult to do, as we need to do it layer
+        # by layer, otherwise the memory footprint would still be
+        # too large.
         self.embedding_tab = weight_dict["tok_embeddings.weight"]
         self.n_layers = params["n_layers"]
         self.transformer_blocks = []
@@ -314,11 +323,15 @@ class Transformer:
             del weight_dict[f"layers.{i}.feed_forward.w1.weight"]
             del weight_dict[f"layers.{i}.feed_forward.w2.weight"]
             del weight_dict[f"layers.{i}.feed_forward.w3.weight"]
-            del weight_dict[f"layers.{i}.ffn_norm.weight"]           
+            del weight_dict[f"layers.{i}.ffn_norm.weight"]
             self.transformer_blocks.append(tf_block)
 
-        self.rmsnorm = RMSNorm(weight_dict["norm.weight"], use_cupy=exp_args.use_cupy, gpuw=True)
-        self.lm_head = Linear(weight_dict["output.weight"],use_cupy=exp_args.use_cupy, gpuw=True)
+        self.rmsnorm = RMSNorm(
+            weight_dict["norm.weight"], use_cupy=exp_args.use_cupy, gpuw=True
+        )
+        self.lm_head = Linear(
+            weight_dict["output.weight"], use_cupy=exp_args.use_cupy, gpuw=True
+        )
         del weight_dict["output.weight"]
         return
 
