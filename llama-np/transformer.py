@@ -115,11 +115,19 @@ class RoPE:
         return result
 
 
-class Softmax:
-    @decotimer
-    def __call__(self, x):
-        exp_x = np.exp(x - np.max(x, axis=-1, keepdims=True))
-        return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
+@decotimer
+def Softmax(x, use=None):
+    if use == 'numpy':
+        nnp = numpy
+    elif use == 'cupy':
+        nnp = cupy
+    else:  # None
+        # whatever the global setting is
+        nnp = np
+        pass
+
+    exp_x = nnp.exp(x - nnp.max(x, axis=-1, keepdims=True))
+    return exp_x / nnp.sum(exp_x, axis=-1, keepdims=True)
 
 
 class Attention:
@@ -137,7 +145,6 @@ class Attention:
     ):
         self.n_heads = n_heads
         self.n_kv_heads = n_kv_heads
-        self.softmax = Softmax()
         self.wq_matmul = Linear(wq_weight, use_cupy=exp_args.use_cupy, gpuw=True)
         self.wk_matmul = Linear(wk_weight, use_cupy=exp_args.use_cupy, gpuw=True)
         self.wv_matmul = Linear(wv_weight, use_cupy=exp_args.use_cupy, gpuw=True)
@@ -222,7 +229,7 @@ class Attention:
 
         # print(f"score after masking {scores}")
 
-        scores_sm = self.softmax(scores / math.sqrt(head_size))
+        scores_sm = Softmax(scores / math.sqrt(head_size))
         value = np.matmul(scores_sm, xxv)
         value = np.reshape(value.transpose(1, 0, 2), (-1, dim))
         result = self.wo_matmul(value)
@@ -336,6 +343,9 @@ class Transformer:
         return
 
     def __call__(self, input_tokens, start_pos, print_dot, no_masking, use_cupy):
+        '''
+        Return a 2D logits tensor [seq, vocab_size]
+        '''
         if use_cupy:
             global np
             np = cupy

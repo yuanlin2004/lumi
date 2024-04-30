@@ -25,6 +25,33 @@ B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 
 SPECIAL_TAGS = [B_INST, E_INST, "<<SYS>>", "<</SYS>>"]
 
+class Sampler:
+    # topp "nucleus sampling" sampling
+    def __init__(self, temperature, topp):
+        self.temp = temperature
+        self.topp = topp
+        assert topp > 0 and topp <=1, f"{topp} should be >0 and <=1"
+
+    def __call__(self, logits):
+        if self.temp == 0:
+            return np.argmax(logits)  # scalar
+        
+        logits = Softmax(logits/self.temp, use='numpy')
+        indices = np.argsort(-logits)
+        values = logits[indices]
+        cumsum = np.cumsum(values)
+        
+        # Find the first position in the cumsum where
+        # the value is >= topp. 
+        bigger_than_topp = cumsum >= self.topp
+        if np.any(bigger_than_topp):
+            n = np.argmax(bigger_than_topp)
+        else:
+            # argmax would return 0 if none is >= topp (may due to fp rounding) 
+            # so we use np.any() to check
+            n = logits.shape[0]-1
+
+        return indices[random.randint(0, n)]
 
 class Llama:
     def __init__(
@@ -32,6 +59,8 @@ class Llama:
         model_path: str,
         tokenizer_path: str,
         max_seq_len: int,
+        temperature, 
+        topp,
         exp_args,
         seed: int = 34,
     ) -> "Llama":
@@ -58,6 +87,8 @@ class Llama:
         end_time = time.perf_counter()
         print(f"{end_time-start_time:0.4f} seconds")
 
+        self.sampler = Sampler(temperature, topp)
+
     def generate(
         self, input_tokens: List[int], start_pos, print_dot, no_masking, use_cupy  # list of tokens
     ) -> int:  # a token
@@ -69,15 +100,7 @@ class Llama:
         assert (
             len(logits) == self.params["vocab_size"]
         ), f"{len(logits)} vs {self.params['vocab_size']}"
-        result = self.sample(logits)
-        return result
-
-    def sample(self, logits):
-        assert (
-            len(logits) == self.params["vocab_size"]
-        ), f"{len(logits)} vs {self.params['vocab_size']}"
-        # Just give the top one for now
-        result = np.argmax(logits)  # scalar
+        result = self.sampler(logits)
         return result
 
     def text_completion(
@@ -184,6 +207,8 @@ if __name__ == "__main__":
         "-w", type=str, required=True, help="input path of the lumi model"
     )
     parser.add_argument("-i", type=str, required=True, help="input prompt")
+    parser.add_argument("--temp", type=float, default=0.6, help="temperature for the sampler")
+    parser.add_argument("--topp", type=float, default=0.9, help="topp for the sampler")
     parser.add_argument(
         "-fill1",
         action="store_true",
@@ -254,7 +279,7 @@ if __name__ == "__main__":
 
     if exp_args.report_mem:
         report_mem()
-    llama = Llama(weight_file, token_file, max_n_tokens, exp_args)
+    llama = Llama(weight_file, token_file, max_n_tokens, args.temp, args.topp, exp_args)
     print()
     if exp_args.report_mem:
         report_mem()
