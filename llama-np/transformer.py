@@ -39,6 +39,9 @@ class Linear:
             else:
                 w = cupy.asarray(self.weight)
             y = cupy.matmul(x, w)
+            if not self.gpuw:
+                del w
+                cupy.get_default_memory_pool().free_all_blocks()
             if self.bias:
                 b = cupy.asarray(self.bias)
                 y = y + b
@@ -47,6 +50,7 @@ class Linear:
         y = np.matmul(x, self.weight)
         if self.bias:
             y = y + self.bias
+
         return y
 
 
@@ -145,27 +149,38 @@ class Attention:
     ):
         self.n_heads = n_heads
         self.n_kv_heads = n_kv_heads
+                
         self.wq_matmul = Linear(wq_weight, use_cupy=exp_args.use_cupy, gpuw=True)
         self.wk_matmul = Linear(wk_weight, use_cupy=exp_args.use_cupy, gpuw=True)
         self.wv_matmul = Linear(wv_weight, use_cupy=exp_args.use_cupy, gpuw=True)
         self.wo_matmul = Linear(wo_weight, use_cupy=exp_args.use_cupy, gpuw=True)
         self.pos_emb = pos_emb
+
+        self.max_seq_len = max_seq_len
         self.no_kv_cache = exp_args.no_kv_cache
         self.use_in_place_kv_cache = exp_args.use_in_place_kv_cache
+        self.head_size = wq_weight.shape[0] // n_heads
+        assert self.head_size == wk_weight.shape[0] // n_kv_heads
+        assert self.head_size == wv_weight.shape[0] // n_kv_heads
+
         self.k_cache = None
         self.v_cache = None
-        if not exp_args.no_kv_cache:
-            if exp_args.use_in_place_kv_cache:
-                head_size = wq_weight.shape[0] // n_heads
-                assert head_size == wk_weight.shape[0] // n_kv_heads
-                assert head_size == wv_weight.shape[0] // n_kv_heads
+        if not self.no_kv_cache:
+            if self.use_in_place_kv_cache:
                 self.k_cache = np.zeros(
-                    [n_kv_heads, head_size, max_seq_len], dtype=np.float32
+                    [self.n_kv_heads, self.head_size, self.max_seq_len], dtype=np.float32
                 )
                 self.v_cache = np.zeros(
-                    [n_kv_heads, max_seq_len, head_size], dtype=np.float32
+                    [self.n_kv_heads, self.max_seq_len, self.head_size], dtype=np.float32
                 )
-        return
+
+    def reset_kvcache(self):
+        if not self.use_in_place_kv_cache:
+            del self.k_cache
+            del self.v_cache
+            cupy.get_default_memory_pool().free_all_blocks()
+            self.k_cache = None
+            self.v_cache = None
 
     @decotimer
     def __call__(self, q, start_pos, no_masking, kv=None):
@@ -270,6 +285,9 @@ class TransformerBlock:
         self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3, exp_args)
         return
 
+    def restart(self):
+        self.attention.reset_kvcache()
+
     def __call__(self, x, start_pos, no_masking):
         # x = x + self.attention(self.att_rmsnorm(x))
         norm = self.att_rmsnorm(x)
@@ -341,6 +359,10 @@ class Transformer:
         )
         del weight_dict["output.weight"]
         return
+
+    def restart(self):
+        for t in self.transformer_blocks:
+            t.restart()
 
     def __call__(self, input_tokens, start_pos, print_dot, no_masking, use_cupy):
         '''

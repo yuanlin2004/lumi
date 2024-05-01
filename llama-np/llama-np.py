@@ -12,7 +12,7 @@ from typing import List, Literal, Optional, Tuple, TypedDict
 import numpy as np
 
 from read_lumi import read_lumi
-from tokenizer import Tokenizer_Llama2, Tokenizer_Llama3
+from tokenizer import Tokenizer_Llama2, Tokenizer_Llama3, ChatFormat
 from transformer import *
 from sysutil import *
 from config import *
@@ -51,7 +51,9 @@ class Sampler:
             # so we use np.any() to check
             n = logits.shape[0]-1
 
-        return indices[random.randint(0, n)]
+        picked = indices[random.randint(0, n)]
+        #print(f"Sampler - Cut @ {n}  Highest @ {indices[0]} with {values[0]}  Picked {picked} with {logits[picked]}")
+        return picked
 
 class Llama:
     def __init__(
@@ -62,7 +64,7 @@ class Llama:
         temperature, 
         topp,
         exp_args,
-        seed: int = 34,
+        seed: int = 134,
     ) -> "Llama":
         random.seed(seed)
         if ("llama-3" in model_path.lower()) or ("llama3" in model_path.lower()):
@@ -103,22 +105,18 @@ class Llama:
         result = self.sampler(logits)
         return result
 
+
     def text_completion(
         self,
-        prompt_str: str,
+        input_tokens, 
         exp_args,
         emit_one_token,
         no_masking=False,
-
+        print_new_only=False,
     ):
-        """
-        Given an inpout string (prompt), generate and print out a text string for completion
-        """
-        input_tokens = self.tokenizer.encode(prompt_str, bos=True, eos=False)
-
         len_prompt = len(input_tokens)
         print(
-            f"max seq lenght: {self.max_seq_len}   lenght of input prompt: {len_prompt}"
+            f"[max seq lenght: {self.max_seq_len}   lenght of input prompt: {len_prompt}]"
         )
         if exp_args.one_a_time:
             # feed the token in the prompt one a time
@@ -136,7 +134,7 @@ class Llama:
             #emit_one_token = (self.llama_version == 3)
             emit_one_token = False 
 
-        if emit_one_token:
+        if emit_one_token and not print_new_only:
             s = self.tokenizer.decode(output_tokens)
             print(f"{s}", flush=True, end="")
 
@@ -148,13 +146,11 @@ class Llama:
             generated_token = int(self.generate(in_tokens, i, (not emit_one_token), no_masking, exp_args.use_cupy))
             end_time = time.perf_counter()
             if not emit_one_token:
-                print(f" {end_time-start_time:0.4f} seconds")
+                print(f"{generated_token} {end_time-start_time:0.4f} seconds")
             n_generated += 1
 
             logger.debug(f"generated token: {generated_token}")
-            if generated_token == self.tokenizer.eos_id:
-                if not emit_one_token:
-                    print("EOS generated")
+            if generated_token in self.tokenizer.stop_tokens:
                 break
             if exp_args.one_a_time:
                 if i < (len_prompt - 1):
@@ -187,12 +183,50 @@ class Llama:
         all_end_time = time.perf_counter()
         if emit_one_token:
             print()
-        print(f"{n_generated/(all_end_time - all_start_time):0.4f} tok/s")
+        print(f"[{n_generated/(all_end_time - all_start_time):0.4f} tok/s"])
 
         if i >= self.max_seq_len:
             print(f"max {i} tokens reached")
 
-        return
+        return output_tokens
+
+    def gen_text(
+        self,
+        prompt_str: str,
+        exp_args,
+        emit_one_token,
+        no_masking=False,
+    ):
+        input_tokens = self.tokenizer.encode(prompt_str, bos=True, eos=False)
+        self.text_completion(input_tokens, exp_args, emit_one_token, no_masking)
+
+    def chat(
+        self,
+        prompt_str: str,
+        exp_args,
+        emit_one_token,
+        no_masking=False,
+    ):
+        chat_format = ChatFormat(self.tokenizer)
+        preemptive_diaglog = [
+            {"role": "system", "content": "Always answer precisely."},
+            {"role": "user", "content": "Let's get started."},
+            {"role": "assistant", "content": "I am ready to help you. Let's start."},
+        ]
+        all_tokens = []
+        while True:
+            command = input("> ")
+            if command.lower() in ['bye', 'quit', 'stop']:
+                break
+
+            diaglog = [{"role": "user", "content": command}]
+            diaglog = preemptive_diaglog + diaglog
+            tokens = chat_format.encode_dialog_prompt(diaglog)
+            preemptive_diaglog = []
+
+            self.model.restart()
+            all_tokens.extend(tokens)
+            all_tokens = self.text_completion(all_tokens, exp_args, True, no_masking, print_new_only=True)
 
 
 if __name__ == "__main__":
@@ -210,7 +244,13 @@ if __name__ == "__main__":
     parser.add_argument("--temp", type=float, default=0.6, help="temperature for the sampler")
     parser.add_argument("--topp", type=float, default=0.9, help="topp for the sampler")
     parser.add_argument(
-        "-fill1",
+        "--chat",
+        action="store_true",
+        default=False,
+        help="chat mode. Default is text completion.",
+    )
+    parser.add_argument(
+        "--fill1",
         action="store_true",
         default=False,
         help="force one token at a time in the fill stage",
@@ -283,4 +323,7 @@ if __name__ == "__main__":
     print()
     if exp_args.report_mem:
         report_mem()
-    llama.text_completion(args.i, exp_args, args.emit_one_token, no_masking=args.nomask) 
+    if args.chat:
+        llama.chat(args.i, exp_args, args.emit_one_token, no_masking=args.nomask) 
+    else:
+        llama.gen_text(args.i, exp_args, args.emit_one_token, no_masking=args.nomask) 
