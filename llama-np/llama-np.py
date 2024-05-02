@@ -183,7 +183,7 @@ class Llama:
         all_end_time = time.perf_counter()
         if emit_one_token:
             print()
-        print(f"[{n_generated/(all_end_time - all_start_time):0.4f} tok/s"])
+        print(f"[{n_generated/(all_end_time - all_start_time):0.4f} tok/s]")
 
         if i >= self.max_seq_len:
             print(f"max {i} tokens reached")
