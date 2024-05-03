@@ -41,7 +41,7 @@ class Linear:
             y = cupy.matmul(x, w)
             if not self.gpuw:
                 del w
-                cupy.get_default_memory_pool().free_all_blocks()
+                #cupy.get_default_memory_pool().free_all_blocks()
             if self.bias:
                 b = cupy.asarray(self.bias)
                 y = y + b
@@ -65,9 +65,9 @@ class SiLU:
 
 class FeedForward:
     def __init__(self, w1, w2, w3, exp_args):
-        self.w1 = Linear(w1, use_cupy=exp_args.use_cupy)
-        self.w2 = Linear(w2, use_cupy=exp_args.use_cupy)
-        self.w3 = Linear(w3, use_cupy=exp_args.use_cupy)
+        self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=False)
+        self.w2 = Linear(w2, use_cupy=exp_args.use_cupy, gpuw=False)
+        self.w3 = Linear(w3, use_cupy=exp_args.use_cupy, gpuw=False)
         self.silu = SiLU()
         return
 
@@ -81,7 +81,7 @@ class FeedForward:
 
 class RMSNorm:
     def __init__(self, weight, eps: float = 1e-5, use_cupy=False, gpuw=False):
-        self.eps = eps
+        self.eps = np.float32(eps)
         if use_cupy and gpuw:
             self.weight = cupy.asarray(weight)
         else:
@@ -101,18 +101,18 @@ class RMSNorm:
 
 class RoPE:
     def __init__(self, theta=10000):
-        self.theta = theta
+        self.theta = np.float32(theta)
 
     @decotimer
     def __call__(self, x, start_pos=0):
         dim = x.shape[-1]
         s = x.shape[-2]
-        theta = self.theta ** (-2.0 * np.array([t // 2 for t in range(dim)]) / dim)
-        m = np.arange(start_pos, s + start_pos).reshape(-1, 1)
-        m_theta = m * theta  # outer product
+        theta = self.theta ** (np.float32(-2.0) * np.array([np.float32(t // 2) for t in range(dim)]) / dim)
+        m = np.arange(start_pos, s + start_pos, dtype=np.int32).reshape(-1, 1)
+        m_theta = np.multiply(m, theta, dtype=np.float32)
         cos = np.cos(m_theta)
         sin = np.sin(m_theta)
-        y = np.ndarray(x.shape)
+        y = np.empty_like(x)
         y[..., 1::2] = x[..., 0::2]  # in-place update
         y[..., 0::2] = -x[..., 1::2]  # in-place update
         result = x * cos + y * sin
@@ -312,6 +312,9 @@ class Transformer:
         if exp_args.use_cupy:
             global np
             np = cupy
+
+            pool = cupy.cuda.MemoryPool(cupy.cuda.malloc_managed)
+            cupy.cuda.set_allocator(pool.malloc)
 
         # To do
         # - instead of deleting the weight_dict key-val here, we
