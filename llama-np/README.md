@@ -27,8 +27,6 @@ Final Answer: The final answer is \frac{4}{7}. I hope it is correct.
 ...
 ```
 
-As `numpy` and `cupy` lack of lower precision and bf16 support, the model execution is done in fp32. 
-
 ## Models Supported
 
 | Model Name | Size | Precision |
@@ -43,7 +41,7 @@ As `numpy` and `cupy` lack of lower precision and bf16 support, the model execut
 
 ## Run the Models
 
-There are two steps run an existing model - convert the weights, run the model. 
+There are two steps to run a model - 1) convert the weights, 2) run the model. 
 
 ### Weight Conversion
 Model weights need to be converted into the `lumi weight` format (.lmw) before being fed into `llama-np.py`. The `convert.py` script does the magic. It can read pytorch checkpoint (.pt) files.  Handling of Huggingface `.safetensors` files and `pytorch_model.bin` files is also implemented but inference results are wrong for some unknown reasons right now.
