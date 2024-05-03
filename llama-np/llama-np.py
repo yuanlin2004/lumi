@@ -1,5 +1,4 @@
 import argparse
-import logging
 import os
 import random
 import time
@@ -18,12 +17,7 @@ from sysutil import *
 from config import *
 
 
-logger = logging.getLogger(__name__)
-
-B_INST, E_INST = "[INST]", "[/INST]"
-B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
-
-SPECIAL_TAGS = [B_INST, E_INST, "<<SYS>>", "<</SYS>>"]
+logger = lumi_logging.getLogger(__name__)
 
 class Sampler:
     # topp "nucleus sampling" sampling
@@ -98,7 +92,7 @@ class Llama:
         Give a list of tokens converted from the input prompt, generate an output token
         """
         logits = self.model(input_tokens, start_pos, print_dot, no_masking, use_cupy)[-1]
-        logger.debug(f"logits[0]: {logits[0]}")
+        logger.debug(lambda: f"logits[0]: {logits[0]}")
         assert (
             len(logits) == self.params["vocab_size"]
         ), f"{len(logits)} vs {self.params['vocab_size']}"
@@ -149,7 +143,7 @@ class Llama:
                 print(f"{generated_token} {end_time-start_time:0.4f} seconds")
             n_generated += 1
 
-            logger.debug(f"generated token: {generated_token}")
+            logger.debug(lambda: f"generated token: {generated_token}")
             if generated_token in self.tokenizer.stop_tokens:
                 break
             if exp_args.one_a_time:
@@ -261,7 +255,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--loglevel",
         default="INFO",
-        help="set the loog level: DEBUG, INFO, WARN, ERROR, CRITICAL",
+        help="set the log level: DEBUG, INFO, WARN, ERROR, CRITICAL",
     )
     parser.add_argument(
         "--nomask", action="store_true", help="do not use causal mask - just for play"
@@ -304,7 +298,7 @@ if __name__ == "__main__":
 
     max_n_tokens = args.seqlength
 
-    logging.basicConfig(
+    lumi_logging.basicConfig(
         level=args.loglevel,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
@@ -319,6 +313,7 @@ if __name__ == "__main__":
 
     if exp_args.report_mem:
         report_mem()
+
     llama = Llama(weight_file, token_file, max_n_tokens, args.temp, args.topp, exp_args)
     print()
     if exp_args.report_mem:

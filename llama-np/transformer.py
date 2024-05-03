@@ -1,16 +1,13 @@
 import math
-from logging import getLogger
-
 import cupy
-
 import numpy
-
-np = numpy
 
 from decotimer import *
 from config import *
+from sysutil import *
 
-logger = getLogger(__name__)
+np = numpy
+logger = lumi_logging.getLogger(__name__)
 
 
 class Linear:
@@ -150,10 +147,10 @@ class Attention:
         self.n_heads = n_heads
         self.n_kv_heads = n_kv_heads
                 
-        self.wq_matmul = Linear(wq_weight, use_cupy=exp_args.use_cupy, gpuw=True)
-        self.wk_matmul = Linear(wk_weight, use_cupy=exp_args.use_cupy, gpuw=True)
-        self.wv_matmul = Linear(wv_weight, use_cupy=exp_args.use_cupy, gpuw=True)
-        self.wo_matmul = Linear(wo_weight, use_cupy=exp_args.use_cupy, gpuw=True)
+        self.wq_matmul = Linear(wq_weight, use_cupy=exp_args.use_cupy, gpuw=False)
+        self.wk_matmul = Linear(wk_weight, use_cupy=exp_args.use_cupy, gpuw=False)
+        self.wv_matmul = Linear(wv_weight, use_cupy=exp_args.use_cupy, gpuw=False)
+        self.wo_matmul = Linear(wo_weight, use_cupy=exp_args.use_cupy, gpuw=False)
         self.pos_emb = pos_emb
 
         self.max_seq_len = max_seq_len
@@ -232,7 +229,7 @@ class Attention:
         # print(f"score before masking {scores}")
 
         # apply masking
-        logger.debug(f"no_masking {no_masking}")
+        logger.debug(lambda: f"no_masking {no_masking}")
         if (not no_masking) and seq > 1:
             # Given a single row, np.triu will expand the row into a square matrix
             # and then apply triu. Not what we need here. Therefore guard this with
@@ -291,19 +288,19 @@ class TransformerBlock:
     def __call__(self, x, start_pos, no_masking):
         # x = x + self.attention(self.att_rmsnorm(x))
         norm = self.att_rmsnorm(x)
-        logger.debug(f"att rmsnorm [50] {norm[0][50]}")
+        logger.debug(lambda: f"att rmsnorm [50] {norm[0][50]}")
         att = self.attention(norm, start_pos, no_masking)
-        logger.debug(f"att [50] {att[0][50]}")
+        logger.debug(lambda: f"att [50] {att[0][50]}")
         x = x + att
-        logger.debug(f"rescon1 [50] {x[0][50]}")
+        logger.debug(lambda: f"rescon1 [50] {x[0][50]}")
 
         # x = x + self.feedforward(self.ffd_rmsnorm(x))
         norm = self.ffd_rmsnorm(x)
-        logger.debug(f"ffd rmsnorm [50] {norm[0][50]}")
+        logger.debug(lambda: f"ffd rmsnorm [50] {norm[0][50]}")
         ffd = self.feedforward(norm)
-        logger.debug(f"ffd [50] {ffd[0][50]}")
+        logger.debug(lambda: f"ffd [50] {ffd[0][50]}")
         x = x + ffd
-        logger.debug(f"rescon2 [50] {x[0][50]}")
+        logger.debug(lambda: f"rescon2 [50] {x[0][50]}")
         return x
 
 
@@ -313,8 +310,8 @@ class Transformer:
             global np
             np = cupy
 
-            pool = cupy.cuda.MemoryPool(cupy.cuda.malloc_managed)
-            cupy.cuda.set_allocator(pool.malloc)
+            #pool = cupy.cuda.MemoryPool(cupy.cuda.malloc_managed)
+            #cupy.cuda.set_allocator(pool.malloc)
 
         # To do
         # - instead of deleting the weight_dict key-val here, we
@@ -374,16 +371,16 @@ class Transformer:
         if use_cupy:
             global np
             np = cupy
-        logger.debug(f"input tokens: {input_tokens}")
+        logger.debug(lambda: f"input tokens: {input_tokens}")
         x = self.embedding_tab[input_tokens]
         if use_cupy:
             x = cupy.asarray(x)
-        logger.debug(f"input embedding [50]: {x[0][50]}")
+        logger.debug(lambda: f"input embedding [50]: {x[0][50]}")
         i = 0
         for b in self.transformer_blocks:
             if print_dot:
                 print(".", end="", flush=True)
-            logger.debug(f"== layer {i} ==")
+            logger.debug(lambda: f"== layer {i} ==")
             x = b(x, start_pos, no_masking)
             i += 1
         result = self.lm_head(self.rmsnorm(x))
