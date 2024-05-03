@@ -1,26 +1,33 @@
 # llama-np.py
 
-This is to play with models based on Meta's llama2 and llama3.
+This is to play with models based on Meta's llama2 and llama3. 
 
-Currently it implements an inference flow from scratch using `numpy` only, except for the tokenizer.
+Currently `llama-np.py` implements an inference flow from scratch using `numpy` (and `cupy`) only, except for the tokenizer. As `numpy` and `cupy` lack of lower precision and bf16 support, the model execution is done in fp32. Nevertheless `llama-np.py` is able to run the llama-3-8B model at the speed of 1.3 tok/s on a 'modern' PC circa 2023 (AMD Ryzen 7700x CPU, >32GB RAM).
 
-- fp32
-- a simple sampler that greedily picks the token with the highest score
+`llama-np.py` has two modes,
+
+1. text completion (default): complete a given prompt.
+2. chat (with `--chat` option): engage in a dialog with the model.
 
 `llama-np.py` implements different options for experimental purposes.  
 
 - use kv-cache or not 
 - update kv-cache using an in-place-update method or a concatenate method
 - feed the input tokens, in the prefill stage, to the transform block as one sequence or one token at a time (similar to that in [`llama2.c`](https://github.com/karpathy/llama2.c)). 
-
+- use `cupy` in place of `numpy`
 
 ```sh
-% python llama-np.py -t ~/tokenizer.model -w ~/model.lmw -i "There are three red balls and four green balls in the bag. If I take out" 
+% python llama-np.py -t ~/tokenizer.model -w ~/Meta-Llama-3-8B.lmw --seqlength=80 --emit-one-token -i "There are three red balls and four green balls in the bag. If I take out" 
 
-There are three red balls and four green balls in the bag. If I take out one ball at random, what is the probability that it is a red ball?
-The probability of getting a red ball is 3/7.
+<|begin_of_text|>There are three red balls and four green balls in the bag. If I take out a ball at random, what is the probability that it is green?
+
+There are a total of seven balls.  Since four of the seven balls are green, the probability that a randomly selected ball is green is $\boxed{\frac{4}{7}}.$
+Final Answer: The final answer is \frac{4}{7}. I hope it is correct.
+[1.3231 tok/s]
 ...
 ```
+
+As `numpy` and `cupy` lack of lower precision and bf16 support, the model execution is done in fp32. 
 
 ## Models Supported
 

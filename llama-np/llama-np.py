@@ -218,7 +218,8 @@ class Llama:
         #
         # Currently, there is no such distinction in the code. Both stages are handled in the same way with a
         # clean kv cache. All the tokens generated so far are kept in a list and fed to the model at each turn 
-        # as the context.  
+        # as the context. Therefore the generating the first token in each turn is a bit slower than having the
+        # continuous dialog mode. 
         chat_format = ChatFormat(self.tokenizer)
         preemptive_diaglog = [
             {"role": "system", "content": "Always answer precisely."},
