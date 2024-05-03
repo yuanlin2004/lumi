@@ -1,6 +1,7 @@
 import psutil
 import logging
 
+from config import ExperimentArgs
 
 '''
 The meaning of values in the tuple returned by psutil.virtual_memory
@@ -11,13 +12,25 @@ The meaning of values in the tuple returned by psutil.virtual_memory
 4 - free: memory not used at and is readily available
 '''
 
-def report_mem():
-    # Importing the library
+def report_mem(exp_args: ExperimentArgs):
+    print("== CPU Memory Report ==")
     print('RAM total:', psutil.virtual_memory()[0]/1000000000)
     print('RAM used (GB):', psutil.virtual_memory()[3]/1000000000)
     print('RAM % used:', psutil.virtual_memory()[2])
     print('RAM available (GB):', psutil.virtual_memory()[1]/1000000000)
     print('RAM free (GB):', psutil.virtual_memory()[4]/1000000000)
+
+    if exp_args.use_cupy:
+        import cupy
+        mempool = cupy.get_default_memory_pool()
+        print("== GPU Memory Report ==")
+        print("Default pool - limit (MB) :", mempool.get_limit()/1024/1024)              
+        print("Default pool - total (MB) :", mempool.total_bytes()/1024/1024)              
+        print("Default pool - used (MB)  :", mempool.used_bytes()/1024/1024)              
+        print("Default pool - free (MB)  :", mempool.free_bytes()/1024/1024)              
+        print("Default pool - free blocks:", mempool.n_free_blocks())              
+        mempool = cupy.get_default_pinned_memory_pool()
+        print(" Pinned pool - free blocks:", mempool.n_free_blocks())              
 
 
 # When using python logger.debug()/info()/warning()/error()/critical() functions, the arguments will be evaluated
@@ -28,11 +41,11 @@ def report_mem():
 # will always result in a D2H copy of z, even if the log level is not DEBUG.
 # 
 # The lumi_logging class here avoids this problem by using callable as the argument. 
-
+#
 # Instead of 
 #   logger.debug(f"check {z[1][1]}") 
 # Use
-#   lumi_logger.debug(lambda: f"check {z[1][1]}") # test(1) is called only if the log level is DEBUG.
+#   lumi_logger.debug(lambda: f"check {z[1][1]}") 
 
 class lumi_logger:
     def __init__(self, *args, **kargs):

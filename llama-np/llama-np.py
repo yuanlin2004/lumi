@@ -166,7 +166,7 @@ class Llama:
                 print("")
 
             if exp_args.report_mem:
-                report_mem()
+                report_mem(exp_args)
 
             if exp_args.no_kv_cache:
                 in_tokens = output_tokens
@@ -201,6 +201,24 @@ class Llama:
         emit_one_token,
         no_masking=False,
     ):
+        # The chat mode goes through the following stages:
+        # 1. Preemptive dialog
+        #    - input: the preemptive dialog and the initial user prompt
+        #    - output: the first response from the model (a list of new tokens)
+        #    - text_completion() 
+        #      - Fill stage: starts with an empty kv cache and a list of input tokens, generate one token
+        #      - Generate stage: kv cache is filled with the tokens generated so far, take in the previously
+        #           generated token, generate a new token. Repeat until EoT.
+        # 2. Continuous dialog
+        #    - input: user's input
+        #    - output: the response from the model
+        #    - text_completion()
+        #      - Fill stage: kv cache is filled with history, input is a list of tokens. 
+        #      - Generate stage: same as the one in the preemptive dialog.
+        #
+        # Currently, there is no such distinction in the code. Both stages are handled in the same way with a
+        # clean kv cache. All the tokens generated so far are kept in a list and fed to the model at each turn 
+        # as the context.  
         chat_format = ChatFormat(self.tokenizer)
         preemptive_diaglog = [
             {"role": "system", "content": "Always answer precisely."},
@@ -209,9 +227,19 @@ class Llama:
         ]
         all_tokens = []
         while True:
-            command = input("> ")
-            if command.lower() in ['bye', 'quit', 'stop']:
-                break
+            command = input("> ").lstrip()
+            if command[0] == "#":
+                # command mode
+                if command.lower() in ["#restart", "#reset", "#new"]:
+                    continue
+                elif command.lower() in ["#mem", "#reportmem", "#memory"]:
+                    report_mem(exp_args)
+                    continue
+                elif command.lower() in ['#bye', '#quit', '#stop']:
+                    break
+                elif command.lower() in ["#help"]:
+                    print("[#restart, #reset, #new], [#mem, #reportmem, #memory], [#bye, #quit, #stop], #help")  
+                    continue
 
             diaglog = [{"role": "user", "content": command}]
             diaglog = preemptive_diaglog + diaglog
@@ -312,12 +340,12 @@ if __name__ == "__main__":
     )
 
     if exp_args.report_mem:
-        report_mem()
+        report_mem(exp_args)
 
     llama = Llama(weight_file, token_file, max_n_tokens, args.temp, args.topp, exp_args)
     print()
     if exp_args.report_mem:
-        report_mem()
+        report_mem(exp_args)
     if args.chat:
         llama.chat(args.i, exp_args, args.emit_one_token, no_masking=args.nomask) 
     else:
