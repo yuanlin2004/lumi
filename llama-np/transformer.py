@@ -235,12 +235,10 @@ class Attention:
                 xxv = self.v_cache[:, : start_pos + seq, :]
             else:
                 if self.k_cache is not None:
-                    xxk2 = np.concatenate((self.k_cache, xxk), axis=2)  # k is transposed
-                    xxv2 = np.concatenate((self.v_cache, xxv), axis=1)
-                del self.k_cache
-                del self.v_cache
-                self.k_cache = xxk2
-                self.v_cache = xxv2
+                    xxk = np.concatenate((self.k_cache, xxk), axis=2)  # k is transposed
+                    xxv = np.concatenate((self.v_cache, xxv), axis=1)
+                self.k_cache = xxk
+                self.v_cache = xxv
 
         if self.n_kv_heads != self.n_heads:
             rep = self.n_heads // self.n_kv_heads
