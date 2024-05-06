@@ -1,6 +1,7 @@
 import math
 import cupy
 import numpy
+import nvtx
 
 from decotimer import *
 from config import *
@@ -61,13 +62,14 @@ class SiLU:
 
 
 class FeedForward:
-    def __init__(self, w1, w2, w3, exp_args):
+    def __init__(self, w1, w2, w3, layer_id, exp_args):
         self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=False)
         self.w2 = Linear(w2, use_cupy=exp_args.use_cupy, gpuw=False)
         self.w3 = Linear(w3, use_cupy=exp_args.use_cupy, gpuw=False)
         self.silu = SiLU()
         return
 
+    @nvtx.annotate("feedforward_call", color="yellow")
     @decotimer
     def __call__(self, x):
         # t = self.w3(x)
@@ -98,7 +100,7 @@ class RMSNorm:
 
 class RoPE:
     def __init__(self, theta=10000):
-        self.theta = np.float32(theta)
+        self.theta = np.asarray(np.float32(theta))
 
     @decotimer
     def __call__(self, x, start_pos=0):
@@ -147,10 +149,10 @@ class Attention:
         self.n_heads = n_heads
         self.n_kv_heads = n_kv_heads
                 
-        self.wq_matmul = Linear(wq_weight, use_cupy=exp_args.use_cupy, gpuw=False)
-        self.wk_matmul = Linear(wk_weight, use_cupy=exp_args.use_cupy, gpuw=False)
-        self.wv_matmul = Linear(wv_weight, use_cupy=exp_args.use_cupy, gpuw=False)
-        self.wo_matmul = Linear(wo_weight, use_cupy=exp_args.use_cupy, gpuw=False)
+        self.wq_matmul = Linear(wq_weight, use_cupy=exp_args.use_cupy, gpuw=True)
+        self.wk_matmul = Linear(wk_weight, use_cupy=exp_args.use_cupy, gpuw=True)
+        self.wv_matmul = Linear(wv_weight, use_cupy=exp_args.use_cupy, gpuw=True)
+        self.wo_matmul = Linear(wo_weight, use_cupy=exp_args.use_cupy, gpuw=True)
         self.pos_emb = pos_emb
 
         self.max_seq_len = max_seq_len
@@ -179,6 +181,7 @@ class Attention:
             self.k_cache = None
             self.v_cache = None
 
+    @nvtx.annotate("attention_call", color="green")
     @decotimer
     def __call__(self, q, start_pos, no_masking, kv=None):
         # self attention when kv is None
@@ -265,6 +268,7 @@ class TransformerBlock:
         max_seq_len: int,
         rope_theta,
         exp_args,
+        layer_id
     ):
         self.att_rmsnorm = RMSNorm(w_att_norm, use_cupy=exp_args.use_cupy, gpuw=True)
         self.attention = Attention(
@@ -279,12 +283,13 @@ class TransformerBlock:
             n_kv_heads,
         )
         self.ffd_rmsnorm = RMSNorm(w_ffd_norm, use_cupy=exp_args.use_cupy, gpuw=True)
-        self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3, exp_args)
+        self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3, layer_id, exp_args)
         return
 
     def restart(self):
         self.attention.reset_kvcache()
 
+    @nvtx.annotate("transformer_block_call", color="blue")
     def __call__(self, x, start_pos, no_masking):
         # x = x + self.attention(self.att_rmsnorm(x))
         norm = self.att_rmsnorm(x)
@@ -312,6 +317,9 @@ class Transformer:
 
             #pool = cupy.cuda.MemoryPool(cupy.cuda.malloc_managed)
             #cupy.cuda.set_allocator(pool.malloc)
+            #cupy.cuda.set_allocator(cupy.cuda.MemoryAsyncPool().malloc)
+            pinned_memory_pool = cupy.cuda.PinnedMemoryPool()
+            cupy.cuda.set_pinned_memory_allocator(pinned_memory_pool.malloc)
 
         # To do
         # - instead of deleting the weight_dict key-val here, we
@@ -340,6 +348,7 @@ class Transformer:
                 max_seq_len,
                 params["rope_theta"],
                 exp_args,
+                i
             )
             del weight_dict[f"layers.{i}.attention.wq.weight"]
             del weight_dict[f"layers.{i}.attention.wk.weight"]
@@ -364,6 +373,7 @@ class Transformer:
         for t in self.transformer_blocks:
             t.restart()
 
+    @nvtx.annotate("transformer_call", color="red")
     def __call__(self, input_tokens, start_pos, print_dot, no_masking, use_cupy):
         '''
         Return a 2D logits tensor [seq, vocab_size]

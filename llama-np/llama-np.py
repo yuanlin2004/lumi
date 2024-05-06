@@ -1,6 +1,7 @@
 import argparse
-import os
 import random
+import signal
+import sys
 import time
 
 from decotimer import *
@@ -11,7 +12,7 @@ from typing import List, Literal, Optional, Tuple, TypedDict
 import numpy as np
 
 from read_lumi import read_lumi
-from tokenizer import Tokenizer_Llama2, Tokenizer_Llama3, ChatFormat
+from tokenizer import ChatFormat, Tokenizer_Llama2, Tokenizer_Llama3
 from transformer import *
 from sysutil import *
 from config import *
@@ -19,35 +20,37 @@ from config import *
 
 logger = lumi_logging.getLogger(__name__)
 
+
 class Sampler:
     # topp "nucleus sampling" sampling
     def __init__(self, temperature, topp):
         self.temp = temperature
         self.topp = topp
-        assert topp > 0 and topp <=1, f"{topp} should be >0 and <=1"
+        assert topp > 0 and topp <= 1, f"{topp} should be >0 and <=1"
 
     def __call__(self, logits):
         if self.temp == 0:
             return np.argmax(logits)  # scalar
-        
-        logits = Softmax(logits/self.temp, use='numpy')
+
+        logits = Softmax(logits / self.temp, use="numpy")
         indices = np.argsort(-logits)
         values = logits[indices]
         cumsum = np.cumsum(values)
-        
+
         # Find the first position in the cumsum where
-        # the value is >= topp. 
+        # the value is >= topp.
         bigger_than_topp = cumsum >= self.topp
         if np.any(bigger_than_topp):
             n = np.argmax(bigger_than_topp)
         else:
-            # argmax would return 0 if none is >= topp (may due to fp rounding) 
+            # argmax would return 0 if none is >= topp (may due to fp rounding)
             # so we use np.any() to check
-            n = logits.shape[0]-1
+            n = logits.shape[0] - 1
 
         picked = indices[random.randint(0, n)]
-        #print(f"Sampler - Cut @ {n}  Highest @ {indices[0]} with {values[0]}  Picked {picked} with {logits[picked]}")
+        # print(f"Sampler - Cut @ {n}  Highest @ {indices[0]} with {values[0]}  Picked {picked} with {logits[picked]}")
         return picked
+
 
 class Llama:
     def __init__(
@@ -55,7 +58,7 @@ class Llama:
         model_path: str,
         tokenizer_path: str,
         max_seq_len: int,
-        temperature, 
+        temperature,
         topp,
         exp_args,
         seed: int = 134,
@@ -86,7 +89,12 @@ class Llama:
         self.sampler = Sampler(temperature, topp)
 
     def generate(
-        self, input_tokens: List[int], start_pos, print_dot, no_masking, use_cupy  # list of tokens
+        self,
+        input_tokens: List[int],
+        start_pos,
+        print_dot,
+        no_masking,
+        use_cupy,  # list of tokens
     ) -> int:  # a token
         """
         Give a list of tokens converted from the input prompt, generate an output token
@@ -99,10 +107,9 @@ class Llama:
         result = self.sampler(logits)
         return result
 
-
     def text_completion(
         self,
-        input_tokens, 
+        input_tokens,
         exp_args,
         emit_one_token,
         no_masking=False,
@@ -121,12 +128,12 @@ class Llama:
             output_tokens = input_tokens[:]
             in_tokens = input_tokens[:]
 
-        # The sentencepiece tokenizer (used by llama 2) does not emit space when given one token at 
+        # The sentencepiece tokenizer (used by llama 2) does not emit space when given one token at
         # a time. So it is better to emit (decode and print) all tokens together.
         # The tiktoken tokenizer (used by llama 3) does not have this issue.
         if emit_one_token is None:
-            #emit_one_token = (self.llama_version == 3)
-            emit_one_token = False 
+            # emit_one_token = (self.llama_version == 3)
+            emit_one_token = False
 
         if emit_one_token and not print_new_only:
             s = self.tokenizer.decode(output_tokens)
@@ -137,7 +144,11 @@ class Llama:
         all_start_time = time.perf_counter()
         while i < self.max_seq_len:
             start_time = time.perf_counter()
-            generated_token = int(self.generate(in_tokens, i, (not emit_one_token), no_masking, exp_args.use_cupy))
+            generated_token = int(
+                self.generate(
+                    in_tokens, i, (not emit_one_token), no_masking, exp_args.use_cupy
+                )
+            )
             end_time = time.perf_counter()
             if not emit_one_token:
                 print(f"{generated_token} {end_time-start_time:0.4f} seconds")
@@ -205,7 +216,7 @@ class Llama:
         # 1. Preemptive dialog
         #    - input: the preemptive dialog and the initial user prompt
         #    - output: the first response from the model (a list of new tokens)
-        #    - text_completion() 
+        #    - text_completion()
         #      - Fill stage: starts with an empty kv cache and a list of input tokens, generate one token
         #      - Generate stage: kv cache is filled with the tokens generated so far, take in the previously
         #           generated token, generate a new token. Repeat until EoT.
@@ -213,13 +224,13 @@ class Llama:
         #    - input: user's input
         #    - output: the response from the model
         #    - text_completion()
-        #      - Fill stage: kv cache is filled with history, input is a list of tokens. 
+        #      - Fill stage: kv cache is filled with history, input is a list of tokens.
         #      - Generate stage: same as the one in the preemptive dialog.
         #
         # Currently, there is no such distinction in the code. Both stages are handled in the same way with a
-        # clean kv cache. All the tokens generated so far are kept in a list and fed to the model at each turn 
+        # clean kv cache. All the tokens generated so far are kept in a list and fed to the model at each turn
         # as the context. Therefore the generating the first token in each turn is a bit slower than having the
-        # continuous dialog mode. 
+        # continuous dialog mode.
         chat_format = ChatFormat(self.tokenizer)
         preemptive_diaglog = [
             {"role": "system", "content": "Always answer precisely."},
@@ -236,10 +247,12 @@ class Llama:
                 elif command.lower() in ["#mem", "#reportmem", "#memory"]:
                     report_mem(exp_args)
                     continue
-                elif command.lower() in ['#bye', '#quit', '#stop']:
+                elif command.lower() in ["#bye", "#quit", "#stop"]:
                     break
                 elif command.lower() in ["#help"]:
-                    print("[#restart, #reset, #new], [#mem, #reportmem, #memory], [#bye, #quit, #stop], #help")  
+                    print(
+                        "[#restart, #reset, #new], [#mem, #reportmem, #memory], [#bye, #quit, #stop], #help"
+                    )
                     continue
 
             diaglog = [{"role": "user", "content": command}]
@@ -249,7 +262,35 @@ class Llama:
 
             self.model.restart()
             all_tokens.extend(tokens)
-            all_tokens = self.text_completion(all_tokens, exp_args, True, no_masking, print_new_only=True)
+            all_tokens = self.text_completion(
+                all_tokens, exp_args, True, no_masking, print_new_only=True
+            )
+
+
+def command_loop():
+    while True:
+        command = input("> ")
+        if command.lower() in ["bye", "quit", "stop", "exit"]:
+            return "exit"
+        elif command.lower() in ["continue", "next", "cont", "con"]:
+            return "continue"
+        elif command.lower() in ["show"]:
+            show("hello")
+            continue
+        elif command.lower() in ["mem", "reportmem", "memory"]:
+            report_mem(exp_args)
+            continue
+
+
+def signal_handler(signum, frame):
+    signal.signal(signum, signal.SIG_IGN)  # ignore additional signals
+    print("Signal handler called with signal", signum)
+    result = command_loop()
+    if result == "exit":
+        sys.exit(34)
+    elif result == "continue":
+        signal.signal(signum, signal_handler)
+        return
 
 
 if __name__ == "__main__":
@@ -264,7 +305,9 @@ if __name__ == "__main__":
         "-w", type=str, required=True, help="input path of the lumi model"
     )
     parser.add_argument("-i", type=str, required=True, help="input prompt")
-    parser.add_argument("--temp", type=float, default=0.6, help="temperature for the sampler")
+    parser.add_argument(
+        "--temp", type=float, default=0.6, help="temperature for the sampler"
+    )
     parser.add_argument("--topp", type=float, default=0.9, help="topp for the sampler")
     parser.add_argument(
         "--chat",
@@ -343,11 +386,13 @@ if __name__ == "__main__":
     if exp_args.report_mem:
         report_mem(exp_args)
 
+    signal.signal(signal.SIGINT, signal_handler)
+
     llama = Llama(weight_file, token_file, max_n_tokens, args.temp, args.topp, exp_args)
     print()
     if exp_args.report_mem:
         report_mem(exp_args)
     if args.chat:
-        llama.chat(args.i, exp_args, args.emit_one_token, no_masking=args.nomask) 
+        llama.chat(args.i, exp_args, args.emit_one_token, no_masking=args.nomask)
     else:
-        llama.gen_text(args.i, exp_args, args.emit_one_token, no_masking=args.nomask) 
+        llama.gen_text(args.i, exp_args, args.emit_one_token, no_masking=args.nomask)
