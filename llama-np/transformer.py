@@ -393,7 +393,19 @@ class Transformer:
             logger.debug(lambda: f"== layer {i} ==")
             x = b(x, start_pos, no_masking)
             i += 1
-        result = self.lm_head(self.rmsnorm(x))
+        
+        # The shape of x is [seq, embedding_dim]. Seq is > 1 if the prefill stage, and 1 if the generation stage.
+        #
+        # In inference, since we actually generate one token at a time, we only need the logits for last token, 
+        # the rest will be discarded. Normally, we would return the logits for all tokens and the caller would
+        # pick the last one from the returned result. But this is not efficient for speed, and will increase
+        # the memory foot print which may result in OOM if the memory budget is tight. If we calculate the logits
+        # of all tokens, the result will be a 2D tensor of shape [seq, vocab_size]. 
+        #
+        # This optimization affects the prefill stage only. 
+        x1 = x[-1]
+        x1 = x1.reshape(1, -1) # reshape back to 2D tensor, so we don't need to change the caller code.
+        result = self.lm_head(self.rmsnorm(x1))
         if use_cupy:
             result = cupy.asnumpy(result)
         return result
