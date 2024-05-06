@@ -12,13 +12,17 @@ logger = lumi_logging.getLogger(__name__)
 
 
 class Linear:
-    def __init__(self, weight, bias=None, use_cupy=False, gpuw=False):
+    def __init__(self, weight, bias=None, use_cupy=False, gpuw=False, bf16=False):
         # weight is always 2-D
         # the current implementation does not support
         if use_cupy:
             # no need to make a copy
             if gpuw:
-                self.weight = cupy.asarray(weight.T)
+                if bf16:
+                    w16 = weight.view(dtype=np.int16)
+                    self.weight = cupy.asarray(w16[:, 1::2].T)
+                else:
+                    self.weight = cupy.asarray(weight.T)
             else:
                 self.weight = weight.T
         else:
@@ -27,19 +31,27 @@ class Linear:
         self.bias = bias
         self.use_cupy = use_cupy
         self.gpuw = gpuw
+        self.bf16 = bf16
         return
 
     @decotimer
     def __call__(self, x):
         if self.use_cupy:
             if self.gpuw:
-                w = self.weight
+                if self.bf16:
+                    sp = list(self.weight.shape)
+                    sp.append(2)
+                    w = cupy.ndarray(sp, dtype=np.int16)
+                    w[:,:,1] = self.weight
+                    w[:,:,0] = 0
+                    w = w.view(dtype=np.float32).squeeze()
+                else:
+                    w = self.weight
             else:
                 w = cupy.asarray(self.weight)
             y = cupy.matmul(x, w)
             if not self.gpuw:
                 del w
-                #cupy.get_default_memory_pool().free_all_blocks()
             if self.bias:
                 b = cupy.asarray(self.bias)
                 y = y + b
@@ -63,9 +75,9 @@ class SiLU:
 
 class FeedForward:
     def __init__(self, w1, w2, w3, layer_id, exp_args):
-        self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=False)
-        self.w2 = Linear(w2, use_cupy=exp_args.use_cupy, gpuw=False)
-        self.w3 = Linear(w3, use_cupy=exp_args.use_cupy, gpuw=False)
+        self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=(layer_id %3 ==0), bf16=True)
+        self.w2 = Linear(w2, use_cupy=exp_args.use_cupy, gpuw=(layer_id %3 ==0), bf16=True)
+        self.w3 = Linear(w3, use_cupy=exp_args.use_cupy, gpuw=(layer_id %3 ==0), bf16=True)
         self.silu = SiLU()
         return
 
@@ -149,10 +161,10 @@ class Attention:
         self.n_heads = n_heads
         self.n_kv_heads = n_kv_heads
                 
-        self.wq_matmul = Linear(wq_weight, use_cupy=exp_args.use_cupy, gpuw=True)
-        self.wk_matmul = Linear(wk_weight, use_cupy=exp_args.use_cupy, gpuw=True)
-        self.wv_matmul = Linear(wv_weight, use_cupy=exp_args.use_cupy, gpuw=True)
-        self.wo_matmul = Linear(wo_weight, use_cupy=exp_args.use_cupy, gpuw=True)
+        self.wq_matmul = Linear(wq_weight, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
+        self.wk_matmul = Linear(wk_weight, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
+        self.wv_matmul = Linear(wv_weight, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
+        self.wo_matmul = Linear(wo_weight, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
         self.pos_emb = pos_emb
 
         self.max_seq_len = max_seq_len
@@ -318,8 +330,9 @@ class Transformer:
             #pool = cupy.cuda.MemoryPool(cupy.cuda.malloc_managed)
             #cupy.cuda.set_allocator(pool.malloc)
             #cupy.cuda.set_allocator(cupy.cuda.MemoryAsyncPool().malloc)
-            pinned_memory_pool = cupy.cuda.PinnedMemoryPool()
-            cupy.cuda.set_pinned_memory_allocator(pinned_memory_pool.malloc)
+            #pinned_memory_pool = cupy.cuda.PinnedMemoryPool()
+            #cupy.cuda.set_pinned_memory_allocator(pinned_memory_pool.malloc)
+            #cupy.cuda.set_allocator(cupy.cuda.malloc_async)
 
         # To do
         # - instead of deleting the weight_dict key-val here, we
@@ -364,7 +377,7 @@ class Transformer:
             weight_dict["norm.weight"], use_cupy=exp_args.use_cupy, gpuw=True
         )
         self.lm_head = Linear(
-            weight_dict["output.weight"], use_cupy=exp_args.use_cupy, gpuw=True
+            weight_dict["output.weight"], use_cupy=exp_args.use_cupy, gpuw=True, bf16=True
         )
         del weight_dict["output.weight"]
         return
@@ -393,7 +406,7 @@ class Transformer:
             logger.debug(lambda: f"== layer {i} ==")
             x = b(x, start_pos, no_masking)
             i += 1
-        
+
         # The shape of x is [seq, embedding_dim]. Seq is > 1 if the prefill stage, and 1 if the generation stage.
         #
         # In inference, since we actually generate one token at a time, we only need the logits for last token, 
