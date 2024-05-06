@@ -284,7 +284,8 @@ def command_loop():
 
 def signal_handler(signum, frame):
     signal.signal(signum, signal.SIG_IGN)  # ignore additional signals
-    print("Signal handler called with signal", signum)
+    print()
+    print(f"Signal handler called with signal {signum}. Lumi console entered:")
     result = command_loop()
     if result == "exit":
         sys.exit(34)
@@ -304,7 +305,11 @@ if __name__ == "__main__":
     parser.add_argument(
         "-w", type=str, required=True, help="input path of the lumi model"
     )
-    parser.add_argument("-i", type=str, required=True, help="input prompt")
+
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("-i", type=str, help="input prompt string")
+    group.add_argument("-f", type=str, help="input prompt file")
+
     parser.add_argument(
         "--temp", type=float, default=0.6, help="temperature for the sampler"
     )
@@ -368,6 +373,12 @@ if __name__ == "__main__":
     token_file = args.t
     weight_file = args.w
 
+    if args.i:
+        input = args.i
+    else:
+        with open(args.f, "r") as f:
+            input = f.read()
+
     max_n_tokens = args.seqlength
 
     lumi_logging.basicConfig(
@@ -393,6 +404,6 @@ if __name__ == "__main__":
     if exp_args.report_mem:
         report_mem(exp_args)
     if args.chat:
-        llama.chat(args.i, exp_args, args.emit_one_token, no_masking=args.nomask)
+        llama.chat(input, exp_args, args.emit_one_token, no_masking=args.nomask)
     else:
-        llama.gen_text(args.i, exp_args, args.emit_one_token, no_masking=args.nomask)
+        llama.gen_text(input, exp_args, args.emit_one_token, no_masking=args.nomask)
