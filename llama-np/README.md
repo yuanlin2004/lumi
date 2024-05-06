@@ -2,7 +2,7 @@
 
 This is to play with models based on Meta's llama2 and llama3. 
 
-Currently `llama-np.py` implements an inference flow from scratch using `numpy` (and `cupy`) only, except for the tokenizer. As `numpy` and `cupy` lack of lower precision and bf16 support, the model execution is done in fp32. Nevertheless `llama-np.py` is able to run the llama-3-8B model at the speed of 1.3 tok/s on a 'modern' PC circa 2023 (AMD Ryzen 7700x CPU, >32GB RAM, RTX 4070).
+Currently `llama-np.py` implements an inference flow from scratch using `numpy` (and `cupy`) only, except for the tokenizer. As `numpy` and `cupy` lack of lower precision and bf16 support, the model execution is done in fp32. Nevertheless `llama-np.py` is able to run the llama-3-8B model at the speed of 1.2 tok/s (CPU) and 2.24 tok/s (with GPU) on a 'modern' PC circa 2023 (AMD Ryzen 7700x CPU, >32GB RAM, RTX 4070).
 
 `llama-np.py` has two modes,
 
@@ -27,7 +27,6 @@ Final Answer: The final answer is \frac{4}{7}. I hope it is correct.
 ...
 ```
 
-Running Llama-3-8B on RTX 4070 (which has 12GB of VRAM) in fp32 is tricky. So far I am able to get 0.56 tok/s by carefully staging the GPU memory.
 
 ## Models Supported
 
