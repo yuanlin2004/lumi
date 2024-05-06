@@ -17,14 +17,17 @@ class Linear:
         # the current implementation does not support
         if use_cupy:
             # no need to make a copy
-            if gpuw:
-                if bf16:
-                    w16 = weight.view(dtype=np.int16)
+            if bf16:
+                w16 = weight.view(dtype=np.int16)
+                if gpuw:
                     self.weight = cupy.asarray(w16[:, 1::2].T)
                 else:
-                    self.weight = cupy.asarray(weight.T)
+                    self.weight = w16[:, 1::2].T.copy()
             else:
-                self.weight = weight.T
+                if gpuw:
+                    self.weight = cupy.asarray(weight.T)
+                else:
+                    self.weight = weight.T.copy()
         else:
             self.weight = weight.T.copy()
 
@@ -38,20 +41,21 @@ class Linear:
     def __call__(self, x):
         if self.use_cupy:
             if self.gpuw:
-                if self.bf16:
-                    sp = list(self.weight.shape)
-                    sp.append(2)
-                    w = cupy.ndarray(sp, dtype=np.int16)
-                    w[:,:,1] = self.weight
-                    w[:,:,0] = 0
-                    w = w.view(dtype=np.float32).squeeze()
-                else:
-                    w = self.weight
+                weight = self.weight
             else:
-                w = cupy.asarray(self.weight)
+                weight = cupy.asarray(self.weight)
+            if self.bf16:
+                sp = list(weight.shape)
+                sp.append(2)
+                w = cupy.ndarray(sp, dtype=np.int16)
+                w[:,:,1] = weight
+                w[:,:,0] = 0
+                w = w.view(dtype=np.float32).squeeze()
+            else:
+                w = self.weight
             y = cupy.matmul(x, w)
             if not self.gpuw:
-                del w
+                del weight
             if self.bias:
                 b = cupy.asarray(self.bias)
                 y = y + b
@@ -75,9 +79,10 @@ class SiLU:
 
 class FeedForward:
     def __init__(self, w1, w2, w3, layer_id, exp_args):
-        self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=(layer_id %3 ==0), bf16=True)
-        self.w2 = Linear(w2, use_cupy=exp_args.use_cupy, gpuw=(layer_id %3 ==0), bf16=True)
-        self.w3 = Linear(w3, use_cupy=exp_args.use_cupy, gpuw=(layer_id %3 ==0), bf16=True)
+        #self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=(layer_id %2 ==0), bf16=True)
+        self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=(layer_id %3 !=0), bf16=True)
+        self.w2 = Linear(w2, use_cupy=exp_args.use_cupy, gpuw=(layer_id %2 ==0), bf16=True)
+        self.w3 = Linear(w3, use_cupy=exp_args.use_cupy, gpuw=(layer_id %2 ==0), bf16=True)
         self.silu = SiLU()
         return
 
@@ -230,10 +235,12 @@ class Attention:
                 xxv = self.v_cache[:, : start_pos + seq, :]
             else:
                 if self.k_cache is not None:
-                    xxk = np.concatenate((self.k_cache, xxk), axis=2)  # k is transposed
-                    xxv = np.concatenate((self.v_cache, xxv), axis=1)
-                self.k_cache = xxk
-                self.v_cache = xxv
+                    xxk2 = np.concatenate((self.k_cache, xxk), axis=2)  # k is transposed
+                    xxv2 = np.concatenate((self.v_cache, xxv), axis=1)
+                del self.k_cache
+                del self.v_cache
+                self.k_cache = xxk2
+                self.v_cache = xxv2
 
         if self.n_kv_heads != self.n_heads:
             rep = self.n_heads // self.n_kv_heads
