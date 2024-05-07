@@ -3,6 +3,7 @@ import random
 import signal
 import sys
 import time
+import pickle
 
 from decotimer import *
 
@@ -27,6 +28,7 @@ class Sampler:
         self.temp = temperature
         self.topp = topp
         assert topp > 0 and topp <= 1, f"{topp} should be >0 and <=1"
+        self.history = []
 
     def __call__(self, logits):
         if self.temp == 0:
@@ -49,8 +51,15 @@ class Sampler:
 
         picked = indices[random.randint(0, n)]
         # print(f"Sampler - Cut @ {n}  Highest @ {indices[0]} with {values[0]}  Picked {picked} with {logits[picked]}")
+        self.history.append((n, indices[0], values[0], picked, logits[picked]))   
         return picked
 
+    def add_str(self, s):
+        self.history.append(s)
+
+    def save_history(self, filename):
+        with open(filename, "wb") as f:
+            pickle.dump(self.history, f)
 
 class Llama:
     def __init__(
@@ -169,6 +178,7 @@ class Llama:
             output_tokens.append(generated_token)
             if emit_one_token:
                 s = self.tokenizer.decode([generated_token])
+                self.sampler.add_str(s)
                 print(f"{s}", flush=True, end="")
             else:
                 s = self.tokenizer.decode(output_tokens)
@@ -407,3 +417,5 @@ if __name__ == "__main__":
         llama.chat(input, exp_args, args.emit_one_token, no_masking=args.nomask)
     else:
         llama.gen_text(input, exp_args, args.emit_one_token, no_masking=args.nomask)
+
+    llama.sampler.save_history("sampler_history.pkl")
