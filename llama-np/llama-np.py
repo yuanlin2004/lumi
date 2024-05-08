@@ -32,6 +32,7 @@ class Sampler:
         self.history = []
         self.save_history = save_history
         self.you_pick = you_pick
+        self.tokenizer = tokensizer
 
     def __call__(self, logits):
         if self.temp == 0:
@@ -53,10 +54,12 @@ class Sampler:
             n = logits.shape[0] - 1
 
         if self.you_pick:
-            print(f"toop: {self.toop} temperature: {self.temp}")
+            print(f"toop: {self.topp} temperature: {self.temp}")
             for i in range(n+1):
-                print(f"{i}: {self.tokenizer.decode(indices[i])} @ {indices[i]} with {values[i]}")
-            picked_index = int(input(f"Pick a number between 0 and {n} (inclusive): "))
+                print(f"{i:3}: {self.tokenizer.decode([indices[i]]):20} @ {indices[i]:5} with {values[i]:.2f}")
+            picked_index = -1
+            while picked_index < 0 or picked_index > n:
+                picked_index = int(input(f"Pick a number between 0 and {n} (inclusive): "))
         else:
             picked_index = random.randint(0, n)
         picked = indices[picked_index]
@@ -396,7 +399,7 @@ if __name__ == "__main__":
         "--sampler-history",
         type=str,
         dest="sample_history",
-        default=False,
+        default=None,
         help="dump the sampler history to a file",
     )
     parser.add_argument(
@@ -476,4 +479,4 @@ if __name__ == "__main__":
         llama.gen_text(input_str, exp_args, args.emit_one_token, no_masking=args.nomask)
 
     if args.sample_history is not None:
-        llama.sampler.save_history(args.sampler_history)
+        llama.sampler.save_history(args.sample_history)
