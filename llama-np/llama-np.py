@@ -24,11 +24,12 @@ logger = lumi_logging.getLogger(__name__)
 
 class Sampler:
     # topp "nucleus sampling" sampling
-    def __init__(self, temperature, topp):
+    def __init__(self, temperature, topp, save_history=False):
         self.temp = temperature
         self.topp = topp
         assert topp > 0 and topp <= 1, f"{topp} should be >0 and <=1"
         self.history = []
+        self.save_history = save_history
 
     def __call__(self, logits):
         if self.temp == 0:
@@ -51,11 +52,13 @@ class Sampler:
 
         picked = indices[random.randint(0, n)]
         # print(f"Sampler - Cut @ {n}  Highest @ {indices[0]} with {values[0]}  Picked {picked} with {logits[picked]}")
-        self.history.append((n, indices[0], values[0], picked, logits[picked]))   
+        if self.save_history:
+            self.history.append((n, indices[0], values[0], picked, logits[picked]))   
         return picked
 
     def add_str(self, s):
-        self.history.append(s)
+        if self.save_history:
+            self.history.append(s)
 
     def save_history(self, filename):
         with open(filename, "wb") as f:
@@ -95,7 +98,7 @@ class Llama:
         end_time = time.perf_counter()
         print(f"{end_time-start_time:0.4f} seconds")
 
-        self.sampler = Sampler(temperature, topp)
+        self.sampler = Sampler(temperature, topp, save_history=(exp_args.sample_history is not None))
 
     def generate(
         self,
@@ -124,9 +127,20 @@ class Llama:
         no_masking=False,
         print_new_only=False,
     ):
+        # This code is a bit convoluted because it deals with combinations of the following different cases:
+        # 1. use kv cache or not
+        # 2. when kv cache is not, feed the prompt tokens one a time or all together
+        # 3. decode and print the generated token one a time or together with the previous tokens.
+        #    - llama 2: need to decode and print all tokens together because of the sentencepiece tokenizer
+        #    - llama 3: can decode and print one token at a time because of the tiktoken tokenizer
+        #    - emit_one_token is used to control this behavior
+        # 4. print the generated token only or the whole prompt and the generated token
+        #    - print_new_only is used to control this behavior
+        #    - print_new_only is useful in the chat mode because we don't want the print the whole history.  
+
         len_prompt = len(input_tokens)
         print(
-            f"[max seq lenght: {self.max_seq_len}   lenght of input prompt: {len_prompt}]"
+            f"[max seq length: {self.max_seq_len}   length of input prompt: {len_prompt}]"
         )
         if exp_args.one_a_time:
             # feed the token in the prompt one a time
@@ -249,6 +263,7 @@ class Llama:
         ]
         all_tokens = []
         while True:
+            
             command = input("> ").lstrip()
             if command[0] == "#":
                 # command mode
@@ -358,6 +373,7 @@ if __name__ == "__main__":
     )
     parser.add_argument("--timer", action="store_true", help="enable timer for methods")
     parser.add_argument("--cupy", action="store_true", default=False, help="use cupy")
+    parser.add_argument("--sampler-history", type=str, dest="sample_history", default=False, help="dump the sampler history to a file")
     parser.add_argument(
         "--reportmem", action="store_true", default=False, help="report memory usage"
     )
@@ -384,10 +400,10 @@ if __name__ == "__main__":
     weight_file = args.w
 
     if args.i:
-        input = args.i
+        input_str = args.i
     else:
         with open(args.f, "r") as f:
-            input = f.read()
+            input_str = f.read()
 
     max_n_tokens = args.seqlength
 
@@ -414,8 +430,9 @@ if __name__ == "__main__":
     if exp_args.report_mem:
         report_mem(exp_args)
     if args.chat:
-        llama.chat(input, exp_args, args.emit_one_token, no_masking=args.nomask)
+        llama.chat(input_str, exp_args, args.emit_one_token, no_masking=args.nomask)
     else:
-        llama.gen_text(input, exp_args, args.emit_one_token, no_masking=args.nomask)
+        llama.gen_text(input_str, exp_args, args.emit_one_token, no_masking=args.nomask)
 
-    llama.sampler.save_history("sampler_history.pkl")
+    if args.sample_history is not None:
+        llama.sampler.save_history(args.sampler_history)
