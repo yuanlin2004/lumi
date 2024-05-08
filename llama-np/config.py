@@ -14,3 +14,6 @@ class ExperimentArgs:
 
     # use cupy
     use_cupy: bool = False
+
+    # save sample history
+    sample_history: str = None

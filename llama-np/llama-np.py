@@ -1,9 +1,9 @@
 import argparse
+import pickle
 import random
 import signal
 import sys
 import time
-import pickle
 
 from decotimer import *
 
@@ -24,12 +24,14 @@ logger = lumi_logging.getLogger(__name__)
 
 class Sampler:
     # topp "nucleus sampling" sampling
-    def __init__(self, temperature, topp, save_history=False):
+    def __init__(self, temperature, topp, tokensizer, save_history=False, you_pick=False):
+        # tokenizer is used in the case of you_pick
         self.temp = temperature
         self.topp = topp
         assert topp > 0 and topp <= 1, f"{topp} should be >0 and <=1"
         self.history = []
         self.save_history = save_history
+        self.you_pick = you_pick
 
     def __call__(self, logits):
         if self.temp == 0:
@@ -50,10 +52,17 @@ class Sampler:
             # so we use np.any() to check
             n = logits.shape[0] - 1
 
-        picked = indices[random.randint(0, n)]
+        if self.you_pick:
+            print(f"toop: {self.toop} temperature: {self.temp}")
+            for i in range(n+1):
+                print(f"{i}: {self.tokenizer.decode(indices[i])} @ {indices[i]} with {values[i]}")
+            picked_index = int(input(f"Pick a number between 0 and {n} (inclusive): "))
+        else:
+            picked_index = random.randint(0, n)
+        picked = indices[picked_index]
         # print(f"Sampler - Cut @ {n}  Highest @ {indices[0]} with {values[0]}  Picked {picked} with {logits[picked]}")
         if self.save_history:
-            self.history.append((n, indices[0], values[0], picked, logits[picked]))   
+            self.history.append((n, indices[0], values[0], picked, logits[picked]))
         return picked
 
     def add_str(self, s):
@@ -64,6 +73,7 @@ class Sampler:
         with open(filename, "wb") as f:
             pickle.dump(self.history, f)
 
+
 class Llama:
     def __init__(
         self,
@@ -72,6 +82,7 @@ class Llama:
         max_seq_len: int,
         temperature,
         topp,
+        you_pick,
         exp_args,
         seed: int = 134,
     ) -> "Llama":
@@ -98,7 +109,13 @@ class Llama:
         end_time = time.perf_counter()
         print(f"{end_time-start_time:0.4f} seconds")
 
-        self.sampler = Sampler(temperature, topp, save_history=(exp_args.sample_history is not None))
+        self.sampler = Sampler(
+            temperature,
+            topp,
+            self.tokenizer,
+            save_history=(exp_args.sample_history is not None),
+            you_pick=you_pick,
+        )
 
     def generate(
         self,
@@ -111,7 +128,9 @@ class Llama:
         """
         Give a list of tokens converted from the input prompt, generate an output token
         """
-        logits = self.model(input_tokens, start_pos, print_dot, no_masking, use_cupy)[-1]
+        logits = self.model(input_tokens, start_pos, print_dot, no_masking, use_cupy)[
+            -1
+        ]
         logger.debug(lambda: f"logits[0]: {logits[0]}")
         assert (
             len(logits) == self.params["vocab_size"]
@@ -136,7 +155,7 @@ class Llama:
         #    - emit_one_token is used to control this behavior
         # 4. print the generated token only or the whole prompt and the generated token
         #    - print_new_only is used to control this behavior
-        #    - print_new_only is useful in the chat mode because we don't want the print the whole history.  
+        #    - print_new_only is useful in the chat mode because we don't want the print the whole history.
 
         len_prompt = len(input_tokens)
         print(
@@ -263,7 +282,7 @@ class Llama:
         ]
         all_tokens = []
         while True:
-            
+
             command = input("> ").lstrip()
             if command[0] == "#":
                 # command mode
@@ -373,9 +392,22 @@ if __name__ == "__main__":
     )
     parser.add_argument("--timer", action="store_true", help="enable timer for methods")
     parser.add_argument("--cupy", action="store_true", default=False, help="use cupy")
-    parser.add_argument("--sampler-history", type=str, dest="sample_history", default=False, help="dump the sampler history to a file")
+    parser.add_argument(
+        "--sampler-history",
+        type=str,
+        dest="sample_history",
+        default=False,
+        help="dump the sampler history to a file",
+    )
     parser.add_argument(
         "--reportmem", action="store_true", default=False, help="report memory usage"
+    )
+    parser.add_argument(
+        "--you-pick",
+        action="store_true",
+        dest="you_pick",
+        default=False,
+        help="you pick the candidate in the sampler",
     )
 
     group = parser.add_mutually_exclusive_group()
@@ -418,6 +450,7 @@ if __name__ == "__main__":
         report_mem=args.reportmem,
         use_in_place_kv_cache=args.useinplacekvcache,
         use_cupy=args.cupy,
+        sample_history=args.sample_history,
     )
 
     if exp_args.report_mem:
@@ -425,7 +458,15 @@ if __name__ == "__main__":
 
     signal.signal(signal.SIGINT, signal_handler)
 
-    llama = Llama(weight_file, token_file, max_n_tokens, args.temp, args.topp, exp_args)
+    llama = Llama(
+        weight_file,
+        token_file,
+        max_n_tokens,
+        args.temp,
+        args.topp,
+        args.you_pick,
+        exp_args,
+    )
     print()
     if exp_args.report_mem:
         report_mem(exp_args)
