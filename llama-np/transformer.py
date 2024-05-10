@@ -18,18 +18,31 @@ class Linear:
         if use_cupy:
             # no need to make a copy
             if bf16:
-                w16 = weight.view(dtype=np.int16)
+                # Do the transpose before the `view`. `view`` requires the last dimension 
+                # to be contiguous. If `weight` is already a view of a transpose, the `view`
+                # will fail.  
+                w16 = weight.T.view(dtype=np.int16)
                 if gpuw:
-                    self.weight = cupy.asarray(w16[:, 1::2].T)
+                    self.weight = cupy.asarray(w16[:, 1::2])
                 else:
-                    self.weight = w16[:, 1::2].T.copy()
+                    self.weight = w16[:, 1::2].copy()
             else:
                 if gpuw:
                     self.weight = cupy.asarray(weight.T)
                 else:
                     self.weight = weight.T.copy()
         else:
-            self.weight = weight.T.copy()
+            weight_t = weight.T
+            # Performance Trick: 
+            # - Transpose is a view.
+            # - numpy.matmul is faster when the last dimension of the first matrix is contiguous.
+            # - So we make a copy if the last dimension is not contiguous.
+            if weight_t.flags['C_CONTIGUOUS']:
+                # Note that in most cases, the weight is already a transposed view itself, so the
+                # double-transpose cancel out. This should be the common path.
+                self.weight = weight_t
+            else:
+                self.weight = weight_t.copy()
 
         self.bias = bias
         self.use_cupy = use_cupy

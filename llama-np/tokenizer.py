@@ -1,7 +1,8 @@
-# This file basically merges 
+# This file basically merges
 #   https://github.com/meta-llama/llama3/blob/main/llama/tokenizer.py
 # and
 #   https://github.com/meta-llama/llama/blob/main/llama/tokenizer.py
+# with some modifications to make it work with the current codebase.
 
 import os
 from logging import getLogger
@@ -22,8 +23,8 @@ from typing import (
 )
 
 import tiktoken
-from tiktoken.load import load_tiktoken_bpe
 from sentencepiece import SentencePieceProcessor
+from tiktoken.load import load_tiktoken_bpe
 
 logger = getLogger(__name__)
 
@@ -33,11 +34,14 @@ logger = getLogger(__name__)
 
 Role = Literal["system", "user", "assistant"]
 
+
 class Message(TypedDict):
     role: Role
     content: str
 
+
 Dialog = Sequence[Message]
+
 
 class Tokenizer_Llama3:
     """
@@ -50,16 +54,21 @@ class Tokenizer_Llama3:
 
     pat_str = r"(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\r\n\p{L}\p{N}]?\p{L}+|\p{N}{1,3}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s*[\r\n]+|\s+(?!\S)|\s+"  # noqa: E501
 
-    def __init__(self, model_path: str):
+    def __init__(self, model_str: str):
         """
         Initializes the Tokenizer with a Tiktoken model.
 
         Args:
-            model_path (str): The path to the Tiktoken model file.
+            model_str (str): The str of the loaded Tiktoken model file.
         """
-        assert os.path.isfile(model_path), model_path
 
-        mergeable_ranks = load_tiktoken_bpe(model_path)
+        # copied from https://github.com/openai/tiktoken/blob/1b9faf2779855124f05174adf1383e53689ed94b/tiktoken/load.py#L148C5-L151C6
+        import base64 
+        mergeable_ranks = {
+            base64.b64decode(token): int(rank)
+            for token, rank in (line.split() for line in model_str.splitlines() if line)
+        }
+
         num_base_tokens = len(mergeable_ranks)
         special_tokens = [
             "<|begin_of_text|>",
@@ -80,12 +89,12 @@ class Tokenizer_Llama3:
             token: num_base_tokens + i for i, token in enumerate(special_tokens)
         }
         self.model = tiktoken.Encoding(
-            name=Path(model_path).name,
+            name="llama3",
             pat_str=self.pat_str,
             mergeable_ranks=mergeable_ranks,
             special_tokens=self.special_tokens,
         )
-        logger.debug(f"Reloaded tiktoken model from {model_path}")
+        logger.debug(f"Reloaded tiktoken model")
 
         self.n_words: int = self.model.n_vocab
         # BOS / EOS token IDs
@@ -237,12 +246,20 @@ class ChatFormat:
 # llama2
 #
 
+
 class Tokenizer_Llama2:
-    def __init__(self, model_path: str):
+    def __init__(self, model_buffer):
         # reload tokenizer
-        assert os.path.isfile(model_path), model_path
-        self.sp_model = SentencePieceProcessor(model_file=model_path)
-        logger.debug(f"Reloaded SentencePiece model from {model_path}")
+        # Create a tmp file, store model_buffer in it, and use the file to create a SentencePieceProcessor.
+        # This is a workaround for SentencePieceProcessor.load() not accepting a buffer.
+        # I cannot figure out how to use the buffer with SentencePieceProcessor.LoadFromSerializedProto()
+        import tempfile
+
+        with tempfile.NamedTemporaryFile(delete=True) as tmpfile:
+            tmpfile.write(model_buffer)
+            tmpfile.flush()
+            self.sp_model = SentencePieceProcessor(model_file=tmpfile.name)
+            logger.debug(f"Reloaded SentencePiece model from {tmpfile.name}")
 
         # BOS / EOS token IDs
         self.n_words: int = self.sp_model.vocab_size()
@@ -253,6 +270,7 @@ class Tokenizer_Llama2:
             f"#words: {self.n_words} - BOS ID: {self.bos_id} - EOS ID: {self.eos_id}"
         )
         assert self.sp_model.vocab_size() == self.sp_model.get_piece_size()
+        self.stop_tokens = {self.eos_id}
 
     def encode(self, s: str, bos: bool, eos: bool) -> List[int]:
         assert type(s) is str

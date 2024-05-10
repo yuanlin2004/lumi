@@ -3,6 +3,8 @@ import time
 import numpy as np
 
 from sysutil import lumi_logging, lumi_logger
+from lumi_type import LumiDType
+
 
 logger = lumi_logging.getLogger(__name__)
 
@@ -24,7 +26,11 @@ def read_lumi(model_path, n_records=-1, skip_weight=False):
     version = struct.unpack("I", file.read(4))[0]
     logger.debug(lambda: f"Version {version}")
 
-    # 3. params
+    # 3. model version
+    model_version = struct.unpack("I", file.read(4))[0]
+    logger.debug(lambda: f"Model version {model_version}")
+
+    # 4. params
     lumi_params = {}
     p = struct.unpack("iiiiiiiff", file.read(36))
     logger.debug(lambda: f"params {p}")
@@ -38,7 +44,15 @@ def read_lumi(model_path, n_records=-1, skip_weight=False):
     lumi_params["rope_theta"] = p[7]
     lumi_params["norm_eps"] = p[8]
 
-    # 4. weight data
+    # 5. tokenizer model
+    tokenizer_model_size = struct.unpack("I", file.read(4))[0] 
+    logger.debug(lambda: f"tokenizer model size {tokenizer_model_size}")
+    tokenizer_model = file.read(tokenizer_model_size)
+    # Skip the padding 
+    padding_length = 4 - len(tokenizer_model) % 4
+    file.seek(file.tell() + padding_length)
+
+    # 5. weight data
     n = 0
     dict = {}
     while True:
@@ -65,15 +79,41 @@ def read_lumi(model_path, n_records=-1, skip_weight=False):
         shape = [struct.unpack("I", file.read(4))[0] for _ in range(dim)]
         logger.debug(lambda: f"shape {shape}")
 
+        # transposed or not
+        transposed = struct.unpack("I", file.read(4))[0]
+        logger.debug(lambda: f"transposed {transposed}")
+
+        # is bf16
+        lumitype = struct.unpack("I", file.read(4))[0]
+        is_bf16 = lumitype == LumiDType.bf16.value
+        logger.debug(lambda: f"is_bf16 {is_bf16}")
+        unit = 2 if is_bf16 else 4
+
         # weight data
         weight_len = np.prod(shape)
         if skip_weight:
             # Skip reading the weights. This is for test and development.
             weight = np.random.rand(weight_len).astype(np.float32)
-            file.seek(file.tell() + weight_len * 4)
+            file.seek(file.tell() + weight_len * unit)
+            weight = weight.reshape(shape)
         else:
-            weight = np.frombuffer(file.read(weight_len * 4), dtype=np.float32)
-        dict[name] = weight.reshape(shape)
+            if transposed:
+                shape = shape[::-1]
+            if not is_bf16:
+                weight = np.frombuffer(file.read(weight_len * unit), dtype=np.float32)
+                weight = weight.reshape(shape)
+            else:
+                # read as int16, convert to float32
+                shape2 = shape + [2]
+                w = np.ndarray(shape2, dtype=np.int16)
+                buffer = np.frombuffer(file.read(weight_len * unit), dtype=np.int16)
+                buffer = buffer.reshape(shape)
+                w[..., 1] = buffer
+                w[..., 0] = 0
+                weight = w.view(dtype=np.float32).squeeze()
+            if transposed:
+                weight = weight.transpose() # keep this as a view
+        dict[name] = weight
 
         n += 1
         if n_records != -1 and n >= n_records:
@@ -85,4 +125,4 @@ def read_lumi(model_path, n_records=-1, skip_weight=False):
     end_time = time.perf_counter()
     print(f" {end_time-start_time:0.4f} seconds")
 
-    return (lumi_params, dict)
+    return lumi_params, tokenizer_model, dict, model_version

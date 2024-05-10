@@ -81,7 +81,6 @@ class Llama:
     def __init__(
         self,
         model_path: str,
-        tokenizer_path: str,
         max_seq_len: int,
         temperature,
         topp,
@@ -90,13 +89,16 @@ class Llama:
         seed: int = 134,
     ) -> "Llama":
         random.seed(seed)
-        if ("llama-3" in model_path.lower()) or ("llama3" in model_path.lower()):
-            self.tokenizer = Tokenizer_Llama3(model_path=tokenizer_path)
-            self.llama_version = 3
+
+        params, tokenizer_model, weight_dict, llama_version = read_lumi(model_path)
+
+        if llama_version == 3:
+            self.tokenizer = Tokenizer_Llama3(tokenizer_model)
+        elif llama_version == 2:
+            self.tokenizer = Tokenizer_Llama2(tokenizer_model)
         else:
-            self.tokenizer = Tokenizer_Llama2(model_path=tokenizer_path)
-            self.llama_version = 2
-        (params, weight_dict) = read_lumi(model_path)
+            raise ValueError(f"Unknown llama version: {llama_version}") 
+        self.llama_version = llama_version
 
         print("Building the network . ", end="", flush=True)
         start_time = time.perf_counter()
@@ -347,20 +349,17 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-t", type=str, required=True, help="input path of the tokenizer model"
-    )
-    parser.add_argument(
-        "-w", type=str, required=True, help="input path of the lumi model"
+        "-w", type=str, required=True, help="lumi weight file"
     )
 
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("-i", type=str, help="input prompt string")
-    group.add_argument("-f", type=str, help="input prompt file")
+    group.add_argument("-i", type=str, help="prompt string")
+    group.add_argument("-f", type=str, help="prompt file")
 
     parser.add_argument(
-        "--temp", type=float, default=0.6, help="temperature for the sampler"
+        "--temp", type=float, default=0.6, help="temperature for the topp sampler"
     )
-    parser.add_argument("--topp", type=float, default=0.9, help="topp for the sampler")
+    parser.add_argument("--topp", type=float, default=0.9, help="top p value for the topp sampler")
     parser.add_argument(
         "--chat",
         action="store_true",
@@ -431,7 +430,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    token_file = args.t
     weight_file = args.w
 
     if args.i:
@@ -463,7 +461,6 @@ if __name__ == "__main__":
 
     llama = Llama(
         weight_file,
-        token_file,
         max_n_tokens,
         args.temp,
         args.topp,
