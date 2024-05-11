@@ -24,7 +24,9 @@ logger = lumi_logging.getLogger(__name__)
 
 class Sampler:
     # topp "nucleus sampling" sampling
-    def __init__(self, temperature, topp, tokensizer, save_history=False, you_pick=False):
+    def __init__(
+        self, temperature, topp, tokensizer, save_history=False, you_pick=False
+    ):
         # tokenizer is used in the case of you_pick
         self.temp = temperature
         self.topp = topp
@@ -55,11 +57,15 @@ class Sampler:
 
         if self.you_pick:
             print(f"toop: {self.topp} temperature: {self.temp}")
-            for i in range(n+1):
-                print(f"{i:3}: {self.tokenizer.decode([indices[i]]):20} @ {indices[i]:5} with {values[i]:.2f}")
+            for i in range(n + 1):
+                print(
+                    f"{i:3}: {self.tokenizer.decode([indices[i]]):20} @ {indices[i]:5} with {values[i]:.2f}"
+                )
             picked_index = -1
             while picked_index < 0 or picked_index > n:
-                picked_index = int(input(f"Pick a number between 0 and {n} (inclusive): "))
+                picked_index = int(
+                    input(f"Pick a number between 0 and {n} (inclusive): ")
+                )
         else:
             picked_index = random.randint(0, n)
         picked = indices[picked_index]
@@ -86,9 +92,10 @@ class Llama:
         topp,
         you_pick,
         exp_args,
-        seed: int = 134,
+        seed, 
     ) -> "Llama":
-        random.seed(seed)
+        if seed is not None:
+            random.seed(seed)
 
         params, tokenizer_model, weight_dict, llama_version = read_lumi(model_path)
 
@@ -97,7 +104,7 @@ class Llama:
         elif llama_version == 2:
             self.tokenizer = Tokenizer_Llama2(tokenizer_model)
         else:
-            raise ValueError(f"Unknown llama version: {llama_version}") 
+            raise ValueError(f"Unknown llama version: {llama_version}")
         self.llama_version = llama_version
 
         print("Building the network . ", end="", flush=True)
@@ -343,23 +350,48 @@ def signal_handler(signum, frame):
         return
 
 
+def arg_fp_range(min, max):
+    def check_range(value):
+        value = float(value)
+        if value < min or value > max:
+            raise argparse.ArgumentTypeError(
+                f"{value} is not in the range [{min:0.1f}, {max:0.1f}]"
+            )
+        return value
+
+    return check_range
+
+
 if __name__ == "__main__":
 
     max_n_tokens = 128
 
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-w", type=str, required=True, help="lumi weight file"
-    )
+    parser.add_argument("-w", type=str, required=True, help="lumi weight file")
 
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-i", type=str, help="prompt string")
     group.add_argument("-f", type=str, help="prompt file")
 
     parser.add_argument(
-        "--temp", type=float, default=0.6, help="temperature for the topp sampler"
+        "--temp",
+        type=arg_fp_range(0, 1),
+        default=0.6,
+        help="temperature (value in [0.0, 1.0]) for the topp sampler, default 0.6. 0 will use argmax.",
     )
-    parser.add_argument("--topp", type=float, default=0.9, help="top p value for the topp sampler")
+    parser.add_argument(
+        "--topp",
+        type=arg_fp_range(0, 1),
+        default=0.9,
+        help="topp value (in [0.0, 1.0]) for the topp sampler, default 0.9",
+    )
+
+    parser.add_argument(
+        "--seed",
+        type=int,
+        help="seed for the random number generator",
+    )
+
     parser.add_argument(
         "--chat",
         action="store_true",
@@ -466,6 +498,7 @@ if __name__ == "__main__":
         args.topp,
         args.you_pick,
         exp_args,
+        args.seed,
     )
     print()
     if exp_args.report_mem:

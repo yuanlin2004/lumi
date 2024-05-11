@@ -94,8 +94,8 @@ class FeedForward:
     def __init__(self, w1, w2, w3, layer_id, exp_args):
         #self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=(layer_id %2 ==0), bf16=True)
         self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=(layer_id %3 !=0), bf16=True)
-        self.w2 = Linear(w2, use_cupy=exp_args.use_cupy, gpuw=(layer_id %2 ==0), bf16=True)
-        self.w3 = Linear(w3, use_cupy=exp_args.use_cupy, gpuw=(layer_id %2 ==0), bf16=True)
+        self.w2 = Linear(w2, use_cupy=exp_args.use_cupy, gpuw=(layer_id %3 ==0), bf16=True)
+        self.w3 = Linear(w3, use_cupy=exp_args.use_cupy, gpuw=(layer_id %3 ==0), bf16=True)
         self.silu = SiLU()
         return
 
