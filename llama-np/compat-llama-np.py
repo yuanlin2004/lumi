@@ -19,7 +19,7 @@ class Linear:
 
 class SiLU:
     def __call__(self, x):
-        return x * (1 / (1 + np.exp(-x)))
+        return x  / (1 + np.exp(-x))
 
 
 class FeedForward:
@@ -33,7 +33,7 @@ class FeedForward:
 
 class RMSNorm:
     def __init__(self, weight, eps: float = 1e-5):
-        self.eps, self.weight = eps, weight
+        self.eps, self.weight = np.float32(eps), weight
 
     def __call__(self, x):
         rms = np.sqrt(np.mean(np.square(x), axis=-1, keepdims=True) + self.eps)
@@ -42,15 +42,15 @@ class RMSNorm:
 
 class RoPE:
     def __init__(self, theta=10000):
-        self.theta = theta
+        self.theta = np.asarray(np.float32(theta))
 
     def __call__(self, x, start_pos=0):
         dim, s = x.shape[-1], x.shape[-2]
-        theta = self.theta ** (-2.0 * np.array([t // 2 for t in range(dim)]) / dim)
-        m = np.arange(start_pos, s + start_pos).reshape(-1, 1)
-        m_theta = m * theta  # outer product
+        theta = self.theta ** (np.float32(-2.0) * np.array([np.float32(t // 2) for t in range(dim)]) / dim)
+        m = np.arange(start_pos, s + start_pos, dtype=np.int32).reshape(-1, 1)
+        m_theta = np.multiply(m, theta, dtype=np.float32)  # outer product
         cos, sin = np.cos(m_theta), np.sin(m_theta)
-        y = np.ndarray(x.shape)
+        y = np.empty_like(x)
         y[..., 1::2] = x[..., 0::2]  # in-place update
         y[..., 0::2] = -x[..., 1::2]  # in-place update
         return x * cos + y * sin
@@ -173,13 +173,13 @@ class Transformer:
 
 
 class Llama:
-    def __init__(self, model_path, tokenizer_path, max_seq_len, seed=34):
+    def __init__(self, model_path, max_seq_len, seed=34):
         random.seed(seed)
-        if ('llama-3' in model_path.lower()) or ('llama3' in model_path.lower()):
-            self.tokenizer = Tokenizer_Llama3(model_path=tokenizer_path)
+        params, tokenizer_model, weight_dict, llama_version = read_lumi(model_path)
+        if llama_version == 3:
+            self.tokenizer = Tokenizer_Llama3(tokenizer_model)
         else:
-            self.tokenizer = Tokenizer_Llama2(model_path=tokenizer_path)
-        (params, weight_dict) = read_lumi(model_path)
+            self.tokenizer = Tokenizer_Llama2(tokenizer_model)
         self.params = params
         self.model = Transformer(params, weight_dict)
         self.max_seq_len = max_seq_len
@@ -216,11 +216,10 @@ class Llama:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-t", type=str, required=True, help="tokenizer model")
     parser.add_argument("-w", type=str, required=True, help="lumi model")
     parser.add_argument("-i", type=str, required=True, help="input prompt")
     parser.add_argument("--seqlength", type=int, default=128, help="max seq len")
     args = parser.parse_args()
 
-    llama = Llama(args.w, args.t, args.seqlength)
+    llama = Llama(args.w, args.seqlength)
     llama.text_completion(args.i)
