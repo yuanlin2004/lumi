@@ -2,7 +2,7 @@
 
 This is to play with models based on Meta's llama2 and llama3. 
 
-The script `llama-np.py` implements inference using only `numpy` and `cupy`, except for the tokenizer, due to their lack of support for lower precision and bf16 formats, thus running models in fp32. It can execute the llama-3-8B model at approximately 1.2 tokens per second (tok/s) on CPU and 2.24 tok/s on GPU using a modern PC configuration (AMD Ryzen 7700x CPU with over 32GB RAM and an RTX 4070 GPU).
+The script `llama-np.py` implements inference using only `numpy` and `cupy`, due to their lack of support for lower precision and bf16 formats, thus running models in fp32. It can execute the llama-3-8B model at approximately 1.2 tokens per second (tok/s) on CPU and 2.24 tok/s on GPU using a modern PC configuration (AMD Ryzen 7700x CPU with over 32GB RAM and an RTX 4070 GPU).
 
 llama-np.py offers two operational modes:
 
@@ -13,7 +13,7 @@ It supports various experimental features:
 
 - Enabling or disabling the key-value (kv) cache
 - Methods for updating the kv cache: in-place or concatenation
-- Prefill strategies for input tokens: single sequence or one token at a time, similar to the approach in llama2.c
+- Prefill strategies for input tokens: single sequence or one token at a time, similar to the approach in [`llama2.c`](https://github.com/karpathy/llama2.c)).
 - Option to use cupy instead of numpy
 
 ```sh
@@ -51,7 +51,6 @@ Once weights are converted, the `llama-np.py` script performs text generation us
 ### Running Models
 Given a weight file (`*.lmw`) and an initial text string, `llama-np.py` performs text generation based on the input string.
 
-`compat-llama-np.py` is a simplified version of `llama-np.py`, aiming to be as short as possible, but not too short. See below.
 
 ### Llama-3
 
@@ -131,7 +130,7 @@ Lily didn't want to help her mom, so she said, "I'm sorry, mom. I didn't know wh
 
 ## `compat-llama-np.py`: a simplified version  
 
-The `compat-llama-np.py` script is a streamlined version of `llama-np.py`, reducing the code to under 250 lines. It excludes tokenizer code and weight reading utilities but maintains essential functions to illustrate the network architecture effectively.
+The `compat-llama-np.py` script is a streamlined version of `llama-np.py`, reducing the code to under 250 lines (excluding tokenizer code and weight reading utilities). It maintains essential functions to illustrate the network architecture effectively.
 
 ```
 %  python compat-llama-np.py -w stories15M.lmw  -i 'There are three red balls and four green balls in the bag. If I take out' --seqlength 128
