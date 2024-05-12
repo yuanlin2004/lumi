@@ -339,14 +339,9 @@ def compare(meta_params, meta_dict, lumi_params, lumi_dict, n_records):
 
 
 if __name__ == "__main__":
-    """
-    Directory as the input path
-    % python convert.py llama-2-7b llama-2-7b.lmw -t
-    % python convert.py llama-2-7b llama-2-7b.lmw
-
-    File as the input path
-    % python convert.py TinyStories/stories15M.pt stories15M.lmw
-    """
+    '''
+    python convert.py model tokenizer.model output.lmw
+    '''
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "input_model",
