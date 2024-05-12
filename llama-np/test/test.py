@@ -78,23 +78,27 @@ def find_model(str):
     return None
 
 
-
-
 def iterate_all(func, ccheck=None):
     all_models = llama2_models + llama3_models
     for m in all_models:
         for p in prompts:
             for c in cupy_options:
-                func(f"-w {m[0]} {p[0]} --seqlength {int(m[1]*p[1])} {c[0]}", m[-1]+p[-1]+c[-1])
+                func(
+                    f"-w {m[0]} {p[0]} --seqlength {int(m[1]*p[1])} {c[0]}",
+                    m[-1] + p[-1] + c[-1],
+                )
 
-    #check kv_cache_options and prefill_options for llama2 models
-    #prefill is very slow for long prompts, so we only test it for a shorter prompt.
+    # check kv_cache_options and prefill_options for llama2 models
+    # prefill is very slow for long prompts, so we only test it for a shorter prompt.
     for m in [find_model("stories110m.lmw"), find_model("stories260k.lmw")]:
         for p in [prompts[1]]:
             for c in cupy_options:
                 for k in kv_cache_options:
                     for f in prefill_options:
-                        func(f"-w {m[0]} {p[0]} --seqlength {int(m[1]*p[1])} {c[0]} {k[0]} {f[0]}", m[-1]+p[-1]+c[-1]+k[-1]+f[-1])
+                        func(
+                            f"-w {m[0]} {p[0]} --seqlength {int(m[1]*p[1])} {c[0]} {k[0]} {f[0]}",
+                            m[-1] + p[-1] + c[-1] + k[-1] + f[-1],
+                        )
 
     # check kv_cache_options and prefill_option for llama3 model
     # Use the output_options (emit-one-token), so we can cross-compare all the outputs.
@@ -133,7 +137,7 @@ def iterate_l1(func, ccheck=None):
     iterate_l0(func, ccheck)
 
     for m in [find_model("stories15m.lmw"), find_model("llama-3-8b-instruct.lmw")]:
-        for p in [prompts[1]]: 
+        for p in [prompts[1]]:
             for c in cupy_options:
                 for k in kv_cache_options:
                     func(
@@ -221,7 +225,9 @@ def test_one(cmd, ids):
     text = f"\r[{current}/{total_number_of_tests}]:{status} {local_time1} {minutes}m{seconds}s {command}"
     print(text)
 
+
 cross_failed = None
+
 
 def cross_check(all_outputs):
     # since all the outputs are supposed to the be the same, we do not need to compare all of them pairwise.
@@ -234,10 +240,13 @@ def cross_check(all_outputs):
             output_dir + "/" + all_outputs[i + 1] + ".pass",
         )
         if compare_result != 0:
-            print(f"Cross compare failed: {all_outputs[i]}.pass {all_outputs[i+1]}.pass")
+            print(
+                f"Cross compare failed: {all_outputs[i]}.pass {all_outputs[i+1]}.pass"
+            )
             failed += 1
-            cross_failed.append((all_outputs[i], all_outputs[i+1]))
+            cross_failed.append((all_outputs[i], all_outputs[i + 1]))
     return failed
+
 
 def compare(str1, str2):
     """
@@ -321,23 +330,3 @@ if __name__ == "__main__":
     seconds = int(execution_time % 60)
 
     print(f"Execution time: {minutes} minutes {seconds} seconds")
-
-"""
-for test in glob(testdir + '/*.in'):      # for all matching input files
-    if not exists('%s.out' % test):
-        # no prior results
-        os.system('%s < %s > %s.out 2>&1' % (program, test, test))
-        print 'GENERATED:', test
-    else: 
-        # backup, run, compare
-        os.rename(test + '.out', test + '.out.bkp')
-        os.system('%s < %s > %s.out 2>&1' % (program, test, test))
-        os.system('diff %s.out %s.out.bkp > %s.diffs' % ((test,)*3) )
-        if os.stat(test + '.diffs')[ST_SIZE] == 0:
-            print 'PASSED:', test 
-            os.remove(test + '.diffs')
-        else:
-            print 'FAILED:', test, '(see %s.diffs)' % test
-
-print 'RegTest done:', ctime(time(  ))
-"""
