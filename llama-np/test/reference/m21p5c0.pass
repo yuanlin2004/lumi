@@ -1,0 +1,226 @@
+Reading model file .................................................. 0.0010 seconds
+Building the network . 0.0001 seconds
+
+[max seq length: 72   length of input prompt: 18]
+.....265 0.0041 seconds
+
+The US president in 2020 is the
+
+.....284 0.0006 seconds
+
+The US president in 2020 is the m
+
+.....303 0.0005 seconds
+
+The US president in 2020 is the man
+
+.....263 0.0006 seconds
+
+The US president in 2020 is the man w
+
+.....415 0.0005 seconds
+
+The US president in 2020 is the man wh
+
+.....414 0.0005 seconds
+
+The US president in 2020 is the man who
+
+.....263 0.0005 seconds
+
+The US president in 2020 is the man who w
+
+.....290 0.0005 seconds
+
+The US president in 2020 is the man who wil
+
+.....421 0.0005 seconds
+
+The US president in 2020 is the man who will
+
+.....344 0.0005 seconds
+
+The US president in 2020 is the man who will e
+
+.....444 0.0006 seconds
+
+The US president in 2020 is the man who will ex
+
+.....427 0.0005 seconds
+
+The US president in 2020 is the man who will exp
+
+.....421 0.0005 seconds
+
+The US president in 2020 is the man who will expl
+
+.....414 0.0005 seconds
+
+The US president in 2020 is the man who will explo
+
+.....276 0.0005 seconds
+
+The US president in 2020 is the man who will explore
+
+.....426 0.0005 seconds
+
+The US president in 2020 is the man who will explore.
+
+.....385 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One
+
+.....328 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One day
+
+.....432 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One day,
+
+.....410 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One day, 
+
+.....458 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One day, N
+
+.....411 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One day, Ne
+
+.....423 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One day, Nem
+
+.....414 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo
+
+.....284 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo m
+
+.....316 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met
+
+.....261 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a
+
+.....262 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a s
+
+.....415 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a sh
+
+.....271 0.0005 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shin
+
+.....422 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny
+
+.....282 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny p
+
+.....412 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny pa
+
+.....421 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny pal
+
+.....412 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny pala
+
+.....331 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace
+
+.....373 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of
+
+.....263 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of w
+
+.....415 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of wh
+
+.....414 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who
+
+.....381 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had
+
+.....261 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a
+
+.....282 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a p
+
+.....417 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a pi
+
+.....429 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a pic
+
+.....413 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a pict
+
+.....425 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a pictu
+
+.....276 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a picture
+
+.....373 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a picture of
+
+.....261 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a picture of a
+
+.....280 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a picture of a c
+
+.....294 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a picture of a cat
+
+.....426 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a picture of a cat.
+
+.....346 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a picture of a cat. He
+
+.....336 0.0004 seconds
+
+The US president in 2020 is the man who will explore. One day, Nemo met a shiny palace of who had a picture of a cat. He said
+
+[1740.2604 tok/s]
+max 72 tokens reached

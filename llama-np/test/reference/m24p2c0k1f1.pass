@@ -1,0 +1,158 @@
+Reading model file ................................................................................................................. 0.4874 seconds
+Building the network . 0.0001 seconds
+
+[max seq length: 38   length of input prompt: 19]
+............9038 0.0204 seconds
+
+There
+
+............471 0.0199 seconds
+
+There are
+
+............577 0.0215 seconds
+
+There are three
+
+............2217 0.0204 seconds
+
+There are three red
+
+............7655 0.0208 seconds
+
+There are three red balls
+
+............29892 0.0184 seconds
+
+There are three red balls and
+
+............3023 0.0193 seconds
+
+There are three red balls and four
+
+............7254 0.0208 seconds
+
+There are three red balls and four blue
+
+............26563 0.0221 seconds
+
+There are three red balls and four blue balls
+
+............29889 0.0198 seconds
+
+There are three red balls and four blue balls in
+
+............278 0.0203 seconds
+
+There are three red balls and four blue balls in a
+
+............1948 0.0213 seconds
+
+There are three red balls and four blue balls in a bag
+
+............29889 0.0227 seconds
+
+There are three red balls and four blue balls in a bag.
+
+............940 0.0237 seconds
+
+There are three red balls and four blue balls in a bag. If
+
+............366 0.0235 seconds
+
+There are three red balls and four blue balls in a bag. If I
+
+............1925 0.0242 seconds
+
+There are three red balls and four blue balls in a bag. If I take
+
+............963 0.0239 seconds
+
+There are three red balls and four blue balls in a bag. If I take one
+
+............29892 0.0247 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball
+
+............29892 0.0243 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball,
+
+............366 0.0249 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you
+
+............508 0.0248 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can
+
+............2125 0.0254 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take
+
+............697 0.0252 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one
+
+............7254 0.0257 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue
+
+............8287 0.0258 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball
+
+............1213 0.0262 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball."
+
+............450 0.0262 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball." The
+
+............4802 0.0274 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball." The big
+
+............6635 0.0264 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball." The big cat
+
+............1497 0.0275 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball." The big cat said
+
+............29892 0.0275 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball." The big cat said,
+
+............376 0.0276 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball." The big cat said, "
+
+............3782 0.0276 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball." The big cat said, "No
+
+............29892 0.0283 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball." The big cat said, "No,
+
+............306 0.0281 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball." The big cat said, "No, I
+
+............674 0.0292 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball." The big cat said, "No, I will
+
+............451 0.0282 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball." The big cat said, "No, I will not
+
+............2125 0.0294 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, you can take one blue ball." The big cat said, "No, I will not take
+
+[41.0061 tok/s]
+max 38 tokens reached

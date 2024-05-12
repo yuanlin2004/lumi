@@ -1,0 +1,117 @@
+Reading model file ..................................................................................................................................................................................................................................................................................................... 11.0811 seconds
+Building the network . 3.5811 seconds
+
+[max seq length: 28   length of input prompt: 9]
+................................9522 0.7373 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+
+
+................................791 0.5249 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The
+
+................................2326 0.5202 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US
+
+................................4872 0.5208 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president
+
+................................304 0.5210 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in
+
+................................220 0.5208 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 
+
+................................2366 0.5210 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 202
+
+................................15 0.5208 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 2020
+
+................................374 0.5209 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 2020 is
+
+................................9522 0.5209 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 2020 is...
+
+
+................................644 0.5501 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 2020 is...
+In
+
+................................220 0.5209 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 2020 is...
+In 
+
+................................2366 0.5208 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 2020 is...
+In 202
+
+................................15 0.5215 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 2020 is...
+In 2020
+
+................................11 0.5204 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 2020 is...
+In 2020,
+
+................................279 0.5208 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 2020 is...
+In 2020, the
+
+................................4900 0.5209 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 2020 is...
+In 2020, the President
+
+................................315 0.5209 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 2020 is...
+In 2020, the President of
+
+................................279 0.5208 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 2020 is...
+In 2020, the President of the
+
+................................3723 0.5210 seconds
+
+<|begin_of_text|>The US president in 2020 is...
+The US president in 2020 is...
+In 2020, the President of the United
+
+[1.8749 tok/s]
+max 28 tokens reached

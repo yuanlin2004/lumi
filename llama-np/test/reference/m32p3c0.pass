@@ -1,0 +1,126 @@
+Reading model file ..................................................................................................................................................................................................................................................................................................... 11.0628 seconds
+Building the network . 0.0003 seconds
+
+[max seq length: 38   length of input prompt: 15]
+................................512 1.6754 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+
+
+................................4645 0.7157 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101
+
+................................11 0.7145 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101,
+
+................................220 0.7135 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 
+
+................................6889 0.7154 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103
+
+................................11 0.7152 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103,
+
+................................220 0.7162 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 
+
+................................7699 0.7173 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107
+
+................................11 0.7174 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107,
+
+................................220 0.7190 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 
+
+................................7743 0.7172 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109
+
+................................11 0.7179 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109,
+
+................................220 0.7168 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109, 
+
+................................8190 0.7163 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109, 113
+
+................................11 0.7159 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109, 113,
+
+................................220 0.7171 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109, 113, 
+
+................................6804 0.7172 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109, 113, 127
+
+................................11 0.7186 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109, 113, 127,
+
+................................220 0.7201 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109, 113, 127, 
+
+................................9263 0.7188 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109, 113, 127, 131
+
+................................11 0.7206 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109, 113, 127, 131,
+
+................................220 0.7206 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109, 113, 127, 131, 
+
+................................10148 0.7192 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109, 113, 127, 131, 137
+
+................................11 0.7199 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+101, 103, 107, 109, 113, 127, 131, 137,
+
+[1.3203 tok/s]
+max 38 tokens reached

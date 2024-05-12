@@ -1,0 +1,78 @@
+Reading model file ............................................................................. 0.0723 seconds
+Building the network . 0.1127 seconds
+
+[max seq length: 28   length of input prompt: 11]
+........4359 0.0829 seconds
+
+The US president in 2020 is almost
+
+........727 0.0174 seconds
+
+The US president in 2020 is almost there
+
+........29889 0.0132 seconds
+
+The US president in 2020 is almost there.
+
+........3118 0.0125 seconds
+
+The US president in 2020 is almost there. One
+
+........2462 0.0126 seconds
+
+The US president in 2020 is almost there. One day
+
+........29892 0.0124 seconds
+
+The US president in 2020 is almost there. One day,
+
+........670 0.0125 seconds
+
+The US president in 2020 is almost there. One day, his
+
+........5637 0.0125 seconds
+
+The US president in 2020 is almost there. One day, his mother
+
+........3614 0.0125 seconds
+
+The US president in 2020 is almost there. One day, his mother took
+
+........1075 0.0125 seconds
+
+The US president in 2020 is almost there. One day, his mother took him
+
+........304 0.0125 seconds
+
+The US president in 2020 is almost there. One day, his mother took him to
+
+........263 0.0125 seconds
+
+The US president in 2020 is almost there. One day, his mother took him to a
+
+........4802 0.0124 seconds
+
+The US president in 2020 is almost there. One day, his mother took him to a big
+
+........12529 0.0125 seconds
+
+The US president in 2020 is almost there. One day, his mother took him to a big factory
+
+........29889 0.0126 seconds
+
+The US president in 2020 is almost there. One day, his mother took him to a big factory.
+
+........940 0.0124 seconds
+
+The US president in 2020 is almost there. One day, his mother took him to a big factory. He
+
+........4446 0.0125 seconds
+
+The US president in 2020 is almost there. One day, his mother took him to a big factory. He saw
+
+........1784 0.0125 seconds
+
+The US president in 2020 is almost there. One day, his mother took him to a big factory. He saw many
+
+[59.7324 tok/s]
+max 28 tokens reached

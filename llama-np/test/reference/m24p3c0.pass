@@ -1,0 +1,86 @@
+Reading model file ................................................................................................................. 0.1555 seconds
+Building the network . 0.0001 seconds
+
+[max seq length: 38   length of input prompt: 19]
+............297 0.0290 seconds
+
+List all the prime numbers between 100 and 200. They are in
+
+............278 0.0184 seconds
+
+List all the prime numbers between 100 and 200. They are in the
+
+............7256 0.0180 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle
+
+............310 0.0180 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of
+
+............278 0.0179 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the
+
+............3143 0.0179 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the book
+
+............845 0.0179 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the booksh
+
+............761 0.0176 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the bookshelf
+
+............29892 0.0175 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the bookshelf,
+
+............541 0.0180 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the bookshelf, but
+
+............697 0.0179 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the bookshelf, but one
+
+............310 0.0177 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the bookshelf, but one of
+
+............963 0.0178 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the bookshelf, but one of them
+
+............338 0.0181 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the bookshelf, but one of them is
+
+............1407 0.0182 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the bookshelf, but one of them is very
+
+............13543 0.0181 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the bookshelf, but one of them is very weird
+
+............29889 0.0178 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the bookshelf, but one of them is very weird.
+
+............739 0.0179 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the bookshelf, but one of them is very weird. It
+
+............3430 0.0180 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the bookshelf, but one of them is very weird. It looks
+
+............763 0.0176 seconds
+
+List all the prime numbers between 100 and 200. They are in the middle of the bookshelf, but one of them is very weird. It looks like
+
+[53.9711 tok/s]
+max 38 tokens reached

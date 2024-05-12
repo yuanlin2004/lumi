@@ -1,0 +1,70 @@
+Reading model file ........................................................... 0.0330 seconds
+Building the network . 0.0925 seconds
+
+[max seq length: 19   length of input prompt: 4]
+......304 0.0706 seconds
+
+It is easy to
+
+......1722 0.0159 seconds
+
+It is easy to open
+
+......278 0.0088 seconds
+
+It is easy to open the
+
+......3050 0.0092 seconds
+
+It is easy to open the door
+
+......29889 0.0087 seconds
+
+It is easy to open the door.
+
+......940 0.0088 seconds
+
+It is easy to open the door. He
+
+......4188 0.0093 seconds
+
+It is easy to open the door. He lik
+
+......267 0.0090 seconds
+
+It is easy to open the door. He likes
+
+......304 0.0090 seconds
+
+It is easy to open the door. He likes to
+
+......5503 0.0088 seconds
+
+It is easy to open the door. He likes to push
+
+......278 0.0089 seconds
+
+It is easy to open the door. He likes to push the
+
+......889 0.0088 seconds
+
+It is easy to open the door. He likes to push the kn
+
+......711 0.0087 seconds
+
+It is easy to open the door. He likes to push the knob
+
+......29892 0.0092 seconds
+
+It is easy to open the door. He likes to push the knob,
+
+......541 0.0092 seconds
+
+It is easy to open the door. He likes to push the knob, but
+
+......372 0.0089 seconds
+
+It is easy to open the door. He likes to push the knob, but it
+
+[75.3769 tok/s]
+max 19 tokens reached

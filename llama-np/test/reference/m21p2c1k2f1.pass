@@ -1,0 +1,390 @@
+Reading model file .................................................. 0.0011 seconds
+Building the network . 0.0763 seconds
+
+[max seq length: 96   length of input prompt: 40]
+.....403 0.0712 seconds
+
+The
+
+.....276 0.0067 seconds
+
+There
+
+.....286 0.0062 seconds
+
+There a
+
+.....276 0.0061 seconds
+
+There are
+
+.....284 0.0067 seconds
+
+There are th
+
+.....276 0.0062 seconds
+
+There are thre
+
+.....411 0.0062 seconds
+
+There are three
+
+.....348 0.0061 seconds
+
+There are three r
+
+.....379 0.0061 seconds
+
+There are three red
+
+.....284 0.0061 seconds
+
+There are three red b
+
+.....388 0.0061 seconds
+
+There are three red ball
+
+.....419 0.0061 seconds
+
+There are three red balls
+
+.....426 0.0061 seconds
+
+There are three red balls and
+
+.....279 0.0062 seconds
+
+There are three red balls and f
+
+.....379 0.0061 seconds
+
+There are three red balls and fou
+
+.....264 0.0064 seconds
+
+There are three red balls and four
+
+.....349 0.0061 seconds
+
+There are three red balls and four b
+
+.....388 0.0063 seconds
+
+There are three red balls and four bl
+
+.....425 0.0061 seconds
+
+There are three red balls and four blu
+
+.....411 0.0064 seconds
+
+There are three red balls and four blue
+
+.....268 0.0061 seconds
+
+There are three red balls and four blue b
+
+.....421 0.0064 seconds
+
+There are three red balls and four blue ball
+
+.....426 0.0061 seconds
+
+There are three red balls and four blue balls
+
+.....426 0.0064 seconds
+
+There are three red balls and four blue balls in
+
+.....265 0.0061 seconds
+
+There are three red balls and four blue balls in a
+
+.....259 0.0064 seconds
+
+There are three red balls and four blue balls in a b
+
+.....388 0.0061 seconds
+
+There are three red balls and four blue balls in a ba
+
+.....419 0.0064 seconds
+
+There are three red balls and four blue balls in a bag
+
+.....426 0.0061 seconds
+
+There are three red balls and four blue balls in a bag.
+
+.....346 0.0064 seconds
+
+There are three red balls and four blue balls in a bag. I
+
+.....413 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If
+
+.....312 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I
+
+.....263 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I t
+
+.....420 0.0064 seconds
+
+There are three red balls and four blue balls in a bag. If I ta
+
+.....354 0.0062 seconds
+
+There are three red balls and four blue balls in a bag. If I take
+
+.....312 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take on
+
+.....411 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one
+
+.....280 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one b
+
+.....425 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball
+
+.....432 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball,
+
+.....383 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there
+
+.....286 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was
+
+.....261 0.0062 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a
+
+.....284 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a m
+
+.....289 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a mon
+
+.....356 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monst
+
+.....285 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster
+
+.....269 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and
+
+.....265 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the
+
+.....262 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the s
+
+.....379 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun
+
+.....286 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was
+
+.....263 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was w
+
+.....415 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was wh
+
+.....417 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was whi
+
+.....402 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which
+
+.....410 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which 
+
+.....293 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is
+
+.....282 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is p
+
+.....420 0.0064 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is pr
+
+.....414 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is pro
+
+.....430 0.0064 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is prob
+
+.....305 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is proble
+
+.....423 0.0064 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem
+
+.....426 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem.
+
+.....359 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. I
+
+.....413 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It
+
+.....439 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It'
+
+.....419 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's
+
+.....399 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very
+
+.....410 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very 
+
+.....288 0.0064 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very im
+
+.....427 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very imp
+
+.....276 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impre
+
+.....419 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impres
+
+.....419 0.0064 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impress
+
+.....417 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressi
+
+.....360 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive
+
+.....267 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to
+
+.....261 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a
+
+.....282 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a p
+
+.....295 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a par
+
+.....413 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a part
+
+.....422 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a party
+
+.....432 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a party,
+
+.....261 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a party, a
+
+.....262 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a party, a s
+
+.....415 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a party, a sh
+
+.....271 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a party, a shin
+
+.....422 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a party, a shiny
+
+.....280 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a party, a shiny c
+
+.....421 0.0064 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a party, a shiny cl
+
+.....277 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a party, a shiny clou
+
+.....418 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a party, a shiny cloud
+
+.....426 0.0061 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a party, a shiny cloud.
+
+.....291 0.0063 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, there was a monster and the sun was which is problem. It's very impressive to a party, a shiny cloud. The
+
+[144.3516 tok/s]
+max 96 tokens reached

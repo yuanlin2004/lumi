@@ -1,0 +1,78 @@
+Reading model file ........................................................... 0.0328 seconds
+Building the network . 0.0001 seconds
+
+[max seq length: 28   length of input prompt: 11]
+......2211 0.0088 seconds
+
+The US president in 2020 is three
+
+......322 0.0046 seconds
+
+The US president in 2020 is three and
+
+......577 0.0043 seconds
+
+The US president in 2020 is three and so
+
+......1784 0.0042 seconds
+
+The US president in 2020 is three and so many
+
+......4344 0.0044 seconds
+
+The US president in 2020 is three and so many children
+
+......29889 0.0045 seconds
+
+The US president in 2020 is three and so many children.
+
+......450 0.0044 seconds
+
+The US president in 2020 is three and so many children. The
+
+......4344 0.0044 seconds
+
+The US president in 2020 is three and so many children. The children
+
+......892 0.0045 seconds
+
+The US president in 2020 is three and so many children. The children were
+
+......9796 0.0044 seconds
+
+The US president in 2020 is three and so many children. The children were happy
+
+......29892 0.0044 seconds
+
+The US president in 2020 is three and so many children. The children were happy,
+
+......541 0.0045 seconds
+
+The US president in 2020 is three and so many children. The children were happy, but
+
+......896 0.0042 seconds
+
+The US president in 2020 is three and so many children. The children were happy, but they
+
+......5131 0.0042 seconds
+
+The US president in 2020 is three and so many children. The children were happy, but they wanted
+
+......304 0.0043 seconds
+
+The US president in 2020 is three and so many children. The children were happy, but they wanted to
+
+......437 0.0041 seconds
+
+The US president in 2020 is three and so many children. The children were happy, but they wanted to do
+
+......1554 0.0043 seconds
+
+The US president in 2020 is three and so many children. The children were happy, but they wanted to do something
+
+......4266 0.0044 seconds
+
+The US president in 2020 is three and so many children. The children were happy, but they wanted to do something special
+
+[215.1987 tok/s]
+max 28 tokens reached

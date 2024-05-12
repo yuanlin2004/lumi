@@ -1,0 +1,70 @@
+Reading model file ............................................................................. 0.0721 seconds
+Building the network . 0.1066 seconds
+
+[max seq length: 19   length of input prompt: 4]
+........322 0.0769 seconds
+
+It is easy and
+
+........11785 0.0165 seconds
+
+It is easy and bright
+
+........29892 0.0127 seconds
+
+It is easy and bright,
+
+........541 0.0121 seconds
+
+It is easy and bright, but
+
+........697 0.0122 seconds
+
+It is easy and bright, but one
+
+........2462 0.0130 seconds
+
+It is easy and bright, but one day
+
+........263 0.0121 seconds
+
+It is easy and bright, but one day a
+
+........8023 0.0122 seconds
+
+It is easy and bright, but one day a boy
+
+........471 0.0123 seconds
+
+It is easy and bright, but one day a boy was
+
+........1407 0.0123 seconds
+
+It is easy and bright, but one day a boy was very
+
+........23407 0.0124 seconds
+
+It is easy and bright, but one day a boy was very tired
+
+........29889 0.0127 seconds
+
+It is easy and bright, but one day a boy was very tired.
+
+........940 0.0125 seconds
+
+It is easy and bright, but one day a boy was very tired. He
+
+........750 0.0124 seconds
+
+It is easy and bright, but one day a boy was very tired. He had
+
+........1063 0.0124 seconds
+
+It is easy and bright, but one day a boy was very tired. He had been
+
+........8743 0.0124 seconds
+
+It is easy and bright, but one day a boy was very tired. He had been playing
+
+[59.8367 tok/s]
+max 19 tokens reached

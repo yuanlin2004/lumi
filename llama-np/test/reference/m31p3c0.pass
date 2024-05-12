@@ -1,0 +1,102 @@
+Reading model file ..................................................................................................................................................................................................................................................................................................... 10.9269 seconds
+Building the network . 0.0003 seconds
+
+[max seq length: 38   length of input prompt: 15]
+................................25 1.6795 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are:
+
+................................220 0.7217 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 
+
+................................4645 0.7177 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101
+
+................................11 0.7177 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101,
+
+................................220 0.7158 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 
+
+................................6889 0.7184 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103
+
+................................11 0.7192 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103,
+
+................................220 0.7195 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 
+
+................................7699 0.7186 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107
+
+................................11 0.7202 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107,
+
+................................220 0.7191 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 
+
+................................7743 0.7210 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 109
+
+................................11 0.7188 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 109,
+
+................................220 0.7195 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 109, 
+
+................................10148 0.7205 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 109, 137
+
+................................11 0.7204 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 109, 137,
+
+................................220 0.7210 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 109, 137, 
+
+................................10125 0.7203 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 109, 137, 139
+
+................................11 0.7191 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 109, 137, 139,
+
+................................220 0.7205 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 109, 137, 139, 
+
+................................10161 0.7217 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 109, 137, 139, 149
+
+................................11 0.7214 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 109, 137, 139, 149,
+
+................................220 0.7220 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 109, 137, 139, 149, 
+
+................................9690 0.7212 seconds
+
+<|begin_of_text|>List all the prime numbers between 100 and 200. They are: 101, 103, 107, 109, 137, 139, 149, 151
+
+[1.3160 tok/s]
+max 38 tokens reached

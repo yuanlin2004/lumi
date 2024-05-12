@@ -1,0 +1,98 @@
+Reading model file ............................................................................. 0.0726 seconds
+Building the network . 0.0001 seconds
+
+[max seq length: 38   length of input prompt: 19]
+........278 0.0144 seconds
+
+List all the prime numbers between 100 and 200. They are the
+
+........1556 0.0091 seconds
+
+List all the prime numbers between 100 and 200. They are the most
+
+........27592 0.0088 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant
+
+........11955 0.0087 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors
+
+........297 0.0089 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in
+
+........278 0.0087 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the
+
+........3186 0.0088 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world
+
+........29991 0.0089 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world!
+
+........13 0.0087 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world!
+
+
+........6716 0.0088 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world!
+One
+
+........2462 0.0087 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world!
+One day
+
+........29892 0.0087 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world!
+One day,
+
+........263 0.0087 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world!
+One day, a
+
+........29871 0.0087 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world!
+One day, a 
+
+........29941 0.0087 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world!
+One day, a 3
+
+........29899 0.0088 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world!
+One day, a 3-
+
+........6360 0.0087 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world!
+One day, a 3-year
+
+........29899 0.0089 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world!
+One day, a 3-year-
+
+........1025 0.0088 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world!
+One day, a 3-year-old
+
+........7826 0.0090 seconds
+
+List all the prime numbers between 100 and 200. They are the most brilliant colors in the world!
+One day, a 3-year-old girl
+
+[109.5595 tok/s]
+max 38 tokens reached

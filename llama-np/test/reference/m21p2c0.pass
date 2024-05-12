@@ -1,0 +1,266 @@
+Reading model file .................................................. 0.0010 seconds
+Building the network . 0.0001 seconds
+
+[max seq length: 96   length of input prompt: 40]
+.....419 0.0046 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls
+
+.....432 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls,
+
+.....265 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the
+
+.....268 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the b
+
+.....388 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the ball
+
+.....414 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the ballo
+
+.....289 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon
+
+.....286 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was
+
+.....297 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was n
+
+.....309 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not
+
+.....397 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not li
+
+.....354 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like
+
+.....261 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like a
+
+.....416 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like an
+
+.....422 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like any
+
+.....289 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyon
+
+.....411 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone
+
+.....426 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone.
+
+.....359 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. I
+
+.....413 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It
+
+.....391 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It want
+
+.....266 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted
+
+.....267 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to
+
+.....284 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to m
+
+.....412 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to ma
+
+.....354 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make
+
+.....265 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make the
+
+.....423 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them
+
+.....280 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them c
+
+.....414 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them co
+
+.....341 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold
+
+.....426 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+
+.....13 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+
+
+.....436 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"
+
+.....441 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"O
+
+.....415 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh
+
+.....297 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh n
+
+.....414 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no
+
+.....443 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!
+
+.....436 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!"
+
+.....265 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the
+
+.....268 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the b
+
+.....388 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the ball
+
+.....414 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the ballo
+
+.....289 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon
+
+.....262 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon s
+
+.....415 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon sh
+
+.....408 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shout
+
+.....266 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted
+
+.....426 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+
+.....13 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+
+
+.....434 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+T
+
+.....260 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+The
+
+.....268 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+The b
+
+.....388 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+The ball
+
+.....263 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+The ball w
+
+.....377 0.0006 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+The ball went
+
+[1539.4691 tok/s]
+max 96 tokens reached

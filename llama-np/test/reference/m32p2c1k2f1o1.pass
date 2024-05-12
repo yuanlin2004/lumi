@@ -1,0 +1,9 @@
+Reading model file ..................................................................................................................................................................................................................................................................................................... 10.9856 seconds
+Building the network . 3.5610 seconds
+
+[max seq length: 38   length of input prompt: 19]
+There are three red balls and four blue balls in a bag. If I take one ball out at random, what is the probability that it is a red ball?
+
+We know that there are
+[1.8988 tok/s]
+max 38 tokens reached

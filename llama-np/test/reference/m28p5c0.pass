@@ -1,0 +1,131 @@
+Reading model file ...................................................................................................................................................................................................................................................................................................... 9.5023 seconds
+Building the network . 0.0003 seconds
+
+[max seq length: 28   length of input prompt: 11]
+................................13 2.3984 seconds
+
+The US president in 2020 is
+
+
+................................13 0.6129 seconds
+
+The US president in 2020 is
+
+
+
+................................29909 0.6181 seconds
+
+The US president in 2020 is
+
+A
+
+................................29897 0.6190 seconds
+
+The US president in 2020 is
+
+A)
+
+................................18935 0.6157 seconds
+
+The US president in 2020 is
+
+A) Donald
+
+................................27504 0.6163 seconds
+
+The US president in 2020 is
+
+A) Donald Trump
+
+................................13 0.6154 seconds
+
+The US president in 2020 is
+
+A) Donald Trump
+
+
+................................29933 0.6161 seconds
+
+The US president in 2020 is
+
+A) Donald Trump
+B
+
+................................29897 0.6147 seconds
+
+The US president in 2020 is
+
+A) Donald Trump
+B)
+
+................................11131 0.6161 seconds
+
+The US president in 2020 is
+
+A) Donald Trump
+B) Joe
+
+................................350 0.6178 seconds
+
+The US president in 2020 is
+
+A) Donald Trump
+B) Joe B
+
+................................3615 0.6148 seconds
+
+The US president in 2020 is
+
+A) Donald Trump
+B) Joe Biden
+
+................................13 0.6156 seconds
+
+The US president in 2020 is
+
+A) Donald Trump
+B) Joe Biden
+
+
+................................29907 0.6176 seconds
+
+The US president in 2020 is
+
+A) Donald Trump
+B) Joe Biden
+C
+
+................................29897 0.6183 seconds
+
+The US president in 2020 is
+
+A) Donald Trump
+B) Joe Biden
+C)
+
+................................6209 0.6139 seconds
+
+The US president in 2020 is
+
+A) Donald Trump
+B) Joe Biden
+C) Bern
+
+................................347 0.6144 seconds
+
+The US president in 2020 is
+
+A) Donald Trump
+B) Joe Biden
+C) Bernie
+
+................................8564 0.6185 seconds
+
+The US president in 2020 is
+
+A) Donald Trump
+B) Joe Biden
+C) Bernie Sand
+
+[1.3981 tok/s]
+max 28 tokens reached

@@ -1,0 +1,78 @@
+Reading model file ...................................................................................................................................................................................................................................................................................................... 9.1186 seconds
+Building the network . 0.0003 seconds
+
+[max seq length: 28   length of input prompt: 11]
+................................731 2.3921 seconds
+
+The US president in 2020 is set
+
+................................304 0.6146 seconds
+
+The US president in 2020 is set to
+
+................................505 0.6148 seconds
+
+The US president in 2020 is set to have
+
+................................263 0.6178 seconds
+
+The US president in 2020 is set to have a
+
+................................7282 0.6242 seconds
+
+The US president in 2020 is set to have a significant
+
+................................10879 0.6219 seconds
+
+The US president in 2020 is set to have a significant impact
+
+................................373 0.6225 seconds
+
+The US president in 2020 is set to have a significant impact on
+
+................................278 0.6237 seconds
+
+The US president in 2020 is set to have a significant impact on the
+
+................................26504 0.6200 seconds
+
+The US president in 2020 is set to have a significant impact on the economy
+
+................................322 0.6232 seconds
+
+The US president in 2020 is set to have a significant impact on the economy and
+
+................................18161 0.6217 seconds
+
+The US president in 2020 is set to have a significant impact on the economy and financial
+
+................................2791 0.6205 seconds
+
+The US president in 2020 is set to have a significant impact on the economy and financial mark
+
+................................1691 0.6193 seconds
+
+The US president in 2020 is set to have a significant impact on the economy and financial markets
+
+................................29889 0.6184 seconds
+
+The US president in 2020 is set to have a significant impact on the economy and financial markets.
+
+................................450 0.6193 seconds
+
+The US president in 2020 is set to have a significant impact on the economy and financial markets. The
+
+................................10879 0.6220 seconds
+
+The US president in 2020 is set to have a significant impact on the economy and financial markets. The impact
+
+................................338 0.6201 seconds
+
+The US president in 2020 is set to have a significant impact on the economy and financial markets. The impact is
+
+................................5517 0.6239 seconds
+
+The US president in 2020 is set to have a significant impact on the economy and financial markets. The impact is likely
+
+[1.3909 tok/s]
+max 28 tokens reached

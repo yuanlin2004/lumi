@@ -1,0 +1,86 @@
+Reading model file ................................................................................................................. 0.1555 seconds
+Building the network . 0.0002 seconds
+
+[max seq length: 38   length of input prompt: 19]
+............29892 0.0289 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball,
+
+............306 0.0179 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I
+
+............674 0.0176 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will
+
+............505 0.0176 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have
+
+............697 0.0178 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one
+
+............2654 0.0179 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red
+
+............8287 0.0175 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball
+
+............29889 0.0179 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball.
+
+............960 0.0179 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If
+
+............306 0.0175 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I
+
+............2125 0.0175 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take
+
+............697 0.0177 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one
+
+............7254 0.0176 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue
+
+............8287 0.0176 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball
+
+............29892 0.0177 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball,
+
+............306 0.0176 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I
+
+............674 0.0176 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I will
+
+............505 0.0177 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I will have
+
+............697 0.0175 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I will have one
+
+............2654 0.0176 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I will have one red
+
+[54.7209 tok/s]
+max 38 tokens reached
