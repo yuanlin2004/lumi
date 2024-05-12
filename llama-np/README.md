@@ -2,22 +2,22 @@
 
 This is to play with models based on Meta's llama2 and llama3. 
 
-Currently `llama-np.py` implements an inference flow from scratch using `numpy` (and `cupy`) only, except for the tokenizer. As `numpy` and `cupy` lack of lower precision and bf16 support, the model execution is done in fp32. Nevertheless `llama-np.py` is able to run the llama-3-8B model at the speed of 1.2 tok/s (CPU) and 2.24 tok/s (with GPU) on a 'modern' PC circa 2023 (AMD Ryzen 7700x CPU, >32GB RAM, RTX 4070).
+The script `llama-np.py` implements inference using only `numpy` and `cupy`, except for the tokenizer, due to their lack of support for lower precision and bf16 formats, thus running models in fp32. It can execute the llama-3-8B model at approximately 1.2 tokens per second (tok/s) on CPU and 2.24 tok/s on GPU using a modern PC configuration (AMD Ryzen 7700x CPU with over 32GB RAM and an RTX 4070 GPU).
 
-`llama-np.py` has two modes,
+llama-np.py offers two operational modes:
 
-1. text completion (default): complete a given prompt.
-2. chat (with `--chat` option): engage in a dialog with the model.
+1. Text completion (default) for prompt completions.
+2. Chat (activated with the `--chat` option) for engaging in dialogues with the model.
 
-`llama-np.py` implements different options for experimental purposes.  
+It supports various experimental features:
 
-- use kv-cache or not 
-- update kv-cache using an in-place-update method or a concatenate method
-- feed the input tokens, in the prefill stage, to the transform block as one sequence or one token at a time (similar to that in [`llama2.c`](https://github.com/karpathy/llama2.c)). 
-- use `cupy` in place of `numpy`
+- Enabling or disabling the key-value (kv) cache
+- Methods for updating the kv cache: in-place or concatenation
+- Prefill strategies for input tokens: single sequence or one token at a time, similar to the approach in llama2.c
+- Option to use cupy instead of numpy
 
 ```sh
-% python llama-np.py -t ~/tokenizer.model -w ~/Meta-Llama-3-8B.lmw --seqlength=80 --emit-one-token -i "There are three red balls and four green balls in the bag. If I take out" 
+% python llama-np.py -w ~/Meta-Llama-3-8B.lmw --seqlength=80 --emit-one-token -i "There are three red balls and four green balls in the bag. If I take out" 
 
 <|begin_of_text|>There are three red balls and four green balls in the bag. If I take out a ball at random, what is the probability that it is green?
 
@@ -28,29 +28,28 @@ Final Answer: The final answer is \frac{4}{7}. I hope it is correct.
 ```
 
 
-## Models Supported
+## Supported Models
 
 | Model Name | Size | Precision |
 | ---------- | ---- | ---- |
-| llama3     | 8B   | fp32     |
-| llama2     | 7B   | fp32     |
+| llama3     | 8B   | bf16     |
+| llama2     | 7B   | bf16     |
 | TinyStories  | 260K   | fp32     |
 | TinyStories  | 15M   | fp32     |
 | TinyStories  | 42M   | fp32     |
 | TinyStories  | 110M   | fp32     |
 
-
-## Run the Models
-
-There are two steps to run a model - 1) convert the weights, 2) run the model. 
+## Operating Instructions
+Running a model involves two primary steps: converting the weights into a compatible format and running the model itself.
 
 ### Weight Conversion
-Model weights need to be converted into the `lumi weight` format (.lmw) before being fed into `llama-np.py`. The `convert.py` script does the magic. It can read pytorch checkpoint (.pt) files.  Handling of Huggingface `.safetensors` files and `pytorch_model.bin` files is also implemented but inference results are wrong for some unknown reasons right now.
+Weights need to be converted into the `.lmw` (lumi weight) format, embedding the tokenizer within the weight file. The `convert.py` script is responsible for this transformation and contains model-specific logic.
 
-Due to the specifics of individual models, `convert.py` contains many hard-coded logics.
+### Model Execution
+Once weights are converted, the `llama-np.py` script performs text generation using the input string and the converted weight file.
 
 ### Running Models
-Given a tokenizer model (usually `tokenizer.model`), a weight file (`*.lmw`) and an initial text string, `llama-np.py` performs text generation based on the input string. 
+Given a weight file (`*.lmw`) and an initial text string, `llama-np.py` performs text generation based on the input string.
 
 `compat-llama-np.py` is a simplified version of `llama-np.py`, aiming to be as short as possible, but not too short. See below.
 
@@ -62,12 +61,12 @@ Get the model files from Meta per instructions on https://github.com/meta-llama/
 #### Convert
 
 ```sh
-% python convert.py <path>/Meta-Llama-3-8B <path>/Meta-Llama-3-8B/llama-3-8b.lmw 
+% python convert.py <path>/Meta-Llama-3-8B <path>/Meta-Llama-3-8B/tokenizer.model <path>/Meta-Llama-3-8B/llama-3-8b.lmw 
 ```
 
 #### Inference
 ```sh
-% python llama-np.py -t <path>/Meta-Llama-3-8B/tokenizer.model -w <path>/Meta-Llama-3-8B/llama-3-8b.lmw -i "It is easy"
+% python llama-np.py -w <path>/Meta-Llama-3-8B/llama-3-8b.lmw -i "It is easy"
 
 <|begin_of_text|>It is easy to get caught up in the excitement of the holiday season. The decorations, the ...
 ```
@@ -80,12 +79,12 @@ Get the model files from Meta per instructions on https://github.com/meta-llama/
 #### Convert
 
 ```sh
-% python convert.py <path>/Llama2/llama-2-7b <path>/Llama2/llama-2-7b/llama-2-7b.lmw 
+% python convert.py <path>/Llama2/llama-2-7b <path>/Llama2/tokenizer.model <path>/Llama2/llama-2-7b/llama-2-7b.lmw 
 ```
 
 #### Inference
 ```sh
-% python llama-np.py -t <path>/Llama2/tokenizer.model -w <path>/Llama2/llama-2-7b/llama-2-7b.lmw -i "It is easy"
+% python llama-np.py -w <path>/Llama2/llama-2-7b/llama-2-7b.lmw -i "It is easy"
 
 It is easy to get lost in the world of the internet. It is easy ...
 ```
@@ -106,24 +105,23 @@ It is easy to get lost in the world of the internet. It is easy ...
 
 #### Convert
 ```
-% python convert.py tinystories/stories15M.pt tinystories/stories15M.lmw
-% python convert.py tinystories/stories42M.pt tinystories/stories42M.lmw
-% python convert.py tinystories/stories110M.pt tinystories/stories110M.lmw
-% python convert.py tinystories/stories260K.pt tinystories/stories260K.lmw
+% python convert.py tinystories/stories15M.pt <path>/Llama2/tokenizer.model tinystories/stories15M.lmw
+% python convert.py tinystories/stories42M.pt <path>/Llama2/tokenizer.model tinystories/stories42M.lmw
+% python convert.py tinystories/stories110M.pt <path>/Llama2/tokenizer.model tinystories/stories110M.lmw
+% python convert.py tinystories/stories260K.pt tinystories/tok512.model tinystories/stories260K.lmw
 ```
 
 #### Inference
 
-All models uses the same `tokenizer.model` from `llama-2` above, except for `stories260K` which uses the `tok512.model`.
 
 ```
-% python llama-np.py -t tokenizer.model -w tinystories/stories15M.lmw -i "It is easy" 
+% python llama-np.py -w tinystories/stories15M.lmw -i "It is easy" 
 
 It is easy for you to get up and play. But today you have to go to the doctor. He is very sick. He has a bad cough and a sore throat. He needs to take some medicine and rest.
 Lily and Ben do not want to go to the doctor. They want to stay home and play. They say, "No, no, no! We are not sick! We are having fun!"
 Mom says, "No, no, no! You have to go to the doctor. He will help you. He will make you feel better. He will give you some medicine
 
-% python llama-np.py --seqlength=257 -t tinystories/tok512.model -w tinystories/stories260K.lmw -i "Once upon"
+% python llama-np.py -w tinystories/stories260K.lmw -i "Once upon"
 
 Once upon a time, there was a little girl named Lily. She loved to play outside in the park. One day, she saw a big, red ball. She wanted to play with it, but it was too high.
 Lily's mom said, "Lily, let's go to the park." Lily was sad and didn't know what to do. She said, "I want to play with your ball, but I can't find it."
@@ -131,14 +129,12 @@ Lily was sad and didn't know what to do. She said, "I'm sorry, Lily. I didn't kn
 Lily didn't want to help her mom, so she said, "I'm sorry, mom. I didn't know what to do." Her mom said, "Don't worry, Lily. We can help you."
 ```
 
-## `compat-llama-np.py`: Llama2/Llama3 under 250 LoC
+## `compat-llama-np.py`: a simplified version  
 
-`compat-llama-np.py` is a variant of `llama-np.py` under 250 LoC, excluding the tokenizer code and the weight reading code. It strips out many experimental features and debugging utilities. 
-
-Since it does not have the boilerplate code, `compat-llama-np.py` is somewhat more readable than `llama-np.py` in terms of illustrating the llama network architecture. 
+The `compat-llama-np.py` script is a streamlined version of `llama-np.py`, reducing the code to under 250 lines. It excludes tokenizer code and weight reading utilities but maintains essential functions to illustrate the network architecture effectively.
 
 ```
-%  python compat-llama-np.py -t tokenizer.model -w stories15M.lmw  -i 'There are three red balls and four green balls in the bag. If I take out' --seqlength 128
+%  python compat-llama-np.py -w stories15M.lmw  -i 'There are three red balls and four green balls in the bag. If I take out' --seqlength 128
 ...
 There are three red balls and four green balls in the bag. If I take out the red ball, I will be very happy. But I need to be careful. I don't want to get hurt."
 The red balls were very excited. They wanted to play with the red ball. So, they started to roll and bounce. They were having so much fun.
