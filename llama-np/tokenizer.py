@@ -172,7 +172,7 @@ class Tokenizer_Llama3:
             t.append(self.eos_id)
         return t
 
-    def decode(self, t: Sequence[int]) -> str:
+    def decode(self, t: Sequence[int], skip_bos=False) -> str:
         """
         Decodes a list of token IDs into a string.
 
@@ -182,6 +182,8 @@ class Tokenizer_Llama3:
         Returns:
             str: The decoded string.
         """
+        if skip_bos and t[0] == self.bos_id:
+            t = t[1:]
         # Typecast is safe here. Tiktoken doesn't do anything list-related with the sequence.
         return self.model.decode(cast(List[int], t))
 
@@ -281,5 +283,6 @@ class Tokenizer_Llama2:
             t = t + [self.eos_id]
         return t
 
-    def decode(self, t: List[int]) -> str:
+    def decode(self, t: List[int], skip_bos=False) -> str:
+        # skip_bos is used in llama3 tokenizer. Add it here to make the interface consistent. 
         return self.sp_model.decode(t)

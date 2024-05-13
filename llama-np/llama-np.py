@@ -176,7 +176,7 @@ class Llama:
         )
         if exp_args.one_a_time:
             # feed the token in the prompt one a time
-            output_tokens = []
+            output_tokens = [input_tokens[0]]
             in_tokens = [input_tokens[0]]
         else:
             # feed the prompt tokens all together
@@ -191,7 +191,7 @@ class Llama:
             emit_one_token = False
 
         if emit_one_token and not print_new_only:
-            s = self.tokenizer.decode(output_tokens)
+            s = self.tokenizer.decode(output_tokens, skip_bos=True)
             print(f"{s}", flush=True, end="")
 
         i = 0
@@ -233,7 +233,7 @@ class Llama:
                 self.sampler.add_str(s)
                 print(f"{s}", flush=True, end="")
             else:
-                s = self.tokenizer.decode(output_tokens)
+                s = self.tokenizer.decode(output_tokens, skip_bos=True)
                 print("")
                 print(f"{s}", flush=True)
                 print("")
