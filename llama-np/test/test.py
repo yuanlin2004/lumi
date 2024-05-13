@@ -57,6 +57,7 @@ kv_cache_options = [
 ]
 
 prefill_options = [
+    ("", "f0"),
     ("--fill1", "f1"),
 ]
 
@@ -93,13 +94,17 @@ def iterate_all(func, ccheck=None):
     for m in [find_model("stories110m.lmw"), find_model("stories260k.lmw")]:
         for p in [prompts[1]]:
             for c in cupy_options:
-                for k in kv_cache_options:
-                    for f in prefill_options:
+                for k in kv_cache_options[1:]:
+                    for f in prefill_options[1:]:
                         func(
                             f"-w {m[0]} {p[0]} --seqlength {int(m[1]*p[1])} {c[0]} {k[0]} {f[0]}",
                             m[-1] + p[-1] + c[-1] + k[-1] + f[-1],
                         )
 
+    iterate_cross(func, ccheck)
+
+
+def iterate_cross(func, ccheck=None):
     # check kv_cache_options and prefill_option for llama3 model
     # Use the output_options (emit-one-token), so we can cross-compare all the outputs.
     m = llama3_models[1]
@@ -109,8 +114,11 @@ def iterate_all(func, ccheck=None):
     for c in cupy_options:
         for k in kv_cache_options:
             for f in prefill_options:
-                #            func(f"-w {m[0]} {p[0]} --seqlength {int(m[1]*p[1])} {c[0]} {k[0]} {f[0]} {o[0]}", m[-1]+p[-1]+c[-1]+k[-1]+f[-1]+o[-1])
-                all_outputs.append(m[-1] + p[-1] + c[-1] + k[-1] + f[-1] + o[-1])
+                result, filename = func(
+                    f"-w {m[0]} {p[0]} --seqlength {int(m[1]*p[1])} {c[0]} {k[0]} {f[0]} {o[0]}",
+                    m[-1] + p[-1] + c[-1] + k[-1] + f[-1] + o[-1],
+                )
+                all_outputs.append(filename)
 
     if ccheck is not None:
         ccheck(all_outputs)
@@ -174,6 +182,7 @@ total_number_of_tests = 0
 def count_test(*args):
     global total_number_of_tests
     total_number_of_tests += 1
+    return 0, ""
 
 
 current = 0
@@ -206,45 +215,52 @@ def test_one(cmd, ids):
     if result != 0:
         status = "\033[91m Failed\033[00m"
         failed.append((command, ids))
-        os.rename(output, output + ".fail")
+        filename = output + ".fail"
+        os.rename(output, filename)
+        compare_result = 3
     else:
         compare_result = compare(output, ref_dir + "/" + ids + ".pass")
         if compare_result == 1:
             status = "\033[93m Miscompare\033[00m"
             miscompare.append((command, ids))
-            os.rename(output, output + ".misc")
+            filename = output + ".misc"
+            os.rename(output, filename)
         elif compare_result == 0:
             status = "\033[92m Passed\033[00m"
             passed.append((command, ids))
-            os.rename(output, output + ".pass")
+            filename = output + ".pass"
+            os.rename(output, filename)
         else:
             status = "\033[93m Ref Missing\033[00m"
             ref_missing.append((command, ids))
-            os.rename(output, output + ".pass")
+            filename = output + ".pass"
+            os.rename(output, filename)
 
     text = f"\r[{current}/{total_number_of_tests}]:{status} {local_time1} {minutes}m{seconds}s {command}"
     print(text)
+    return compare_result, filename
+    # 0 passed, 1 miscompare, 2 ref missing, 3 failed
 
 
 cross_failed = None
 
 
 def cross_check(all_outputs):
-    # since all the outputs are supposed to the be the same, we do not need to compare all of them pairwise.
     failed = 0
     global cross_failed
     cross_failed = []
-    for i in range(len(all_outputs) - 1):
-        compare_result = compare(
-            output_dir + "/" + all_outputs[i] + ".pass",
-            output_dir + "/" + all_outputs[i + 1] + ".pass",
-        )
-        if compare_result != 0:
-            print(
-                f"Cross compare failed: {all_outputs[i]}.pass {all_outputs[i+1]}.pass"
+    # compare all the outputs pairwise
+    for i in range(0, len(all_outputs)-1):
+        for j in range(i + 1, len(all_outputs)):
+            compare_result = compare(
+                all_outputs[i], all_outputs[j],
             )
-            failed += 1
-            cross_failed.append((all_outputs[i], all_outputs[i + 1]))
+            if compare_result == 0:
+                print(f"Cross compare passed: {all_outputs[i]} {all_outputs[j]}")
+            else:
+                print(f"Cross compare failed: {all_outputs[i]} {all_outputs[j]}")
+                failed += 1
+                cross_failed.append((all_outputs[i], all_outputs[j]))
     return failed
 
 
@@ -291,6 +307,11 @@ if __name__ == "__main__":
         help="l0: sanity check, finish in less than 1 minute.",
     )
     group.add_argument(
+        "-lc",
+        action="store_true",
+        help="lc: cross check. Check options that do not affect generated results.",
+    )
+    group.add_argument(
         "-l1",
         action="store_true",
         help="l1: fast check, finish in less than 10 minutes.",
@@ -306,6 +327,9 @@ if __name__ == "__main__":
     elif args.l1:
         iterate_func = iterate_l1
         test_name = "l1"
+    elif args.lc:
+        iterate_func = iterate_cross
+        test_name = "lc"
 
     iterate_func(count_test)
     print(f"Test kind: {test_name}  Total number of tests: {total_number_of_tests}")
@@ -313,7 +337,7 @@ if __name__ == "__main__":
     start_time = time()
 
     current = 0
-    # os.system(f"rm {output_dir}/*")
+    os.system(f"rm {output_dir}/*")
     iterate_func(test_one, cross_check)
     print(f"passed: {len(passed)}")
     print(f"failed: {len(failed)}")
