@@ -1,8 +1,8 @@
 Reading model file .................................................. 0.0011 seconds
-Building the network . 0.0849 seconds
+Building the network . 0.0776 seconds
 
 [max seq length: 48   length of input prompt: 9]
-.....426 0.0783 seconds
+.....426 0.0784 seconds
 
 It is easy.
 
@@ -10,19 +10,19 @@ It is easy.
 
 It is easy. I
 
-.....413 0.0070 seconds
+.....413 0.0071 seconds
 
 It is easy. It
 
-.....286 0.0073 seconds
+.....286 0.0071 seconds
 
 It is easy. It was
 
-.....399 0.0075 seconds
+.....399 0.0076 seconds
 
 It is easy. It was very
 
-.....272 0.0071 seconds
+.....272 0.0070 seconds
 
 It is easy. It was very f
 
@@ -30,127 +30,127 @@ It is easy. It was very f
 
 It is easy. It was very fa
 
-.....356 0.0069 seconds
+.....356 0.0072 seconds
 
 It is easy. It was very fast
 
-.....426 0.0070 seconds
+.....426 0.0071 seconds
 
 It is easy. It was very fast.
 
-.....410 0.0069 seconds
+.....410 0.0070 seconds
 
 It is easy. It was very fast. 
 
-.....447 0.0069 seconds
+.....447 0.0071 seconds
 
 It is easy. It was very fast. A
 
-.....419 0.0069 seconds
+.....419 0.0071 seconds
 
 It is easy. It was very fast. As
 
-.....281 0.0069 seconds
+.....281 0.0071 seconds
 
 It is easy. It was very fast. As he
 
-.....286 0.0070 seconds
+.....286 0.0071 seconds
 
 It is easy. It was very fast. As he was
 
-.....262 0.0069 seconds
+.....262 0.0072 seconds
 
 It is easy. It was very fast. As he was s
 
-.....411 0.0069 seconds
+.....411 0.0071 seconds
 
 It is easy. It was very fast. As he was se
 
-.....411 0.0069 seconds
+.....411 0.0071 seconds
 
 It is easy. It was very fast. As he was see
 
-.....410 0.0069 seconds
+.....410 0.0071 seconds
 
 It is easy. It was very fast. As he was see 
 
-.....447 0.0070 seconds
+.....447 0.0071 seconds
 
 It is easy. It was very fast. As he was see A
 
-.....416 0.0073 seconds
+.....416 0.0071 seconds
 
 It is easy. It was very fast. As he was see An
 
-.....416 0.0069 seconds
+.....416 0.0071 seconds
 
 It is easy. It was very fast. As he was see Ann
 
-.....412 0.0067 seconds
+.....412 0.0072 seconds
 
 It is easy. It was very fast. As he was see Anna
 
-.....432 0.0066 seconds
+.....432 0.0071 seconds
 
 It is easy. It was very fast. As he was see Anna,
 
-.....261 0.0064 seconds
+.....261 0.0070 seconds
 
 It is easy. It was very fast. As he was see Anna, a
 
-.....280 0.0066 seconds
+.....280 0.0069 seconds
 
 It is easy. It was very fast. As he was see Anna, a c
 
-.....260 0.0062 seconds
+.....260 0.0067 seconds
 
 It is easy. It was very fast. As he was see Anna, a che
 
-.....285 0.0063 seconds
+.....285 0.0066 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheer
 
-.....431 0.0063 seconds
+.....431 0.0064 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerf
 
-.....425 0.0062 seconds
+.....425 0.0064 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerfu
 
-.....421 0.0061 seconds
+.....421 0.0062 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful
 
-.....400 0.0063 seconds
+.....400 0.0062 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful do
 
-.....428 0.0061 seconds
+.....428 0.0062 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog
 
-.....395 0.0063 seconds
+.....395 0.0062 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named
 
-.....392 0.0061 seconds
+.....392 0.0062 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named M
 
-.....412 0.0063 seconds
+.....412 0.0062 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named Ma
 
-.....444 0.0061 seconds
+.....444 0.0062 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named Max
 
-.....426 0.0063 seconds
+.....426 0.0062 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named Max.
 
-.....392 0.0061 seconds
+.....392 0.0063 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named Max. M
 
@@ -158,9 +158,9 @@ It is easy. It was very fast. As he was see Anna, a cheerful dog named Max. M
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named Max. Ma
 
-.....444 0.0061 seconds
+.....444 0.0062 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named Max. Max
 
-[116.2219 tok/s]
+[114.3687 tok/s]
 max 48 tokens reached

@@ -1,8 +1,8 @@
-Reading model file ........................................................... 0.0334 seconds
-Building the network . 0.0922 seconds
+Reading model file ........................................................... 0.0387 seconds
+Building the network . 0.0952 seconds
 
 [max seq length: 28   length of input prompt: 11]
-......2211 0.0767 seconds
+......2211 0.0775 seconds
 
 The US president in 2020 is three
 
@@ -14,39 +14,39 @@ The US president in 2020 is three and
 
 The US president in 2020 is three and so
 
-......1784 0.0097 seconds
+......1784 0.0095 seconds
 
 The US president in 2020 is three and so many
 
-......4344 0.0092 seconds
+......4344 0.0090 seconds
 
 The US president in 2020 is three and so many children
 
-......29889 0.0090 seconds
+......29889 0.0095 seconds
 
 The US president in 2020 is three and so many children.
 
-......450 0.0092 seconds
+......450 0.0090 seconds
 
 The US president in 2020 is three and so many children. The
 
-......4344 0.0090 seconds
+......4344 0.0089 seconds
 
 The US president in 2020 is three and so many children. The children
 
-......892 0.0094 seconds
+......892 0.0089 seconds
 
 The US president in 2020 is three and so many children. The children were
 
-......9796 0.0091 seconds
+......9796 0.0089 seconds
 
 The US president in 2020 is three and so many children. The children were happy
 
-......29892 0.0091 seconds
+......29892 0.0089 seconds
 
 The US president in 2020 is three and so many children. The children were happy,
 
-......541 0.0091 seconds
+......541 0.0089 seconds
 
 The US president in 2020 is three and so many children. The children were happy, but
 
@@ -58,21 +58,21 @@ The US president in 2020 is three and so many children. The children were happy,
 
 The US president in 2020 is three and so many children. The children were happy, but they wanted
 
-......304 0.0091 seconds
+......304 0.0090 seconds
 
 The US president in 2020 is three and so many children. The children were happy, but they wanted to
 
-......437 0.0091 seconds
+......437 0.0090 seconds
 
 The US president in 2020 is three and so many children. The children were happy, but they wanted to do
 
-......1554 0.0090 seconds
+......1554 0.0089 seconds
 
 The US president in 2020 is three and so many children. The children were happy, but they wanted to do something
 
-......1683 0.0092 seconds
+......1683 0.0091 seconds
 
 The US president in 2020 is three and so many children. The children were happy, but they wanted to do something else
 
-[76.0544 tok/s]
+[76.3015 tok/s]
 max 28 tokens reached

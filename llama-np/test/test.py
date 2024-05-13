@@ -202,12 +202,15 @@ def test_one(cmd, ids):
     if os.path.exists(output + ".pass"):
         exists = "pass"
         compare_result = 0
+        passed.append((command, ids))
     elif os.path.exists(output + ".fail"):
         exists = "fail"
         compare_result = 3
+        failed.append((command, ids))
     elif os.path.exists(output + ".misc"):
         exists = "misc"
         compare_result = 1
+        miscompare.append((command, ids))
 
     if exists is not None:
         #skip the test

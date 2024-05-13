@@ -1,70 +1,70 @@
-Reading model file ...................................................................................................................................................................................................................................................................................................... 39.5178 seconds
+Reading model file ...................................................................................................................................................................................................................................................................................................... 33.5422 seconds
 Building the network . 0.0003 seconds
 
 [max seq length: 19   length of input prompt: 4]
-................................304 1.1255 seconds
+................................304 1.1491 seconds
 
 It is easy to
 
-................................2274 0.6184 seconds
+................................2274 0.6120 seconds
 
 It is easy to understand
 
-................................2020 0.6168 seconds
+................................2020 0.6111 seconds
 
 It is easy to understand why
 
-................................1784 0.6166 seconds
+................................1784 0.6162 seconds
 
 It is easy to understand why many
 
-................................2305 0.6193 seconds
+................................2305 0.6129 seconds
 
 It is easy to understand why many people
 
-................................5821 0.6214 seconds
+................................5821 0.6141 seconds
 
 It is easy to understand why many people prefer
 
-................................304 0.6222 seconds
+................................304 0.6172 seconds
 
 It is easy to understand why many people prefer to
 
-................................15649 0.6237 seconds
+................................15649 0.6156 seconds
 
 It is easy to understand why many people prefer to buy
 
-................................10035 0.6201 seconds
+................................10035 0.6171 seconds
 
 It is easy to understand why many people prefer to buy generic
 
-................................13589 0.6278 seconds
+................................13589 0.6147 seconds
 
 It is easy to understand why many people prefer to buy generic medic
 
-................................1475 0.6269 seconds
+................................1475 0.6248 seconds
 
 It is easy to understand why many people prefer to buy generic medicines
 
-................................2012 0.6272 seconds
+................................2012 0.6153 seconds
 
 It is easy to understand why many people prefer to buy generic medicines instead
 
-................................310 0.6240 seconds
+................................310 0.6164 seconds
 
 It is easy to understand why many people prefer to buy generic medicines instead of
 
-................................14982 0.6266 seconds
+................................14982 0.6150 seconds
 
 It is easy to understand why many people prefer to buy generic medicines instead of brand
 
-................................287 0.6298 seconds
+................................287 0.6155 seconds
 
 It is easy to understand why many people prefer to buy generic medicines instead of branded
 
-................................6743 0.6281 seconds
+................................6743 0.6118 seconds
 
 It is easy to understand why many people prefer to buy generic medicines instead of branded ones
 
-[1.5274 tok/s]
+[1.5414 tok/s]
 max 19 tokens reached

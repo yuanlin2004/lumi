@@ -1,8 +1,8 @@
-Reading model file ...................................................................................................................................................................................................................................................................................................... 9.1962 seconds
-Building the network . 2.9450 seconds
+Reading model file ...................................................................................................................................................................................................................................................................................................... 8.7308 seconds
+Building the network . 2.9056 seconds
 
 [max seq length: 960   length of input prompt: 832]
-................................13 1.2972 seconds
+................................13 1.2898 seconds
 
 Facing death is often considered the ultimate test of the human spirit, a profound experience that prompts a deep, internal confrontation with our own existence. This confrontation is not just a fleeting moment of fear but a transformative journey that reshapes our understanding of life itself. It is an interrogation of the soul that allows us to peer into the very essence of our being and emerge reborn. The transformative impact of facing death manifests in three distinct aspects: simplicity, bravery, and fulfillment.
 
@@ -30,5 +30,5 @@ In essence,
 
 
 
-................................2 0.4551 seconds
-[1.1411 tok/s]
+................................2 0.4554 seconds
+[1.1457 tok/s]

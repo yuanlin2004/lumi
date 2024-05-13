@@ -1,12 +1,12 @@
-Reading model file ........................................................... 0.0329 seconds
-Building the network . 0.0865 seconds
+Reading model file ........................................................... 0.0387 seconds
+Building the network . 0.0915 seconds
 
 [max seq length: 38   length of input prompt: 19]
-......599 0.0737 seconds
+......599 0.0777 seconds
 
 List all the prime numbers between 100 and 200. They are all
 
-......1407 0.0127 seconds
+......1407 0.0132 seconds
 
 List all the prime numbers between 100 and 200. They are all very
 
@@ -18,85 +18,85 @@ List all the prime numbers between 100 and 200. They are all very important
 
 List all the prime numbers between 100 and 200. They are all very important.
 
-......13 0.0089 seconds
+......13 0.0090 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 
 
-......6716 0.0089 seconds
+......6716 0.0090 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One
 
-......2462 0.0090 seconds
+......2462 0.0089 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day
 
-......29892 0.0088 seconds
+......29892 0.0089 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day,
 
-......1550 0.0089 seconds
+......1550 0.0088 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day, while
 
-......896 0.0091 seconds
+......896 0.0088 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day, while they
 
-......892 0.0090 seconds
+......892 0.0089 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day, while they were
 
-......8743 0.0088 seconds
+......8743 0.0090 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day, while they were playing
 
-......29892 0.0087 seconds
+......29892 0.0088 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day, while they were playing,
 
-......896 0.0088 seconds
+......896 0.0089 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day, while they were playing, they
 
-......1476 0.0088 seconds
+......1476 0.0089 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day, while they were playing, they found
 
-......385 0.0089 seconds
+......385 0.0091 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day, while they were playing, they found an
 
-......4069 0.0088 seconds
+......4069 0.0089 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day, while they were playing, they found an empty
 
-......3800 0.0090 seconds
+......3800 0.0089 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day, while they were playing, they found an empty box
 
-......29889 0.0089 seconds
+......29889 0.0090 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day, while they were playing, they found an empty box.
 
-......2688 0.0088 seconds
+......2688 0.0089 seconds
 
 List all the prime numbers between 100 and 200. They are all very important.
 One day, while they were playing, they found an empty box. They
 
-[80.8610 tok/s]
+[79.2271 tok/s]
 max 38 tokens reached

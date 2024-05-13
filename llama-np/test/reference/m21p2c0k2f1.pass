@@ -1,64 +1,64 @@
-Reading model file .................................................. 0.0010 seconds
+Reading model file .................................................. 0.0011 seconds
 Building the network . 0.0001 seconds
 
 [max seq length: 96   length of input prompt: 40]
-.....403 0.0008 seconds
+.....403 0.0007 seconds
 
 The
 
-.....276 0.0005 seconds
+.....279 0.0005 seconds
 
 There
 
-.....286 0.0005 seconds
+.....382 0.0005 seconds
 
 There a
 
-.....276 0.0005 seconds
+.....413 0.0004 seconds
 
 There are
 
-.....284 0.0004 seconds
+.....282 0.0004 seconds
 
 There are th
 
-.....276 0.0005 seconds
+.....276 0.0004 seconds
 
 There are thre
 
-.....411 0.0005 seconds
+.....411 0.0004 seconds
 
 There are three
 
-.....348 0.0005 seconds
+.....348 0.0004 seconds
 
 There are three r
 
-.....379 0.0005 seconds
+.....379 0.0004 seconds
 
 There are three red
 
-.....284 0.0005 seconds
+.....308 0.0004 seconds
 
 There are three red b
 
-.....388 0.0005 seconds
+.....414 0.0004 seconds
 
 There are three red ball
 
-.....419 0.0005 seconds
+.....426 0.0004 seconds
 
 There are three red balls
 
-.....426 0.0004 seconds
+.....269 0.0004 seconds
 
 There are three red balls and
 
-.....279 0.0004 seconds
+.....265 0.0004 seconds
 
 There are three red balls and f
 
-.....379 0.0004 seconds
+.....314 0.0005 seconds
 
 There are three red balls and fou
 
@@ -66,11 +66,11 @@ There are three red balls and fou
 
 There are three red balls and four
 
-.....349 0.0004 seconds
+.....432 0.0004 seconds
 
 There are three red balls and four b
 
-.....388 0.0005 seconds
+.....414 0.0004 seconds
 
 There are three red balls and four bl
 
@@ -82,7 +82,7 @@ There are three red balls and four blu
 
 There are three red balls and four blue
 
-.....268 0.0004 seconds
+.....272 0.0004 seconds
 
 There are three red balls and four blue b
 
@@ -102,7 +102,7 @@ There are three red balls and four blue balls in
 
 There are three red balls and four blue balls in a
 
-.....259 0.0004 seconds
+.....270 0.0004 seconds
 
 There are three red balls and four blue balls in a b
 
@@ -118,7 +118,7 @@ There are three red balls and four blue balls in a bag
 
 There are three red balls and four blue balls in a bag.
 
-.....346 0.0004 seconds
+.....342 0.0004 seconds
 
 There are three red balls and four blue balls in a bag. I
 
@@ -126,15 +126,15 @@ There are three red balls and four blue balls in a bag. I
 
 There are three red balls and four blue balls in a bag. If
 
-.....312 0.0004 seconds
+.....265 0.0004 seconds
 
 There are three red balls and four blue balls in a bag. If I
 
-.....263 0.0004 seconds
+.....298 0.0004 seconds
 
 There are three red balls and four blue balls in a bag. If I t
 
-.....420 0.0004 seconds
+.....325 0.0004 seconds
 
 There are three red balls and four blue balls in a bag. If I ta
 
@@ -142,7 +142,7 @@ There are three red balls and four blue balls in a bag. If I ta
 
 There are three red balls and four blue balls in a bag. If I take
 
-.....312 0.0004 seconds
+.....265 0.0004 seconds
 
 There are three red balls and four blue balls in a bag. If I take on
 
@@ -150,241 +150,273 @@ There are three red balls and four blue balls in a bag. If I take on
 
 There are three red balls and four blue balls in a bag. If I take one
 
-.....280 0.0005 seconds
+.....280 0.0004 seconds
 
 There are three red balls and four blue balls in a bag. If I take one b
 
-.....425 0.0004 seconds
+.....420 0.0004 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball
 
-.....432 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball,
-
-.....383 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there
-
-.....286 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was
-
-.....261 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a
-
-.....284 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a m
-
-.....414 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mo
-
 .....419 0.0004 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mos
+There are three red balls and four blue balls in a bag. If I take one balls
 
-.....456 0.0004 seconds
+.....432 0.0004 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosq
+There are three red balls and four blue balls in a bag. If I take one balls,
 
-.....425 0.0004 seconds
+.....265 0.0004 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosqu
-
-.....275 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquit
-
-.....414 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito
-
-.....269 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and
-
-.....259 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and t
-
-.....420 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and tr
-
-.....425 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and tru
-
-.....340 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and truck
-
-.....419 0.0005 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks
-
-.....426 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks.
-
-.....410 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. 
-
-.....447 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. A
-
-.....421 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Al
-
-.....417 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Ali
-
-.....331 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice
-
-.....397 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice li
-
-.....355 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked
-
-.....267 0.0005 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to
-
-.....410 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to 
-
-.....449 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to j
-
-.....414 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to jo
-
-.....271 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join
-
-.....270 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join h
-
-.....288 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him
-
-.....261 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him a
-
-.....420 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him ar
-
-.....277 0.0005 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him arou
-
-.....264 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around
-
-.....311 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her
-
-.....426 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her.
-
-.....346 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He
-
-.....397 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He li
-
-.....355 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked
-
-.....267 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to
-
-.....352 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to r
-
-.....292 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to rid
-
-.....411 0.0005 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to ride
-
-.....345 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to ride his
+There are three red balls and four blue balls in a bag. If I take one balls, the
 
 .....268 0.0004 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to ride his b
+There are three red balls and four blue balls in a bag. If I take one balls, the b
 
 .....388 0.0004 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to ride his ball
+There are three red balls and four blue balls in a bag. If I take one balls, the ball
 
-.....335 0.0004 seconds
+.....414 0.0004 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to ride his ball with
+There are three red balls and four blue balls in a bag. If I take one balls, the ballo
 
-.....312 0.0004 seconds
+.....289 0.0004 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to ride his ball with it
-
-.....426 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to ride his ball with it.
-
-.....346 0.0004 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to ride his ball with it. He
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon
 
 .....286 0.0004 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to ride his ball with it. He was
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was
 
-.....297 0.0005 seconds
+.....297 0.0004 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to ride his ball with it. He was n
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was n
 
 .....309 0.0004 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to ride his ball with it. He was not
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not
 
-.....278 0.0004 seconds
+.....397 0.0004 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to ride his ball with it. He was not l
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not li
 
-.....293 0.0004 seconds
+.....354 0.0004 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball, there was a mosquito and trucks. Alice liked to join him around her. He liked to ride his ball with it. He was not lis
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like
 
-[2199.9683 tok/s]
+.....261 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like a
+
+.....416 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like an
+
+.....422 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like any
+
+.....289 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyon
+
+.....411 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone
+
+.....426 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone.
+
+.....359 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. I
+
+.....413 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It
+
+.....391 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It want
+
+.....266 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted
+
+.....267 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to
+
+.....284 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to m
+
+.....412 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to ma
+
+.....354 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make
+
+.....265 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make the
+
+.....423 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them
+
+.....280 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them c
+
+.....414 0.0005 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them co
+
+.....341 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold
+
+.....426 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+
+.....13 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+
+
+.....436 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"
+
+.....441 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"O
+
+.....415 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh
+
+.....297 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh n
+
+.....414 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no
+
+.....443 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!
+
+.....436 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!"
+
+.....265 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the
+
+.....268 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the b
+
+.....388 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the ball
+
+.....414 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the ballo
+
+.....289 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon
+
+.....262 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon s
+
+.....415 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon sh
+
+.....408 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shout
+
+.....266 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted
+
+.....426 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+
+.....13 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+
+
+.....434 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+T
+
+.....260 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+The
+
+.....268 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+The b
+
+.....388 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+The ball
+
+.....263 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+The ball w
+
+.....377 0.0004 seconds
+
+There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
+"Oh no!" the balloon shouted.
+The ball went
+
+[2216.3062 tok/s]
 max 96 tokens reached

@@ -1,158 +1,158 @@
-Reading model file ................................................................................................................. 0.1833 seconds
-Building the network . 0.1894 seconds
+Reading model file ................................................................................................................. 0.1685 seconds
+Building the network . 0.1742 seconds
 
 [max seq length: 38   length of input prompt: 19]
-............9038 0.0913 seconds
+............9038 0.0845 seconds
 
 There
 
-............471 0.0212 seconds
+............471 0.0208 seconds
 
 There are
 
-............1023 0.0201 seconds
+............1023 0.0214 seconds
 
 There are three
 
-............7875 0.0200 seconds
+............2217 0.0197 seconds
 
 There are three red
 
-............289 0.0223 seconds
+............14954 0.0197 seconds
 
 There are three red balls
 
-............297 0.0200 seconds
+............297 0.0197 seconds
 
 There are three red balls and
 
-............896 0.0200 seconds
+............1023 0.0203 seconds
 
 There are three red balls and four
 
-............7933 0.0199 seconds
+............7933 0.0196 seconds
 
 There are three red balls and four blue
 
-............26563 0.0200 seconds
+............26563 0.0198 seconds
 
 There are three red balls and four blue balls
 
-............29889 0.0201 seconds
+............29889 0.0197 seconds
 
 There are three red balls and four blue balls in
 
-............263 0.0200 seconds
+............278 0.0200 seconds
 
 There are three red balls and four blue balls in a
 
-............1948 0.0198 seconds
+............4802 0.0196 seconds
 
 There are three red balls and four blue balls in a bag
 
-............29889 0.0198 seconds
+............29889 0.0197 seconds
 
 There are three red balls and four blue balls in a bag.
 
-............2688 0.0198 seconds
+............2688 0.0196 seconds
 
 There are three red balls and four blue balls in a bag. If
 
-............366 0.0203 seconds
+............366 0.0201 seconds
 
 There are three red balls and four blue balls in a bag. If I
 
-............2125 0.0198 seconds
+............528 0.0197 seconds
 
 There are three red balls and four blue balls in a bag. If I take
 
-............963 0.0199 seconds
+............278 0.0198 seconds
 
 There are three red balls and four blue balls in a bag. If I take one
 
-............29892 0.0198 seconds
+............29892 0.0197 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball
 
-............714 0.0199 seconds
+............29892 0.0200 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out
+There are three red balls and four blue balls in a bag. If I take one ball,
 
-............29892 0.0203 seconds
+............306 0.0197 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out,
+There are three red balls and four blue balls in a bag. If I take one ball, I
 
-............278 0.0199 seconds
+............674 0.0197 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the
+There are three red balls and four blue balls in a bag. If I take one ball, I will
 
-............4045 0.0197 seconds
+............505 0.0196 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others
+There are three red balls and four blue balls in a bag. If I take one ball, I will have
 
-............674 0.0198 seconds
+............697 0.0201 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one
 
-............451 0.0200 seconds
+............2654 0.0196 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red
 
-............748 0.0199 seconds
+............8287 0.0197 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball
 
-............3448 0.0198 seconds
+............29889 0.0196 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go away
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball.
 
-............29889 0.0198 seconds
+............960 0.0201 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go away.
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If
 
-............450 0.0198 seconds
+............306 0.0197 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go away. The
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I
 
-............937 0.0202 seconds
+............2125 0.0197 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go away. The first
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take
 
-............2654 0.0197 seconds
+............697 0.0196 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go away. The first red
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one
 
-............8287 0.0199 seconds
+............7254 0.0202 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go away. The first red ball
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue
 
-............471 0.0199 seconds
+............8287 0.0195 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go away. The first red ball was
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball
 
-............2319 0.0200 seconds
+............29892 0.0195 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go away. The first red ball was small
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball,
 
-............322 0.0199 seconds
+............306 0.0197 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go away. The first red ball was small and
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I
 
-............6216 0.0199 seconds
+............674 0.0201 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go away. The first red ball was small and fit
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I will
 
-............297 0.0199 seconds
+............505 0.0197 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go away. The first red ball was small and fit in
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I will have
 
-............590 0.0198 seconds
+............697 0.0197 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go away. The first red ball was small and fit in my
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I will have one
 
-............1361 0.0201 seconds
+............2654 0.0194 seconds
 
-There are three red balls and four blue balls in a bag. If I take one ball out, the others will not go away. The first red ball was small and fit in my hand
+There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I will have one red
 
-[45.5871 tok/s]
+[46.3724 tok/s]
 max 38 tokens reached

@@ -1,10 +1,10 @@
-Reading model file ..................................................................................................................................................................................................................................................................................................... 11.0792 seconds
-Building the network . 3.5757 seconds
+Reading model file ..................................................................................................................................................................................................................................................................................................... 10.0489 seconds
+Building the network . 3.4739 seconds
 
 [max seq length: 24   length of input prompt: 1018]
-................................2181 1.5888 seconds
+................................2181 1.6056 seconds
 
-<|begin_of_text|>It is easy to see why the Buddha was so keen on mindfulness. By being fully present in the moment, we can transcend our limitations and achieve a state of profound freedom. The practice of mindfulness is a powerful tool for cultivating this freedom, and it is something that can be applied to all aspects of our lives.
+It is easy to see why the Buddha was so keen on mindfulness. By being fully present in the moment, we can transcend our limitations and achieve a state of profound freedom. The practice of mindfulness is a powerful tool for cultivating this freedom, and it is something that can be applied to all aspects of our lives.
 One of the key benefits of mindfulness is that it allows us to let go of our attachment to our thoughts and emotions. When we are mindful, we are able to observe our thoughts and emotions without getting caught up in them. This allows us to see things more clearly and to respond to them in a more thoughtful and intentional way.
 Another benefit of mindfulness is that it allows us to cultivate a sense of inner peace and calm. When we are mindful, we are able to focus on the present moment and to let go of our worries and concerns about the future or the past. This can be especially helpful in times of stress and uncertainty.
 Finally, the practice of mindfulness can help us to develop a greater sense of compassion and understanding for ourselves and others. When we are mindful, we are able to see the interconnectedness of all things and to understand that we are all in this together. This can help us to cultivate a sense of empathy and kindness towards others, and to live more harmoniously in the world.
@@ -23,5 +23,5 @@ Mindfulness can also help us to reduce symptoms of depression. When we are mindf
 In addition to these benefits, mindfulness has also been shown to have a number of other mental health benefits.
 It
 
-[0.6294 tok/s]
+[0.6228 tok/s]
 max 1018 tokens reached

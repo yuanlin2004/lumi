@@ -1,78 +1,78 @@
-Reading model file ............................................................................. 0.0720 seconds
+Reading model file ............................................................................. 0.0797 seconds
 Building the network . 0.0001 seconds
 
 [max seq length: 28   length of input prompt: 11]
-........4359 0.0132 seconds
+........4359 0.0136 seconds
 
 The US president in 2020 is almost
 
-........727 0.0091 seconds
+........727 0.0098 seconds
 
 The US president in 2020 is almost there
 
-........29889 0.0087 seconds
+........29889 0.0093 seconds
 
 The US president in 2020 is almost there.
 
-........319 0.0085 seconds
+........319 0.0092 seconds
 
 The US president in 2020 is almost there. A
 
-........2217 0.0085 seconds
+........2217 0.0092 seconds
 
 The US president in 2020 is almost there. A little
 
-........8023 0.0086 seconds
+........8023 0.0092 seconds
 
 The US president in 2020 is almost there. A little boy
 
-........471 0.0088 seconds
+........471 0.0095 seconds
 
 The US president in 2020 is almost there. A little boy was
 
-........8743 0.0088 seconds
+........8743 0.0095 seconds
 
 The US president in 2020 is almost there. A little boy was playing
 
-........5377 0.0088 seconds
+........5377 0.0094 seconds
 
 The US president in 2020 is almost there. A little boy was playing outside
 
-........297 0.0087 seconds
+........297 0.0095 seconds
 
 The US president in 2020 is almost there. A little boy was playing outside in
 
-........278 0.0088 seconds
+........278 0.0094 seconds
 
 The US president in 2020 is almost there. A little boy was playing outside in the
 
-........16423 0.0086 seconds
+........16423 0.0092 seconds
 
 The US president in 2020 is almost there. A little boy was playing outside in the garden
 
-........746 0.0088 seconds
+........746 0.0095 seconds
 
 The US president in 2020 is almost there. A little boy was playing outside in the garden when
 
-........540 0.0088 seconds
+........540 0.0094 seconds
 
 The US president in 2020 is almost there. A little boy was playing outside in the garden when he
 
-........4446 0.0088 seconds
+........4446 0.0096 seconds
 
 The US president in 2020 is almost there. A little boy was playing outside in the garden when he saw
 
-........1554 0.0087 seconds
+........1554 0.0095 seconds
 
 The US president in 2020 is almost there. A little boy was playing outside in the garden when he saw something
 
-........8515 0.0086 seconds
+........8515 0.0094 seconds
 
 The US president in 2020 is almost there. A little boy was playing outside in the garden when he saw something strange
 
-........29889 0.0087 seconds
+........29889 0.0093 seconds
 
 The US president in 2020 is almost there. A little boy was playing outside in the garden when he saw something strange.
 
-[110.9612 tok/s]
+[103.2294 tok/s]
 max 28 tokens reached

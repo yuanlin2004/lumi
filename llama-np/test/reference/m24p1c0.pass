@@ -1,70 +1,70 @@
-Reading model file ................................................................................................................. 0.1561 seconds
+Reading model file ................................................................................................................. 1.1597 seconds
 Building the network . 0.0001 seconds
 
 [max seq length: 19   length of input prompt: 4]
-............29889 0.0242 seconds
+............29889 0.0245 seconds
 
 It is easy.
 
-............341 0.0182 seconds
+............341 0.0200 seconds
 
 It is easy. M
 
-............290 0.0175 seconds
+............290 0.0192 seconds
 
 It is easy. Mom
 
-............1357 0.0174 seconds
+............1357 0.0190 seconds
 
 It is easy. Mommy
 
-............4893 0.0175 seconds
+............4893 0.0190 seconds
 
 It is easy. Mommy takes
 
-............317 0.0177 seconds
+............317 0.0192 seconds
 
 It is easy. Mommy takes S
 
-............2518 0.0175 seconds
+............2518 0.0188 seconds
 
 It is easy. Mommy takes Sara
 
-............322 0.0178 seconds
+............322 0.0192 seconds
 
 It is easy. Mommy takes Sara and
 
-............4111 0.0175 seconds
+............4111 0.0189 seconds
 
 It is easy. Mommy takes Sara and Ben
 
-............304 0.0180 seconds
+............304 0.0193 seconds
 
 It is easy. Mommy takes Sara and Ben to
 
-............278 0.0179 seconds
+............278 0.0195 seconds
 
 It is easy. Mommy takes Sara and Ben to the
 
-............14089 0.0181 seconds
+............14089 0.0195 seconds
 
 It is easy. Mommy takes Sara and Ben to the park
 
-............29889 0.0181 seconds
+............29889 0.0196 seconds
 
 It is easy. Mommy takes Sara and Ben to the park.
 
-............2688 0.0178 seconds
+............2688 0.0191 seconds
 
 It is easy. Mommy takes Sara and Ben to the park. They
 
-............1708 0.0178 seconds
+............1708 0.0192 seconds
 
 It is easy. Mommy takes Sara and Ben to the park. They play
 
-............373 0.0181 seconds
+............373 0.0195 seconds
 
 It is easy. Mommy takes Sara and Ben to the park. They play on
 
-[54.8624 tok/s]
+[50.9755 tok/s]
 max 19 tokens reached

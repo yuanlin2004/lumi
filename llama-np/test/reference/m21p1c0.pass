@@ -1,166 +1,166 @@
-Reading model file .................................................. 0.0011 seconds
+Reading model file .................................................. 0.0042 seconds
 Building the network . 0.0001 seconds
 
 [max seq length: 48   length of input prompt: 9]
-.....426 0.0040 seconds
+.....426 0.0037 seconds
 
 It is easy.
 
-.....359 0.0007 seconds
+.....359 0.0006 seconds
 
 It is easy. I
 
-.....413 0.0006 seconds
+.....413 0.0005 seconds
 
 It is easy. It
 
-.....286 0.0006 seconds
+.....286 0.0005 seconds
 
 It is easy. It was
 
-.....399 0.0006 seconds
+.....399 0.0005 seconds
 
 It is easy. It was very
 
-.....272 0.0006 seconds
+.....272 0.0005 seconds
 
 It is easy. It was very f
 
-.....412 0.0006 seconds
+.....412 0.0005 seconds
 
 It is easy. It was very fa
 
-.....356 0.0006 seconds
+.....356 0.0005 seconds
 
 It is easy. It was very fast
 
-.....426 0.0006 seconds
+.....426 0.0005 seconds
 
 It is easy. It was very fast.
 
-.....410 0.0006 seconds
+.....410 0.0005 seconds
 
 It is easy. It was very fast. 
 
-.....447 0.0006 seconds
+.....447 0.0005 seconds
 
 It is easy. It was very fast. A
 
-.....419 0.0006 seconds
+.....419 0.0005 seconds
 
 It is easy. It was very fast. As
 
-.....281 0.0006 seconds
+.....281 0.0005 seconds
 
 It is easy. It was very fast. As he
 
-.....286 0.0006 seconds
+.....286 0.0005 seconds
 
 It is easy. It was very fast. As he was
 
-.....280 0.0006 seconds
+.....280 0.0005 seconds
 
 It is easy. It was very fast. As he was c
 
-.....414 0.0006 seconds
+.....414 0.0005 seconds
 
 It is easy. It was very fast. As he was co
 
-.....341 0.0006 seconds
+.....341 0.0005 seconds
 
 It is easy. It was very fast. As he was cold
 
-.....432 0.0006 seconds
+.....432 0.0005 seconds
 
 It is easy. It was very fast. As he was cold,
 
-.....281 0.0006 seconds
+.....281 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he
 
-.....394 0.0006 seconds
+.....394 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw
 
-.....261 0.0006 seconds
+.....261 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a
 
-.....262 0.0006 seconds
+.....262 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a s
 
-.....423 0.0006 seconds
+.....423 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a sm
 
-.....388 0.0006 seconds
+.....388 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small
 
-.....270 0.0006 seconds
+.....270 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small h
 
-.....290 0.0006 seconds
+.....290 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hil
 
-.....421 0.0006 seconds
+.....421 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill
 
-.....335 0.0006 seconds
+.....335 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill with
 
-.....284 0.0006 seconds
+.....284 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill with m
 
-.....303 0.0006 seconds
+.....303 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill with man
 
-.....422 0.0006 seconds
+.....422 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill with many
 
-.....268 0.0006 seconds
+.....268 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill with many b
 
-.....347 0.0006 seconds
+.....347 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill with many boo
 
-.....433 0.0006 seconds
+.....433 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill with many book
 
-.....419 0.0006 seconds
+.....419 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill with many books
 
-.....426 0.0006 seconds
+.....426 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill with many books.
 
-.....291 0.0006 seconds
+.....291 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill with many books. The
 
-.....268 0.0006 seconds
+.....268 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill with many books. The b
 
-.....347 0.0006 seconds
+.....347 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill with many books. The boo
 
-.....433 0.0006 seconds
+.....433 0.0005 seconds
 
 It is easy. It was very fast. As he was cold, he saw a small hill with many books. The book
 
-[1363.0980 tok/s]
+[1570.2868 tok/s]
 max 48 tokens reached

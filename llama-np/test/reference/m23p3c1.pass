@@ -1,71 +1,71 @@
-Reading model file ............................................................................. 0.0722 seconds
-Building the network . 0.1068 seconds
+Reading model file ............................................................................. 0.0811 seconds
+Building the network . 0.1160 seconds
 
 [max seq length: 38   length of input prompt: 19]
-........278 0.0793 seconds
+........278 0.0816 seconds
 
 List all the prime numbers between 100 and 200. They are the
 
-........1900 0.0166 seconds
+........1900 0.0169 seconds
 
 List all the prime numbers between 100 and 200. They are the best
 
-........1353 0.0138 seconds
+........1353 0.0129 seconds
 
 List all the prime numbers between 100 and 200. They are the best number
 
-........310 0.0122 seconds
+........310 0.0123 seconds
 
 List all the prime numbers between 100 and 200. They are the best number of
 
-........6199 0.0125 seconds
+........6199 0.0124 seconds
 
 List all the prime numbers between 100 and 200. They are the best number of hours
 
-........29991 0.0121 seconds
+........29991 0.0131 seconds
 
 List all the prime numbers between 100 and 200. They are the best number of hours!
-
-........29871 0.0121 seconds
-
-List all the prime numbers between 100 and 200. They are the best number of hours! 
-
-........13 0.0121 seconds
-
-List all the prime numbers between 100 and 200. They are the best number of hours! 
-
-
-........6716 0.0121 seconds
-
-List all the prime numbers between 100 and 200. They are the best number of hours! 
-One
-
-........2462 0.0121 seconds
-
-List all the prime numbers between 100 and 200. They are the best number of hours! 
-One day
-
-........29892 0.0121 seconds
-
-List all the prime numbers between 100 and 200. They are the best number of hours! 
-One day,
-
-........278 0.0121 seconds
-
-List all the prime numbers between 100 and 200. They are the best number of hours! 
-One day, the
 
 ........29871 0.0122 seconds
 
 List all the prime numbers between 100 and 200. They are the best number of hours! 
+
+........13 0.0123 seconds
+
+List all the prime numbers between 100 and 200. They are the best number of hours! 
+
+
+........6716 0.0122 seconds
+
+List all the prime numbers between 100 and 200. They are the best number of hours! 
+One
+
+........2462 0.0123 seconds
+
+List all the prime numbers between 100 and 200. They are the best number of hours! 
+One day
+
+........29892 0.0124 seconds
+
+List all the prime numbers between 100 and 200. They are the best number of hours! 
+One day,
+
+........278 0.0125 seconds
+
+List all the prime numbers between 100 and 200. They are the best number of hours! 
+One day, the
+
+........29871 0.0125 seconds
+
+List all the prime numbers between 100 and 200. They are the best number of hours! 
 One day, the 
 
-........29941 0.0122 seconds
+........29941 0.0124 seconds
 
 List all the prime numbers between 100 and 200. They are the best number of hours! 
 One day, the 3
 
-........29899 0.0123 seconds
+........29899 0.0125 seconds
 
 List all the prime numbers between 100 and 200. They are the best number of hours! 
 One day, the 3-
@@ -80,7 +80,7 @@ One day, the 3-year
 List all the prime numbers between 100 and 200. They are the best number of hours! 
 One day, the 3-year old
 
-........4433 0.0125 seconds
+........4433 0.0124 seconds
 
 List all the prime numbers between 100 and 200. They are the best number of hours! 
 One day, the 3-year old asked
@@ -90,10 +90,10 @@ One day, the 3-year old asked
 List all the prime numbers between 100 and 200. They are the best number of hours! 
 One day, the 3-year old asked his
 
-........16823 0.0126 seconds
+........16823 0.0125 seconds
 
 List all the prime numbers between 100 and 200. They are the best number of hours! 
 One day, the 3-year old asked his mom
 
-[62.6546 tok/s]
+[61.8277 tok/s]
 max 38 tokens reached

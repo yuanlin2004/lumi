@@ -1,98 +1,98 @@
-Reading model file ...................................................................................................................................................................................................................................................................................................... 9.1345 seconds
+Reading model file ...................................................................................................................................................................................................................................................................................................... 8.6435 seconds
 Building the network . 0.0003 seconds
 
 [max seq length: 38   length of input prompt: 19]
-................................599 1.3617 seconds
+................................599 1.3611 seconds
 
 List all the prime numbers between 100 and 200. They are all
 
-................................2473 0.6191 seconds
+................................2473 0.6217 seconds
 
 List all the prime numbers between 100 and 200. They are all multi
 
-................................2701 0.6117 seconds
+................................2701 0.6243 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples
 
-................................310 0.6143 seconds
+................................310 0.6250 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of
 
-................................29871 0.6136 seconds
+................................29871 0.6217 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 
 
-................................29896 0.6143 seconds
+................................29896 0.6233 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 1
 
-................................29896 0.6144 seconds
+................................29896 0.6191 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11
 
-................................29889 0.6147 seconds
+................................29889 0.6194 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11.
 
-................................13 0.6137 seconds
+................................13 0.6228 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11.
 
 
-................................29909 0.6168 seconds
+................................29909 0.6187 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11.
 A
 
-................................808 0.6146 seconds
+................................808 0.6238 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11.
 Ask
 
-................................287 0.6163 seconds
+................................287 0.6224 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11.
 Asked
 
-................................491 0.6197 seconds
+................................491 0.6254 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11.
 Asked by
 
-................................286 0.6216 seconds
+................................286 0.6267 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11.
 Asked by m
 
-................................29880 0.6155 seconds
+................................29880 0.6200 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11.
 Asked by ml
 
-................................29920 0.6153 seconds
+................................29920 0.6198 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11.
 Asked by mlz
 
-................................6905 0.6151 seconds
+................................6905 0.6225 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11.
 Asked by mlzhu
 
-................................574 0.6159 seconds
+................................574 0.6233 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11.
 Asked by mlzhuang
 
-................................29871 0.6166 seconds
+................................29871 0.6218 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11.
 Asked by mlzhuang 
 
-................................29941 0.6158 seconds
+................................29941 0.6169 seconds
 
 List all the prime numbers between 100 and 200. They are all multiples of 11.
 Asked by mlzhuang 3
 
-[1.5311 tok/s]
+[1.5173 tok/s]
 max 38 tokens reached

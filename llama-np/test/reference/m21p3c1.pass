@@ -1,20 +1,20 @@
-Reading model file .................................................. 0.0010 seconds
-Building the network . 0.0738 seconds
+Reading model file .................................................. 0.0011 seconds
+Building the network . 0.0681 seconds
 
 [max seq length: 96   length of input prompt: 34]
-.....284 0.0680 seconds
+.....284 0.0736 seconds
 
 List all the prime numbers between 100 and 200. They are m
 
-.....414 0.0106 seconds
+.....414 0.0108 seconds
 
 List all the prime numbers between 100 and 200. They are mo
 
-.....276 0.0062 seconds
+.....276 0.0063 seconds
 
 List all the prime numbers between 100 and 200. They are more
 
-.....272 0.0063 seconds
+.....272 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more f
 
@@ -42,11 +42,11 @@ List all the prime numbers between 100 and 200. They are more funny and
 
 List all the prime numbers between 100 and 200. They are more funny and re
 
-.....412 0.0062 seconds
+.....412 0.0061 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and rea
 
-.....421 0.0062 seconds
+.....421 0.0063 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and real
 
@@ -58,19 +58,19 @@ List all the prime numbers between 100 and 200. They are more funny and reali
 
 List all the prime numbers between 100 and 200. They are more funny and realiz
 
-.....411 0.0062 seconds
+.....411 0.0061 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realize
 
-.....299 0.0062 seconds
+.....299 0.0061 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing
 
-.....426 0.0062 seconds
+.....426 0.0061 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 
-.....13 0.0062 seconds
+.....13 0.0061 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 
@@ -80,17 +80,17 @@ List all the prime numbers between 100 and 200. They are more funny and realizei
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 O
 
-.....416 0.0062 seconds
+.....416 0.0061 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 On
 
-.....411 0.0062 seconds
+.....411 0.0061 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One
 
-.....328 0.0063 seconds
+.....328 0.0061 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day
@@ -100,17 +100,17 @@ One day
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day,
 
-.....261 0.0063 seconds
+.....261 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a
 
-.....376 0.0062 seconds
+.....376 0.0061 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little
 
-.....268 0.0063 seconds
+.....268 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little b
@@ -120,57 +120,57 @@ One day, a little b
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little bo
 
-.....422 0.0063 seconds
+.....422 0.0061 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy
 
-.....280 0.0061 seconds
+.....280 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy c
 
-.....314 0.0063 seconds
+.....314 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy cam
 
-.....411 0.0062 seconds
+.....411 0.0063 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came
 
-.....322 0.0063 seconds
+.....322 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came in
 
-.....413 0.0062 seconds
+.....413 0.0063 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came int
 
-.....414 0.0063 seconds
+.....414 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into
 
-.....265 0.0061 seconds
+.....265 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the
 
-.....349 0.0063 seconds
+.....349 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the st
 
-.....414 0.0061 seconds
+.....414 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the sto
 
-.....276 0.0063 seconds
+.....276 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store
@@ -180,17 +180,17 @@ One day, a little boy came into the store
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store.
 
-.....346 0.0063 seconds
+.....346 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He
 
-.....394 0.0062 seconds
+.....394 0.0063 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw
 
-.....261 0.0063 seconds
+.....261 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a
@@ -200,7 +200,7 @@ One day, a little boy came into the store. He saw a
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a s
 
-.....415 0.0062 seconds
+.....415 0.0063 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a sh
@@ -220,12 +220,12 @@ One day, a little boy came into the store. He saw a shiny
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny s
 
-.....415 0.0063 seconds
+.....415 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny sh
 
-.....414 0.0062 seconds
+.....414 0.0063 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny sho
@@ -245,7 +245,7 @@ One day, a little boy came into the store. He saw a shiny shoe with
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny shoe with a
 
-.....284 0.0062 seconds
+.....284 0.0063 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny shoe with a m
@@ -255,50 +255,50 @@ One day, a little boy came into the store. He saw a shiny shoe with a m
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny shoe with a me
 
-.....303 0.0061 seconds
+.....303 0.0063 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny shoe with a mean
 
-.....298 0.0063 seconds
+.....298 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny shoe with a mean g
 
-.....295 0.0062 seconds
+.....295 0.0063 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny shoe with a mean gar
 
-.....418 0.0063 seconds
+.....418 0.0061 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny shoe with a mean gard
 
-.....302 0.0062 seconds
+.....302 0.0063 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny shoe with a mean garden
 
-.....426 0.0063 seconds
+.....426 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny shoe with a mean garden.
 
-.....346 0.0061 seconds
+.....346 0.0063 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny shoe with a mean garden. He
 
-.....336 0.0063 seconds
+.....336 0.0062 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny shoe with a mean garden. He said
 
-.....432 0.0061 seconds
+.....432 0.0063 seconds
 
 List all the prime numbers between 100 and 200. They are more funny and realizeing.
 One day, a little boy came into the store. He saw a shiny shoe with a mean garden. He said,
 
-[136.9586 tok/s]
+[135.5061 tok/s]
 max 96 tokens reached

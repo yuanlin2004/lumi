@@ -1,70 +1,70 @@
-Reading model file ..................................................................................................................................................................................................................................................................................................... 12.2934 seconds
-Building the network . 3.6526 seconds
+Reading model file ..................................................................................................................................................................................................................................................................................................... 10.0176 seconds
+Building the network . 3.4952 seconds
 
 [max seq length: 19   length of input prompt: 4]
-................................311 0.7092 seconds
+................................311 0.7354 seconds
 
-<|begin_of_text|>It is easy to
+It is easy to
 
-................................636 0.5248 seconds
+................................636 0.5490 seconds
 
-<|begin_of_text|>It is easy to get
+It is easy to get
 
-................................22568 0.5200 seconds
+................................22568 0.5250 seconds
 
-<|begin_of_text|>It is easy to get confused
+It is easy to get confused
 
-................................922 0.5209 seconds
+................................922 0.5274 seconds
 
-<|begin_of_text|>It is easy to get confused about
+It is easy to get confused about
 
-................................1148 0.5206 seconds
+................................1148 0.5185 seconds
 
-<|begin_of_text|>It is easy to get confused about what
+It is easy to get confused about what
 
-................................7041 0.5207 seconds
+................................7041 0.5250 seconds
 
-<|begin_of_text|>It is easy to get confused about what exactly
+It is easy to get confused about what exactly
 
-................................374 0.5250 seconds
+................................374 0.5251 seconds
 
-<|begin_of_text|>It is easy to get confused about what exactly is
+It is easy to get confused about what exactly is
 
-................................12765 0.5583 seconds
+................................12765 0.5207 seconds
 
-<|begin_of_text|>It is easy to get confused about what exactly is happening
+It is easy to get confused about what exactly is happening
 
-................................449 0.5208 seconds
+................................449 0.5250 seconds
 
-<|begin_of_text|>It is easy to get confused about what exactly is happening with
+It is easy to get confused about what exactly is happening with
 
-................................279 0.5208 seconds
+................................279 0.5292 seconds
 
-<|begin_of_text|>It is easy to get confused about what exactly is happening with the
+It is easy to get confused about what exactly is happening with the
 
-................................2890 0.5208 seconds
+................................2890 0.5274 seconds
 
-<|begin_of_text|>It is easy to get confused about what exactly is happening with the health
+It is easy to get confused about what exactly is happening with the health
 
-................................2512 0.5208 seconds
+................................2512 0.5268 seconds
 
-<|begin_of_text|>It is easy to get confused about what exactly is happening with the health care
+It is easy to get confused about what exactly is happening with the health care
 
-................................4121 0.5207 seconds
+................................4121 0.5251 seconds
 
-<|begin_of_text|>It is easy to get confused about what exactly is happening with the health care bill
+It is easy to get confused about what exactly is happening with the health care bill
 
-................................11 0.5208 seconds
+................................11 0.5249 seconds
 
-<|begin_of_text|>It is easy to get confused about what exactly is happening with the health care bill,
+It is easy to get confused about what exactly is happening with the health care bill,
 
-................................1606 0.5209 seconds
+................................1606 0.5253 seconds
 
-<|begin_of_text|>It is easy to get confused about what exactly is happening with the health care bill, because
+It is easy to get confused about what exactly is happening with the health care bill, because
 
-................................279 0.5206 seconds
+................................279 0.5248 seconds
 
-<|begin_of_text|>It is easy to get confused about what exactly is happening with the health care bill, because the
+It is easy to get confused about what exactly is happening with the health care bill, because the
 
-[1.8678 tok/s]
+[1.8529 tok/s]
 max 19 tokens reached

@@ -2,7 +2,7 @@ Reading model file .................................................. 0.0010 sec
 Building the network . 0.0001 seconds
 
 [max seq length: 96   length of input prompt: 40]
-.....419 0.0046 seconds
+.....419 0.0045 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls
 
@@ -22,7 +22,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the ball
 
-.....414 0.0005 seconds
+.....414 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the ballo
 
@@ -30,11 +30,11 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon
 
-.....286 0.0005 seconds
+.....286 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was
 
-.....297 0.0005 seconds
+.....297 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was n
 
@@ -42,7 +42,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not
 
-.....397 0.0005 seconds
+.....397 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not li
 
@@ -62,11 +62,11 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like any
 
-.....289 0.0005 seconds
+.....289 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyon
 
-.....411 0.0005 seconds
+.....411 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone
 
@@ -114,15 +114,15 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them
 
-.....280 0.0005 seconds
+.....280 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them c
 
-.....414 0.0005 seconds
+.....414 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them co
 
-.....341 0.0005 seconds
+.....341 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold
 
@@ -150,7 +150,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
 "Oh
 
-.....297 0.0005 seconds
+.....297 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
 "Oh n
@@ -165,7 +165,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
 "Oh no!
 
-.....436 0.0006 seconds
+.....436 0.0005 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
 "Oh no!"
@@ -180,7 +180,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
 "Oh no!" the b
 
-.....388 0.0005 seconds
+.....388 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
 "Oh no!" the ball
@@ -190,12 +190,12 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
 "Oh no!" the ballo
 
-.....289 0.0005 seconds
+.....289 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
 "Oh no!" the balloon
 
-.....262 0.0005 seconds
+.....262 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
 "Oh no!" the balloon s
@@ -210,12 +210,12 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
 "Oh no!" the balloon shout
 
-.....266 0.0005 seconds
+.....266 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
 "Oh no!" the balloon shouted
 
-.....426 0.0005 seconds
+.....426 0.0006 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
 "Oh no!" the balloon shouted.
@@ -232,7 +232,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 "Oh no!" the balloon shouted.
 T
 
-.....260 0.0006 seconds
+.....260 0.0005 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them cold.
 "Oh no!" the balloon shouted.
@@ -262,5 +262,5 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 "Oh no!" the balloon shouted.
 The ball went
 
-[1539.4691 tok/s]
+[1531.5934 tok/s]
 max 96 tokens reached

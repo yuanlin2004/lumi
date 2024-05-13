@@ -1,16 +1,16 @@
-Reading model file .................................................. 0.0010 seconds
-Building the network . 0.0745 seconds
+Reading model file .................................................. 0.0013 seconds
+Building the network . 0.0678 seconds
 
 [max seq length: 72   length of input prompt: 18]
-.....265 0.0700 seconds
+.....265 0.0764 seconds
 
 The US president in 2020 is the
 
-.....284 0.0105 seconds
+.....284 0.0106 seconds
 
 The US president in 2020 is the m
 
-.....303 0.0063 seconds
+.....303 0.0062 seconds
 
 The US president in 2020 is the man
 
@@ -22,7 +22,7 @@ The US president in 2020 is the man w
 
 The US president in 2020 is the man wh
 
-.....414 0.0065 seconds
+.....414 0.0062 seconds
 
 The US president in 2020 is the man who
 
@@ -30,11 +30,11 @@ The US president in 2020 is the man who
 
 The US president in 2020 is the man who w
 
-.....290 0.0063 seconds
+.....290 0.0062 seconds
 
 The US president in 2020 is the man who wil
 
-.....421 0.0062 seconds
+.....421 0.0061 seconds
 
 The US president in 2020 is the man who will
 
@@ -42,63 +42,63 @@ The US president in 2020 is the man who will
 
 The US president in 2020 is the man who will e
 
-.....444 0.0063 seconds
+.....444 0.0062 seconds
 
 The US president in 2020 is the man who will ex
 
-.....427 0.0063 seconds
+.....427 0.0062 seconds
 
 The US president in 2020 is the man who will exp
 
-.....421 0.0063 seconds
+.....421 0.0061 seconds
 
 The US president in 2020 is the man who will expl
 
-.....414 0.0062 seconds
+.....414 0.0061 seconds
 
 The US president in 2020 is the man who will explo
 
-.....276 0.0063 seconds
+.....276 0.0061 seconds
 
 The US president in 2020 is the man who will explore
 
-.....426 0.0062 seconds
+.....426 0.0061 seconds
 
 The US president in 2020 is the man who will explore.
 
-.....385 0.0063 seconds
+.....385 0.0062 seconds
 
 The US president in 2020 is the man who will explore. One
 
-.....328 0.0063 seconds
+.....328 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day
 
-.....432 0.0063 seconds
+.....432 0.0064 seconds
 
 The US president in 2020 is the man who will explore. One day,
 
-.....262 0.0063 seconds
+.....262 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, s
 
-.....287 0.0063 seconds
+.....287 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, som
 
-.....316 0.0063 seconds
+.....316 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, somet
 
-.....415 0.0062 seconds
+.....415 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, someth
 
-.....299 0.0062 seconds
+.....299 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something
 
-.....318 0.0062 seconds
+.....318 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something u
 
@@ -106,7 +106,7 @@ The US president in 2020 is the man who will explore. One day, something u
 
 The US president in 2020 is the man who will explore. One day, something un
 
-.....411 0.0063 seconds
+.....411 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something une
 
@@ -114,19 +114,19 @@ The US president in 2020 is the man who will explore. One day, something une
 
 The US president in 2020 is the man who will explore. One day, something unex
 
-.....427 0.0062 seconds
+.....427 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexp
 
-.....411 0.0062 seconds
+.....411 0.0063 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpe
 
-.....429 0.0062 seconds
+.....429 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpec
 
-.....413 0.0062 seconds
+.....413 0.0063 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpect
 
@@ -138,7 +138,7 @@ The US president in 2020 is the man who will explore. One day, something unexpec
 
 The US president in 2020 is the man who will explore. One day, something unexpected happ
 
-.....302 0.0062 seconds
+.....302 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happen
 
@@ -146,7 +146,7 @@ The US president in 2020 is the man who will explore. One day, something unexpec
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened
 
-.....426 0.0062 seconds
+.....426 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened.
 
@@ -154,73 +154,73 @@ The US president in 2020 is the man who will explore. One day, something unexpec
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. S
 
-.....425 0.0062 seconds
+.....425 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Su
 
-.....418 0.0062 seconds
+.....418 0.0063 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Sud
 
-.....418 0.0062 seconds
+.....418 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Sudd
 
-.....302 0.0062 seconds
+.....302 0.0064 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Sudden
 
-.....421 0.0062 seconds
+.....421 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Suddenl
 
-.....422 0.0062 seconds
+.....422 0.0063 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Suddenly
 
-.....432 0.0062 seconds
+.....432 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Suddenly,
 
-.....301 0.0062 seconds
+.....301 0.0063 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Suddenly, S
 
-.....425 0.0062 seconds
+.....425 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Suddenly, Su
 
-.....419 0.0062 seconds
+.....419 0.0063 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Suddenly, Sus
 
-.....417 0.0062 seconds
+.....417 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Suddenly, Susi
 
-.....411 0.0062 seconds
+.....411 0.0063 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Suddenly, Susie
 
-.....286 0.0062 seconds
+.....286 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Suddenly, Susie was
 
-.....272 0.0062 seconds
+.....272 0.0063 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Suddenly, Susie was f
 
-.....421 0.0062 seconds
+.....421 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Suddenly, Susie was fl
 
-.....422 0.0062 seconds
+.....422 0.0063 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Suddenly, Susie was fly
 
-.....299 0.0062 seconds
+.....299 0.0061 seconds
 
 The US president in 2020 is the man who will explore. One day, something unexpected happened. Suddenly, Susie was flying
 
-[133.0021 tok/s]
+[131.7833 tok/s]
 max 72 tokens reached

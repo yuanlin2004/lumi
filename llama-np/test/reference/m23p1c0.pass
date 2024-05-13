@@ -1,70 +1,70 @@
-Reading model file ............................................................................. 0.0723 seconds
+Reading model file ............................................................................. 0.0799 seconds
 Building the network . 0.0001 seconds
 
 [max seq length: 19   length of input prompt: 4]
-........322 0.0130 seconds
+........322 0.0135 seconds
 
 It is easy and
 
-........11785 0.0092 seconds
+........11785 0.0097 seconds
 
 It is easy and bright
 
-........29892 0.0090 seconds
+........29892 0.0094 seconds
 
 It is easy and bright,
 
-........541 0.0089 seconds
+........541 0.0093 seconds
 
 It is easy and bright, but
 
-........697 0.0088 seconds
+........697 0.0093 seconds
 
 It is easy and bright, but one
 
-........2462 0.0088 seconds
+........2462 0.0093 seconds
 
 It is easy and bright, but one day
 
-........263 0.0090 seconds
+........263 0.0095 seconds
 
 It is easy and bright, but one day a
 
-........8023 0.0088 seconds
+........8023 0.0092 seconds
 
 It is easy and bright, but one day a boy
 
-........471 0.0091 seconds
+........471 0.0095 seconds
 
 It is easy and bright, but one day a boy was
 
-........1407 0.0089 seconds
+........1407 0.0094 seconds
 
 It is easy and bright, but one day a boy was very
 
-........23407 0.0088 seconds
+........23407 0.0093 seconds
 
 It is easy and bright, but one day a boy was very tired
 
-........29889 0.0091 seconds
+........29889 0.0095 seconds
 
 It is easy and bright, but one day a boy was very tired.
 
-........940 0.0089 seconds
+........940 0.0093 seconds
 
 It is easy and bright, but one day a boy was very tired. He
 
-........750 0.0089 seconds
+........750 0.0093 seconds
 
 It is easy and bright, but one day a boy was very tired. He had
 
-........1063 0.0089 seconds
+........1063 0.0093 seconds
 
 It is easy and bright, but one day a boy was very tired. He had been
 
-........8743 0.0088 seconds
+........8743 0.0093 seconds
 
 It is easy and bright, but one day a boy was very tired. He had been playing
 
-[108.4458 tok/s]
+[103.4454 tok/s]
 max 19 tokens reached

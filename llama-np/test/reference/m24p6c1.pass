@@ -1,8 +1,8 @@
-Reading model file ................................................................................................................. 0.1547 seconds
-Building the network . 0.1778 seconds
+Reading model file ................................................................................................................. 0.1761 seconds
+Building the network . 0.1852 seconds
 
 [max seq length: 24   length of input prompt: 1177]
-............4013 0.1252 seconds
+............4013 0.1273 seconds
 
 It is easy to see why the Buddha was so keen on mindfulness. By being fully present in the moment, we can transcend our limitations and achieve a state of profound freedom. The practice of mindfulness is a powerful tool for cultivating this freedom, and it is something that can be applied to all aspects of our lives.
 One of the key benefits of mindfulness is that it allows us to let go of our attachment to our thoughts and emotions. When we are mindful, we are able to observe our thoughts and emotions without getting caught up in them. This allows us to see things more clearly and to respond to them in a more thoughtful and intentional way.
@@ -23,5 +23,5 @@ Mindfulness can also help us to reduce symptoms of depression. When we are mindf
 In addition to these benefits, mindfulness has also been shown to have a number of other mental health benefits.
 This
 
-[7.9605 tok/s]
+[7.8280 tok/s]
 max 1177 tokens reached
