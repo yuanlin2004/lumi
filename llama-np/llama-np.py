@@ -96,6 +96,7 @@ class Llama:
     ) -> "Llama":
         if seed is not None:
             random.seed(seed)
+            self.rand_seed = seed
 
         params, tokenizer_model, weight_dict, llama_version = read_lumi(model_path)
 
@@ -213,7 +214,13 @@ class Llama:
                 break
             if exp_args.one_a_time:
                 if i < (len_prompt - 1):
+                    # Still in the fill stage, discard the generated token and use the next 
+                    # token from the prompt instead. 
                     generated_token = input_tokens[i + 1]
+                    # Reset the random seed to the original value. So to make sure the
+                    # behavior is consistent with the case where all tokens are fed in at once.
+                    if self.rand_seed is not None:
+                        random.seed(self.rand_seed)
                 i += 1
             else:
                 if i == 0:
