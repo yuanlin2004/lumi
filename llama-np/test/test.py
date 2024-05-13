@@ -198,6 +198,23 @@ def test_one(cmd, ids):
     output = output_dir + "/" + ids
     command = f"{cmd} --seed 34 >{output}"
 
+    exists = None
+    if os.path.exists(output + ".pass"):
+        exists = "pass"
+        compare_result = 0
+    elif os.path.exists(output + ".fail"):
+        exists = "fail"
+        compare_result = 3
+    elif os.path.exists(output + ".misc"):
+        exists = "misc"
+        compare_result = 1
+
+    if exists is not None:
+        #skip the test
+        text = f"[{current}/{total_number_of_tests}]:old {exists} {command}"
+        print(text)
+        return compare_result, output+"."+exists
+
     status = "Testing"
     local_time1 = strftime("%H:%M:%S", localtime())
     text = f"[{current}/{total_number_of_tests}]:{status} {local_time1} {command}"
@@ -314,8 +331,12 @@ if __name__ == "__main__":
     group.add_argument(
         "-l1",
         action="store_true",
+        default=False,
         help="l1: fast check, finish in less than 10 minutes.",
     )
+
+    parser.add_argument("-noclear", action="store_true", help="Do not clear the output directory.")
+
     args = parser.parse_args()
 
     if args.a:
@@ -336,8 +357,10 @@ if __name__ == "__main__":
 
     start_time = time()
 
+    if not args.noclear:
+        os.system(f"rm {output_dir}/*")
+
     current = 0
-    os.system(f"rm {output_dir}/*")
     iterate_func(test_one, cross_check)
     print(f"passed: {len(passed)}")
     print(f"failed: {len(failed)}")
