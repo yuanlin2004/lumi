@@ -78,7 +78,7 @@ class Sampler:
         if self.save_history:
             self.history.append(s)
 
-    def save_history(self, filename):
+    def history_save(self, filename):
         with open(filename, "wb") as f:
             pickle.dump(self.history, f)
 
@@ -469,6 +469,10 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    if args.sample_history is not None and args.emit_one_token is None:
+        print("You must specify --emit-one-token when using --sampler-history")
+        exit(1)
+
     weight_file = args.w
 
     if args.i:
@@ -516,4 +520,4 @@ if __name__ == "__main__":
         llama.gen_text(input_str, exp_args, args.emit_one_token, no_masking=args.nomask)
 
     if args.sample_history is not None:
-        llama.sampler.save_history(args.sample_history)
+        llama.sampler.history_save(args.sample_history)
