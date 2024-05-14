@@ -1,0 +1,42 @@
+Reading model file ........................................................................................................................................................................................................... 1.3397 seconds
+Building the network . 0.5486 seconds
+
+[max seq length: 19   length of input prompt: 4]
+......................304 0.1852 seconds
+
+It is easy to
+
+......................7984 0.1223 seconds
+
+It is easy to cook
+
+......................322 0.1194 seconds
+
+It is easy to cook and
+
+......................278 0.1196 seconds
+
+It is easy to cook and the
+
+......................21054 0.1200 seconds
+
+It is easy to cook and the flav
+
+......................272 0.1195 seconds
+
+It is easy to cook and the flavor
+
+......................338 0.1198 seconds
+
+It is easy to cook and the flavor is
+
+......................2107 0.1194 seconds
+
+It is easy to cook and the flavor is great
+
+......................29991 0.1196 seconds
+
+It is easy to cook and the flavor is great!
+
+......................2 0.1196 seconds
+[7.9063 tok/s]

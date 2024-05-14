@@ -1,0 +1,54 @@
+Reading model file ........................................................................................................................................................................................................... 1.3726 seconds
+Building the network . 0.6879 seconds
+
+[max seq length: 19   length of input prompt: 4]
+......................304 0.1590 seconds
+
+It is easy to
+
+......................9758 0.0883 seconds
+
+It is easy to spot
+
+......................278 0.0830 seconds
+
+It is easy to spot the
+
+......................25713 0.0831 seconds
+
+It is easy to spot the fake
+
+......................6743 0.0828 seconds
+
+It is easy to spot the fake ones
+
+......................29892 0.0823 seconds
+
+It is easy to spot the fake ones,
+
+......................1363 0.0835 seconds
+
+It is easy to spot the fake ones, because
+
+......................896 0.0831 seconds
+
+It is easy to spot the fake ones, because they
+
+......................1106 0.0827 seconds
+
+It is easy to spot the fake ones, because they look
+
+......................901 0.0821 seconds
+
+It is easy to spot the fake ones, because they look more
+
+......................19390 0.0833 seconds
+
+It is easy to spot the fake ones, because they look more expensive
+
+......................29889 0.0829 seconds
+
+It is easy to spot the fake ones, because they look more expensive.
+
+......................2 0.0828 seconds
+[11.2117 tok/s]

@@ -1,0 +1,91 @@
+Reading model file ........................................................................................................................................................................................................... 1.3418 seconds
+Building the network . 0.5193 seconds
+
+[max seq length: 38   length of input prompt: 19]
+......................714 0.1645 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out
+
+......................29892 0.1028 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out,
+
+......................920 0.0999 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how
+
+......................1784 0.1000 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many
+
+......................2654 0.0998 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red
+
+......................26563 0.0999 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls
+
+......................322 0.1000 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and
+
+......................920 0.0999 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and how
+
+......................1784 0.0998 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and how many
+
+......................7254 0.1002 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and how many blue
+
+......................26563 0.1000 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and how many blue balls
+
+......................526 0.1001 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and how many blue balls are
+
+......................2175 0.0998 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and how many blue balls are left
+
+......................297 0.0997 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and how many blue balls are left in
+
+......................278 0.1000 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and how many blue balls are left in the
+
+......................19548 0.1000 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and how many blue balls are left in the bag
+
+......................29973 0.0999 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and how many blue balls are left in the bag?
+
+......................13 0.1000 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and how many blue balls are left in the bag?
+
+
+......................13 0.1000 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and how many blue balls are left in the bag?
+
+
+
+......................29896 0.1000 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out, how many red balls and how many blue balls are left in the bag?
+
+1
+
+[9.6733 tok/s]
+max 38 tokens reached

@@ -1,0 +1,115 @@
+Reading model file ........................................................................................................................................................................................................... 1.3824 seconds
+Building the network . 0.6722 seconds
+
+[max seq length: 38   length of input prompt: 19]
+......................13 0.1605 seconds
+
+List all the prime numbers between 100 and 200. They are
+
+
+......................259 0.0886 seconds
+
+List all the prime numbers between 100 and 200. They are
+  
+
+......................334 0.0838 seconds
+
+List all the prime numbers between 100 and 200. They are
+   *
+
+......................10372 0.0844 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered
+
+......................515 0.0841 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from
+
+......................9939 0.0844 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest
+
+......................304 0.0842 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to
+
+......................19604 0.0842 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to lowest
+
+......................29892 0.0843 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to lowest,
+
+......................515 0.0840 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to lowest, from
+
+......................19087 0.0843 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to lowest, from smallest
+
+......................304 0.0842 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to lowest, from smallest to
+
+......................10150 0.0843 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to lowest, from smallest to largest
+
+......................29889 0.0843 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to lowest, from smallest to largest.
+
+......................13 0.0844 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to lowest, from smallest to largest.
+
+
+......................259 0.0844 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to lowest, from smallest to largest.
+  
+
+......................334 0.0840 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to lowest, from smallest to largest.
+   *
+
+......................13 0.0843 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to lowest, from smallest to largest.
+   *
+
+
+......................259 0.0840 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to lowest, from smallest to largest.
+   *
+  
+
+......................334 0.0840 seconds
+
+List all the prime numbers between 100 and 200. They are
+   * ordered from highest to lowest, from smallest to largest.
+   *
+   *
+
+[11.3255 tok/s]
+max 38 tokens reached

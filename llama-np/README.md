@@ -38,6 +38,7 @@ Final Answer: The final answer is \frac{4}{7}. I hope it is correct.
 | TinyStories  | 15M   | fp32     |
 | TinyStories  | 42M   | fp32     |
 | TinyStories  | 110M   | fp32     |
+| TinyLlama    | 1.1B   | bf16     |
 
 ## Operating Instructions
 Running a model involves two primary steps: converting the weights into a compatible format and running the model itself.

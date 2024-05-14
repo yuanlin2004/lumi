@@ -1,0 +1,70 @@
+Reading model file ........................................................................................................................................................................................................... 1.4297 seconds
+Building the network . 0.0002 seconds
+
+[max seq length: 19   length of input prompt: 4]
+......................304 0.1764 seconds
+
+It is easy to
+
+......................6456 0.1271 seconds
+
+It is easy to remember
+
+......................278 0.1272 seconds
+
+It is easy to remember the
+
+......................4100 0.1274 seconds
+
+It is easy to remember the important
+
+......................2712 0.1274 seconds
+
+It is easy to remember the important things
+
+......................393 0.1271 seconds
+
+It is easy to remember the important things that
+
+......................3799 0.1271 seconds
+
+It is easy to remember the important things that happen
+
+......................297 0.1269 seconds
+
+It is easy to remember the important things that happen in
+
+......................278 0.1270 seconds
+
+It is easy to remember the important things that happen in the
+
+......................3236 0.1274 seconds
+
+It is easy to remember the important things that happen in the course
+
+......................310 0.1270 seconds
+
+It is easy to remember the important things that happen in the course of
+
+......................263 0.1266 seconds
+
+It is easy to remember the important things that happen in the course of a
+
+......................2462 0.1266 seconds
+
+It is easy to remember the important things that happen in the course of a day
+
+......................29889 0.1270 seconds
+
+It is easy to remember the important things that happen in the course of a day.
+
+......................306 0.1271 seconds
+
+It is easy to remember the important things that happen in the course of a day. I
+
+......................437 0.1280 seconds
+
+It is easy to remember the important things that happen in the course of a day. I do
+
+[7.6769 tok/s]
+max 19 tokens reached

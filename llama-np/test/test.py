@@ -20,8 +20,8 @@ llama2_models = [
     (model_dir + "stories15m.lmw", 1.2, "m22"),
     (model_dir + "stories42m.lmw", 1.2, "m23"),
     (model_dir + "stories110m.lmw", 1.2, "m24"),
-    #    (model_dir + "tinyllama-1.1b.lmw", 1.2, "m25"),
-    #    (model_dir + "tinyllama-1.1b-chat.lmw", 1.2, "m26"),
+    (model_dir + "tinyllama-1.1b-3t.lmw", 1.2, "m25"),
+    (model_dir + "tinyllama-1.1b-chat-v1.0.lmw", 1.2, "m26"),
     (model_dir + "llama-2-7b.lmw", 1.2, "m27"),
     (model_dir + "llama-2-7b-chat.lmw", 1.2, "m28"),
 ]

@@ -1,0 +1,81 @@
+Reading model file ........................................................................................................................................................................................................... 1.3898 seconds
+Building the network . 0.0002 seconds
+
+[max seq length: 28   length of input prompt: 11]
+......................385 0.2572 seconds
+
+The US president in 2020 is an
+
+......................3546 0.1261 seconds
+
+The US president in 2020 is an elect
+
+......................519 0.1253 seconds
+
+The US president in 2020 is an electable
+
+......................14020 0.1262 seconds
+
+The US president in 2020 is an electable candidate
+
+......................29892 0.1259 seconds
+
+The US president in 2020 is an electable candidate,
+
+......................541 0.1259 seconds
+
+The US president in 2020 is an electable candidate, but
+
+......................825 0.1258 seconds
+
+The US president in 2020 is an electable candidate, but what
+
+......................526 0.1260 seconds
+
+The US president in 2020 is an electable candidate, but what are
+
+......................670 0.1261 seconds
+
+The US president in 2020 is an electable candidate, but what are his
+
+......................521 0.1263 seconds
+
+The US president in 2020 is an electable candidate, but what are his ch
+
+......................2925 0.1255 seconds
+
+The US president in 2020 is an electable candidate, but what are his chances
+
+......................310 0.1263 seconds
+
+The US president in 2020 is an electable candidate, but what are his chances of
+
+......................1641 0.1260 seconds
+
+The US president in 2020 is an electable candidate, but what are his chances of being
+
+......................11467 0.1258 seconds
+
+The US president in 2020 is an electable candidate, but what are his chances of being elected
+
+......................29973 0.1259 seconds
+
+The US president in 2020 is an electable candidate, but what are his chances of being elected?
+
+......................13 0.1257 seconds
+
+The US president in 2020 is an electable candidate, but what are his chances of being elected?
+
+
+......................29933 0.1259 seconds
+
+The US president in 2020 is an electable candidate, but what are his chances of being elected?
+B
+
+......................6392 0.1264 seconds
+
+The US president in 2020 is an electable candidate, but what are his chances of being elected?
+Brian
+
+[7.5015 tok/s]
+max 28 tokens reached
