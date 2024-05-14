@@ -291,9 +291,9 @@ def read_tinyllama(model_path, tokenizer_model):
             elif t[4] == "o_proj":
                 state_dict["layers." + t[2] + ".attention.wo.weight"] = model[name]
             elif t[4] == "gate_proj":
-                state_dict["layers." + t[2] + ".feed_forward.w3.weight"] = model[name]
-            elif t[4] == "up_proj":
                 state_dict["layers." + t[2] + ".feed_forward.w1.weight"] = model[name]
+            elif t[4] == "up_proj":
+                state_dict["layers." + t[2] + ".feed_forward.w3.weight"] = model[name]
             elif t[4] == "down_proj":
                 state_dict["layers." + t[2] + ".feed_forward.w2.weight"] = model[name]
         else:
@@ -306,7 +306,7 @@ def read_tinyllama(model_path, tokenizer_model):
     params["n_heads"] = 32
     params["n_kv_heads"] = 4
     params["multiple_of"] = 8  # just a guess
-    params["vocab_size"] = 32000
+    params["vocab_size"] = model['model.embed_tokens.weight'].shape[0]
     params["max_seq_len"] = 1024  # just a guess
     params["norm_eps"] = 1e-05
     patch_params(params)
