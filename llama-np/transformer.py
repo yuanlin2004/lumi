@@ -75,7 +75,7 @@ class Linear:
             return y
 
         y = np.matmul(x, self.weight)
-        if self.bias:
+        if self.bias is not None:
             y = y + self.bias
 
         return y
@@ -167,9 +167,13 @@ class Attention:
     def __init__(
         self,
         wq_weight,
+        wq_bias,
         wk_weight,
+        wk_bias,
         wv_weight,
+        wv_bias,
         wo_weight,
+        wo_bias,
         max_seq_len,
         exp_args,
         pos_emb,
@@ -179,10 +183,10 @@ class Attention:
         self.n_heads = n_heads
         self.n_kv_heads = n_kv_heads
                 
-        self.wq_matmul = Linear(wq_weight, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
-        self.wk_matmul = Linear(wk_weight, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
-        self.wv_matmul = Linear(wv_weight, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
-        self.wo_matmul = Linear(wo_weight, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
+        self.wq_matmul = Linear(wq_weight, bias=wq_bias, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
+        self.wk_matmul = Linear(wk_weight, bias=wk_bias,use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
+        self.wv_matmul = Linear(wv_weight, bias=wv_bias, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
+        self.wo_matmul = Linear(wo_weight, bias=wo_bias, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
         self.pos_emb = pos_emb
 
         self.max_seq_len = max_seq_len
@@ -288,9 +292,13 @@ class TransformerBlock:
         n_heads,
         n_kv_heads,
         w_q,
+        wb_q,
         w_k,
+        wb_k,
         w_v,
+        wb_v,
         w_o,
+        wb_o,
         w_ffd_w1,
         w_ffd_w2,
         w_ffd_w3,
@@ -303,9 +311,13 @@ class TransformerBlock:
         self.att_rmsnorm = RMSNorm(w_att_norm, use_cupy=exp_args.use_cupy, gpuw=True)
         self.attention = Attention(
             w_q,
+            wb_q,
             w_k,
+            wb_k,
             w_v,
+            wb_v,
             w_o,
+            wb_o,
             max_seq_len,
             exp_args,
             RoPE(rope_theta),
@@ -369,9 +381,13 @@ class Transformer:
                 params["n_heads"],
                 params["n_kv_heads"],
                 weight_dict[f"layers.{i}.attention.wq.weight"],
+                weight_dict.get(f"layers.{i}.attention.wq.bias"),
                 weight_dict[f"layers.{i}.attention.wk.weight"],
+                weight_dict.get(f"layers.{i}.attention.wk.bias"),
                 weight_dict[f"layers.{i}.attention.wv.weight"],
+                weight_dict.get(f"layers.{i}.attention.wv.bias"),
                 weight_dict[f"layers.{i}.attention.wo.weight"],
+                weight_dict.get(f"layers.{i}.attention.wo.bias"),
                 weight_dict[f"layers.{i}.feed_forward.w1.weight"],
                 weight_dict[f"layers.{i}.feed_forward.w2.weight"],
                 weight_dict[f"layers.{i}.feed_forward.w3.weight"],
