@@ -28,6 +28,8 @@ llama2_models = [
 llama3_models = [
     (model_dir + "llama-3-8b.lmw", 1.2, "m31"),
     (model_dir + "llama-3-8b-instruct.lmw", 1.2, "m32"),
+    (model_dir + "qwen1.5-7b-chat.lmw", 1.2, "m33"),
+
 ]
 
 # (prompt, seqlength, id)
@@ -39,7 +41,7 @@ prompts = [
         "p2",
     ),
     ("-i 'List all the prime numbers between 100 and 200. They are'", 32, "p3"),
-    #    ("-i 'The US president in 2020 is Joe'", 24, "p4"),
+    ("-i '你好'", 24, "p4"),
     ("-i 'The US president in 2020 is'", 24, "p5"),
     ("-f input_prompt1_short.txt", 20, "p6"),
     ("-f input_prompt2_long.txt", 800, "p7"),
@@ -63,8 +65,8 @@ prefill_options = [
 
 sampler_options = [
     ("--temp 0", "s1"),
-    ("--temp 3.4" "s2"),
-    ("--topp 9.9", "s3"),
+    ("--temp 0.4", "s2"),
+    ("--topp 0.99", "s3"),
 ]
 
 output_options = [
@@ -161,7 +163,15 @@ def iterate_l1(func, ccheck=None):
                     m[-1] + p[-1] + c[-1],
                 )
 
-    m = llama3_models[-1]
+    for m in [find_model("qw")]:
+        for p in [prompts[3]]:
+            for c in cupy_options:
+                func(
+                    f"-w {m[0]} {p[0]} --seqlength {int(m[1]*p[1])} {c[0]}",
+                    m[-1] + p[-1] + c[-1],
+                )
+
+    m = find_model("llama-3-8b-instruct.lmw") 
     p = prompts[0]
     for o in output_options:
         for s in sampler_options:
@@ -169,6 +179,7 @@ def iterate_l1(func, ccheck=None):
                 f"-w {m[0]} {p[0]} --seqlength {int(m[1]*p[1])} {o[0]} {s[0]}",
                 m[-1] + p[-1] + o[-1] + s[-1],
             )
+
 
 
 def show(str1, str2):

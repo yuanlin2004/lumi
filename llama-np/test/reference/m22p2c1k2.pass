@@ -1,16 +1,16 @@
-Reading model file ........................................................... 0.0366 seconds
-Building the network . 0.1039 seconds
+Reading model file ........................................................... 0.0377 seconds
+Building the network . 0.0834 seconds
 
 [max seq length: 38   length of input prompt: 19]
-......515 0.0852 seconds
+......515 0.0794 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball from
 
-......278 0.0128 seconds
+......278 0.0133 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball from the
 
-......916 0.0090 seconds
+......916 0.0101 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other
 
@@ -18,7 +18,7 @@ There are three red balls and four blue balls in a bag. If I take one ball from 
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other,
 
-......366 0.0091 seconds
+......366 0.0089 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other, you
 
@@ -38,7 +38,7 @@ There are three red balls and four blue balls in a bag. If I take one ball from 
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other, you can have two.
 
-......910 0.0090 seconds
+......910 0.0091 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other, you can have two. This
 
@@ -50,27 +50,27 @@ There are three red balls and four blue balls in a bag. If I take one ball from 
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other, you can have two. This is called
 
-......278 0.0089 seconds
+......278 0.0088 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other, you can have two. This is called the
 
-......1993 0.0089 seconds
+......1993 0.0090 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other, you can have two. This is called the match
 
-......29889 0.0089 seconds
+......29889 0.0090 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other, you can have two. This is called the match.
 
-......2688 0.0090 seconds
+......2688 0.0093 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other, you can have two. This is called the match. They
 
-......526 0.0089 seconds
+......526 0.0091 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other, you can have two. This is called the match. They are
 
-......577 0.0091 seconds
+......577 0.0090 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other, you can have two. This is called the match. They are so
 
@@ -78,9 +78,9 @@ There are three red balls and four blue balls in a bag. If I take one ball from 
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other, you can have two. This is called the match. They are so happy
 
-......322 0.0090 seconds
+......322 0.0088 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball from the other, you can have two. This is called the match. They are so happy and
 
-[76.7569 tok/s]
+[78.0249 tok/s]
 max 38 tokens reached

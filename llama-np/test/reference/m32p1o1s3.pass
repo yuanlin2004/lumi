@@ -1,0 +1,7 @@
+Reading model file ..................................................................................................................................................................................................................................................................................................... 11.4887 seconds
+Building the network . 0.0003 seconds
+
+[max seq length: 19   length of input prompt: 4]
+It is easy to lose sight of the grand vision, to become so mired in the day
+[1.3283 tok/s]
+max 19 tokens reached

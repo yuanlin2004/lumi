@@ -22,15 +22,33 @@ class Linear:
                 # to be contiguous. If `weight` is already a view of a transpose, the `view`
                 # will fail.  
                 w16 = weight.T.view(dtype=np.int16)
+                if bias is not None:
+                    b16 = bias.view(dtype=np.int16)
                 if gpuw:
                     self.weight = cupy.asarray(w16[:, 1::2])
+                    if bias is not None:
+                        self.bias = cupy.asarray(b16[1::2]) 
+                    else:
+                        self.bias = None
                 else:
                     self.weight = w16[:, 1::2].copy()
+                    if bias is not None:
+                        self.bias = b16[1::2].copy() 
+                    else:
+                        self.bias = None
             else:
                 if gpuw:
                     self.weight = cupy.asarray(weight.T)
+                    if bias is not None:
+                        self.bias = cupy.asarray(bias)
+                    else:
+                        self.bias = None
                 else:
                     self.weight = weight.T.copy()
+                    if bias is not None:
+                        self.bias = bias.copy()
+                    else:
+                        self.bias = None
         else:
             weight_t = weight.T
             # Performance Trick: 
@@ -43,8 +61,8 @@ class Linear:
                 self.weight = weight_t
             else:
                 self.weight = weight_t.copy()
+            self.bias = bias
 
-        self.bias = bias
         self.use_cupy = use_cupy
         self.gpuw = gpuw
         self.bf16 = bf16
@@ -55,8 +73,13 @@ class Linear:
         if self.use_cupy:
             if self.gpuw:
                 weight = self.weight
+                bias = self.bias
             else:
                 weight = cupy.asarray(self.weight)
+                if self.bias is not None:
+                    bias = cupy.asarray(self.bias)
+                else:
+                    bias = None
             if self.bf16:
                 sp = list(weight.shape)
                 sp.append(2)
@@ -64,13 +87,21 @@ class Linear:
                 w[:,:,1] = weight
                 w[:,:,0] = 0
                 w = w.view(dtype=np.float32).squeeze()
+
+                if bias is not None:
+                    sp = list(bias.shape)
+                    sp.append(2)
+                    b = cupy.ndarray(sp, dtype=np.int16)
+                    b[...,1] = bias
+                    b[...,0] = 0
+                    b = b.view(dtype=np.float32).squeeze()
             else:
-                w = self.weight
+                w = weight
+                b = bias
             y = cupy.matmul(x, w)
             if not self.gpuw:
                 del weight
-            if self.bias:
-                b = cupy.asarray(self.bias)
+            if self.bias is not None:
                 y = y + b
             return y
 
@@ -93,9 +124,9 @@ class SiLU:
 class FeedForward:
     def __init__(self, w1, w2, w3, layer_id, exp_args):
         #self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=(layer_id %2 ==0), bf16=True)
-        self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=(layer_id %3 !=0), bf16=True)
-        self.w2 = Linear(w2, use_cupy=exp_args.use_cupy, gpuw=(layer_id %3 ==0), bf16=True)
-        self.w3 = Linear(w3, use_cupy=exp_args.use_cupy, gpuw=(layer_id %3 ==0), bf16=True)
+        self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=(layer_id %4 ==0), bf16=True)
+        self.w2 = Linear(w2, use_cupy=exp_args.use_cupy, gpuw=(layer_id %4 ==0), bf16=True)
+        self.w3 = Linear(w3, use_cupy=exp_args.use_cupy, gpuw=(layer_id %4 ==0), bf16=True)
         self.silu = SiLU()
         return
 
