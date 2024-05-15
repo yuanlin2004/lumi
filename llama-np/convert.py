@@ -324,7 +324,6 @@ def read_qwen(model_path, tokenizer_model):
 
     state_dict = {}
     for params_path in model_paths:
-        print(f"reading {params_path}")
         model = safetensors.torch.load_file(params_path)
 
         for name in sorted(list(model)):
@@ -332,7 +331,6 @@ def read_qwen(model_path, tokenizer_model):
                 state_dict["output.weight"] = model[name]
             elif name == "transformer.wte.weight":
                 state_dict["tok_embeddings.weight"] = model[name]
-                print("tok_embeddings.weight")
             elif name == "transformer.ln_f.weight":
                 state_dict["norm.weight"] = model[name]
             elif "transformer.h" in name:
@@ -362,9 +360,9 @@ def read_qwen(model_path, tokenizer_model):
                     if t[4] == "c_proj":
                         state_dict["layers." + t[2] + ".feed_forward.w2.weight"] = model[name]
                     elif t[4] == "w1":
-                        state_dict["layers." + t[2] + ".feed_forward.w1.weight"] = model[name]
-                    elif t[4] == "w2":
                         state_dict["layers." + t[2] + ".feed_forward.w3.weight"] = model[name]
+                    elif t[4] == "w2":
+                        state_dict["layers." + t[2] + ".feed_forward.w1.weight"] = model[name]
                     else:
                         print(f"unknown weight {name}")
                         exit()
