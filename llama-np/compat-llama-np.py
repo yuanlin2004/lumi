@@ -218,11 +218,11 @@ class Llama:
         while i < self.max_seq_len:
             generated_token = int(self.generate(in_tokens, i))
 
-            if generated_token == self.tokenizer.eos_id:
+            if generated_token in self.tokenizer.stop_tokens:
                 break
             i = i + (len_prompt if i == 0 else 1)
             output_tokens.append(generated_token)
-            s = self.tokenizer.decode(output_tokens)
+            s = self.tokenizer.decode(output_tokens, skip_bos=True)
             print(f"\n{s}", flush=True)
             in_tokens = [generated_token]
 
