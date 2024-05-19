@@ -1,16 +1,15 @@
 """
-Convert Meta's official Llama3 weights to Lumi weights format (.lmw).
+Convert weights to Lumi weights format (.lmw)
 
-This achives two purposes.
+This achieves two purposes.
 1. No dependence on PyT during inference.
-2. The Lumi weights format is python agnostic (not using Pickle) and can be
-   read by other lanaguages.
+2. The Lumi weights format is Python agnostic (not using Pickle) and can be
+   read by other languages.
 """
 
 import argparse
 import glob
 import json
-
 import math
 import os
 import struct
@@ -19,11 +18,9 @@ import time
 import numpy as np
 import safetensors.torch
 import torch
-
-from read_lumi import read_lumi
 from lumi_type import LumiDType
 
-from torch import nn
+from read_lumi import read_lumi
 
 
 def log(str):
@@ -35,13 +32,19 @@ def error(str):
     exit(-1)
 
 
-def pad_string(s, block_size=4):
+def write_padded_string(out_file, s, block_size=4):
     """Pad the string `s` with spaces to make its length a multiple of `block_size`."""
     padding_length = block_size - len(s) % block_size
-    return (s + (" " * padding_length)).encode()
+    padded = (s + (" " * padding_length)).encode()
+    format_str = f"I{len(padded)}s"
+    out_file.write(struct.pack(format_str, len(padded), padded))
 
 
 def serialize_bf16_fp32(out_file, tensor, transposed=False):
+    """
+    In many cases, weights are used transposed. To save network build time,
+    we can save the weights transposed.
+    """
     assert tensor.dtype == torch.float32 or tensor.dtype == torch.bfloat16
     is_bf16 = tensor.dtype == torch.bfloat16
     d = tensor.detach().cpu()
@@ -64,12 +67,13 @@ def serialize_bf16_fp32(out_file, tensor, transposed=False):
     out_file.write(b)
 
 
-#
-# https://github.com/huggingface/transformers/blob/12c39e5693f7223be162a1e84de026a6545029eb/src/transformers/models/llama/convert_llama_weights_to_hf.py#L133
-#     def permute(w, n_heads=n_heads, dim1=dim, dim2=dim):
-#        return w.view(n_heads, dim1 // n_heads // 2, 2, dim2).transpose(1, 2).reshape(dim1, dim2)
-#
 def revert_hf_permute(w, n_heads):
+    """
+    Undo the following permutation done by the Huggingface transformer library.
+     https://github.com/huggingface/transformers/blob/12c39e5693f7223be162a1e84de026a6545029eb/src/transformers/models/llama/convert_llama_weights_to_hf.py#L133
+     def permute(w, n_heads=n_heads, dim1=dim, dim2=dim):
+        return w.view(n_heads, dim1 // n_heads // 2, 2, dim2).transpose(1, 2).reshape(dim1, dim2)
+    """
     dim1, dim2 = w.shape
     return (
         w.view(n_heads, 2, dim1 // n_heads // 2, dim2)
@@ -79,7 +83,46 @@ def revert_hf_permute(w, n_heads):
     # return w.reshape(n_heads, 2, dim1 // n_heads // 2, dim2).swapaxes(1,2).reshape(dim1, dim2)
 
 
-def export_lumi(tokenizer_version, params, tokenizer_model, state_dict, filepath, n_records=-1):
+def export_lumi(
+    model_name, params, tokenizer_model, state_dict, filepath, n_records=-1
+):
+    """
+    Export the model to the Lumi weights format.
+
+    Args:
+        model_name: Name of the model
+        params: Dictionary containing the model parameters
+        tokenizer_model: Tokenizer model buffer
+        state_dict: Dictionary containing the model weights
+        filepath: Output file path
+        n_records: Number of records to export. -1 for all records. Used for testing.
+
+    Notes:
+        We include the model_name in the Lumi weights format, so to enable the model executor
+        make model specific decisions.
+
+        The following alternative was considered, tried and rejected:
+        - generalize the weights format to include all possible variations of models -
+          including hyperparameters, minor differences in model architecture, etc.
+        This could make the model executor agnostic to the specifics in each model.
+        However, this would also make the format too complex and difficult to maintain,
+        as well as paying the cost of re-exporting all models when the format changes or
+        pumping up the LMW version.
+
+        The Lumi weights format is as follows:
+        1. "lumi" magic number (4 bytes)
+        2. lumi format version (4 bytes)
+        3. model name (string)
+        4. params (dim, n_layers, n_heads, n_kv_heads, multiple_of, vocab_size, max_seq_len, rope_theta, norm_eps)
+        5. tokenizer model (buffer)
+        6. weight data (name, shape, data)
+
+        The weight data is as follows:
+        a. length_of_padded_name, padded_name_string
+        b. num of shape dim, size of each dim
+        c. transposed flag, dtype, weight values
+
+    """
 
     start_time = time.time()
     log("writing ..")
@@ -91,8 +134,8 @@ def export_lumi(tokenizer_version, params, tokenizer_model, state_dict, filepath
     # 2. lumi format version
     out_file.write(struct.pack("i", 1))
 
-    # 3. model version : 2 for sentencepiece and 3 for tiktoken
-    out_file.write(struct.pack("i", tokenizer_version))
+    # 3. model name
+    write_padded_string(out_file, model_name)
 
     # 4. params
     log(f"write params {params}")
@@ -103,10 +146,8 @@ def export_lumi(tokenizer_version, params, tokenizer_model, state_dict, filepath
         params["n_heads"],
         params["n_kv_heads"],
         params["multiple_of"],
-        params[
-            "vocab_size"
-        ],  # state_dict["tok_embeddings.weight"].shape[0],  # vocab_size
-        params["max_seq_len"],  # 2048,  # max_seq_len
+        params["vocab_size"],
+        params["max_seq_len"],
         params["rope_theta"],
         params["norm_eps"],
     )
@@ -128,9 +169,7 @@ def export_lumi(tokenizer_version, params, tokenizer_model, state_dict, filepath
         log(f"Writing {weight_name} of {weight.size()}")
 
         # length_of_padded_name, padded_name_string
-        name = pad_string(weight_name)
-        format_str = f"I{len(name)}s"
-        out_file.write(struct.pack(format_str, len(name), name))
+        write_padded_string(out_file, weight_name)
 
         # num of shape dim, size of each dim
         shape = weight.shape
@@ -142,11 +181,15 @@ def export_lumi(tokenizer_version, params, tokenizer_model, state_dict, filepath
         # weight data
         # if weight_name ends with ".weight" and is not "tok_embeddings.weight" and the weight is 2D
         # then set transposed to True.
-        if weight_name.endswith(".weight") and weight_name != "tok_embeddings.weight" and len(weight.shape) == 2:
-            tranposed = True
+        if (
+            weight_name.endswith(".weight")
+            and weight_name != "tok_embeddings.weight"
+            and len(weight.shape) == 2
+        ):
+            transposed = True
         else:
-            tranposed = False
-        serialize_bf16_fp32(out_file, state_dict[weight_name], transposed=tranposed)
+            transposed = False
+        serialize_bf16_fp32(out_file, state_dict[weight_name], transposed=transposed)
 
         n += 1
         if n_records != -1 and n >= n_records:
@@ -174,6 +217,7 @@ def read_tokenizer_model(tokenizer_model):
     with open(tokenizer_model, "rb") as f:
         tokenizer_buffer = f.read()
     return tokenizer_buffer
+
 
 def read_meta_llama(model_path, tokenizer_model):
     log("reading params.json")
@@ -243,7 +287,7 @@ def read_tinystories_pt(model_path, tokenizer_model):
     params["max_seq_len"] = args["max_seq_len"]
     patch_params(params)
 
-    return params, tokenizer_model_buffer ,state_dict
+    return params, tokenizer_model_buffer, state_dict
 
 
 def read_tinyllama(model_path, tokenizer_model):
@@ -306,7 +350,7 @@ def read_tinyllama(model_path, tokenizer_model):
     params["n_heads"] = 32
     params["n_kv_heads"] = 4
     params["multiple_of"] = 8  # just a guess
-    params["vocab_size"] = model['model.embed_tokens.weight'].shape[0]
+    params["vocab_size"] = model["model.embed_tokens.weight"].shape[0]
     params["max_seq_len"] = 1024  # just a guess
     params["norm_eps"] = 1e-05
     patch_params(params)
@@ -336,7 +380,9 @@ def read_qwen(model_path, tokenizer_model):
             elif "transformer.h" in name:
                 t = name.split(".")
                 if t[3] == "ln_1":
-                    state_dict["layers." + t[2] + ".attention_norm.weight"] = model[name]
+                    state_dict["layers." + t[2] + ".attention_norm.weight"] = model[
+                        name
+                    ]
                 elif t[3] == "ln_2":
                     state_dict["layers." + t[2] + ".ffn_norm.weight"] = model[name]
 
@@ -352,17 +398,25 @@ def read_qwen(model_path, tokenizer_model):
                         state_dict["layers." + t[2] + ".attention.wk.bias"] = k
                         state_dict["layers." + t[2] + ".attention.wv.bias"] = v
                     elif t[4] == "c_proj":
-                        state_dict["layers." + t[2] + ".attention.wo.weight"] = model[name]
+                        state_dict["layers." + t[2] + ".attention.wo.weight"] = model[
+                            name
+                        ]
                     else:
                         print(f"unknown weight {name}")
                         exit()
                 elif t[3] == "mlp":
                     if t[4] == "c_proj":
-                        state_dict["layers." + t[2] + ".feed_forward.w2.weight"] = model[name]
+                        state_dict["layers." + t[2] + ".feed_forward.w2.weight"] = (
+                            model[name]
+                        )
                     elif t[4] == "w1":
-                        state_dict["layers." + t[2] + ".feed_forward.w3.weight"] = model[name]
+                        state_dict["layers." + t[2] + ".feed_forward.w3.weight"] = (
+                            model[name]
+                        )
                     elif t[4] == "w2":
-                        state_dict["layers." + t[2] + ".feed_forward.w1.weight"] = model[name]
+                        state_dict["layers." + t[2] + ".feed_forward.w1.weight"] = (
+                            model[name]
+                        )
                     else:
                         print(f"unknown weight {name}")
                         exit()
@@ -379,10 +433,10 @@ def read_qwen(model_path, tokenizer_model):
     params["n_heads"] = 32
     params["n_kv_heads"] = 32
     params["multiple_of"] = 8  # just a guess
-    params["vocab_size"] = state_dict["tok_embeddings.weight"].shape[0] 
+    params["vocab_size"] = state_dict["tok_embeddings.weight"].shape[0]
     params["max_seq_len"] = 8192  # just a guess
     params["norm_eps"] = 1e-06
-    params["rope_theta"] = 10000
+    params["rope_theta"] = 1000000
     patch_params(params)
 
     return params, tokenizer_model_buffer, state_dict
@@ -413,10 +467,15 @@ def compare(meta_params, meta_dict, lumi_params, lumi_dict, n_records):
 
 
 if __name__ == "__main__":
-    '''
+    """
     python convert.py model tokenizer.model output.lmw
-    '''
+    """
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "model_name",
+        type=str,
+        help="name of the model. This is used to make model specific decisions in the model executor.",
+    )
     parser.add_argument(
         "input_model",
         type=str,
@@ -427,10 +486,15 @@ if __name__ == "__main__":
         type=str,
         help="Path of the tokenizer.model file. Should include the filename.",
     )
-    parser.add_argument("lumi_model", type=str, help="Path of the output lumi model. Should include the filename.")
+    parser.add_argument(
+        "lumi_model",
+        type=str,
+        help="Path of the output lumi model. Should include the filename.",
+    )
 
     parser.add_argument(
-        "-t", "--test",
+        "-t",
+        "--test",
         action="store_true",
         help="Test by first exporting and reading back a few weights in the lumi format and then comparing the results.",
     )
@@ -440,33 +504,50 @@ if __name__ == "__main__":
     log(f"output: {args.lumi_model}")
 
     # Detect the model and process accordingly
-    tokenizer_version = 2
-    if "llama-2" in args.input_model:
+    if "llama-2" in args.model_name.lower():
         print("Reading llama-2 model")
-        meta_params, tokenizer_model, meta_dict = read_meta_llama(args.input_model, args.tokenizer_model)
-    elif ("Llama-3" in args.input_model) or ("llama-3" in args.input_model):
+        meta_params, tokenizer_model, meta_dict = read_meta_llama(
+            args.input_model, args.tokenizer_model
+        )
+    elif "llama-3" in args.model_name.lower():
         print("Reading llama-3 model")
-        meta_params, tokenizer_model, meta_dict = read_meta_llama(args.input_model, args.tokenizer_model)
-        tokenizer_version = 3
-    elif "stories" in args.input_model:
+        meta_params, tokenizer_model, meta_dict = read_meta_llama(
+            args.input_model, args.tokenizer_model
+        )
+    elif "stories" in args.model_name.lower():
         print("Reading TinyStories model")
-        meta_params, tokenizer_model, meta_dict = read_tinystories_pt(args.input_model, args.tokenizer_model)
-    elif "TinyLlama" in args.input_model:
+        meta_params, tokenizer_model, meta_dict = read_tinystories_pt(
+            args.input_model, args.tokenizer_model
+        )
+    elif "tinyllama" in args.model_name.lower():
         print("Reading TinyLlama model")
-        meta_params, tokenizer_model, meta_dict = read_tinyllama(args.input_model, args.tokenizer_model)
-    elif "Qwen1.5-7B-Chat" in args.input_model:
+        meta_params, tokenizer_model, meta_dict = read_tinyllama(
+            args.input_model, args.tokenizer_model
+        )
+    elif "qwen1.5-7b-chat" in args.model_name.lower():
         print("Reading Qwen model 1.5 7B Chat")
-        meta_params, tokenizer_model, meta_dict = read_qwen(args.input_model, args.tokenizer_model)
-        tokenizer_version = 3
+        meta_params, tokenizer_model, meta_dict = read_qwen(
+            args.input_model, args.tokenizer_model
+        )
     else:
         print("Unknown model type")
         exit()
 
     if args.test:
         n_records = 15
-        export_lumi(tokenizer_version, meta_params, tokenizer_model, meta_dict, args.lumi_model, n_records)
-        lumi_params, lumi_tokenizer_model, lumi_dict, _ = read_lumi(args.lumi_model, n_records)
+        export_lumi(
+            args.model_name,
+            meta_params,
+            tokenizer_model,
+            meta_dict,
+            args.lumi_model,
+            n_records,
+        )
+        lumi_params, lumi_tokenizer_model, lumi_dict, _ = read_lumi(
+            args.lumi_model, n_records
+        )
         compare(meta_params, meta_dict, lumi_params, lumi_dict, n_records)
     else:
-        export_lumi(tokenizer_version, meta_params, tokenizer_model, meta_dict, args.lumi_model)
-
+        export_lumi(
+            args.model_name, meta_params, tokenizer_model, meta_dict, args.lumi_model
+        )

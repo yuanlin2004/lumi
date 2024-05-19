@@ -13,7 +13,7 @@ from typing import List, Literal, Optional, Tuple, TypedDict
 import numpy as np
 
 from read_lumi import read_lumi
-from tokenizer import ChatFormat, Tokenizer_Llama2, Tokenizer_Llama3
+from tokenizer import GetChatFormat, Tokenizer_Llama2, Tokenizer_Llama3
 from transformer import *
 from sysutil import *
 from config import *
@@ -98,22 +98,24 @@ class Llama:
             random.seed(seed)
             self.rand_seed = seed
 
-        params, tokenizer_model, weight_dict, llama_version = read_lumi(model_path)
+        params, tokenizer_model, weight_dict, model_name = read_lumi(model_path)
 
-        if llama_version == 3:
-            self.tokenizer = Tokenizer_Llama3(tokenizer_model)
-        elif llama_version == 2:
+        if model_name in ['llama-3-8b', 'llama-3-8b-instruct', 'qwen1.5-7b-chat']:
+            self.tokenizer = Tokenizer_Llama3(model_name, tokenizer_model)
+        else: 
             self.tokenizer = Tokenizer_Llama2(tokenizer_model)
+        if model_name in ['qwen1.5-7b-chat']:
+            rotate_half = True
         else:
-            raise ValueError(f"Unknown llama version: {llama_version}")
-        self.llama_version = llama_version
+            rotate_half = False
+        self.model_name = model_name
 
         print("Building the network . ", end="", flush=True)
         start_time = time.perf_counter()
         self.params = params
         # Note: some weights in weight_dict will be 'del'ed in the following call,
         # to keep the memory footprint small, as transposed copies will be made.
-        self.model = Transformer(params, weight_dict, max_seq_len, exp_args)
+        self.model = Transformer(params, weight_dict, max_seq_len, rotate_half, exp_args)
 
         # just to tighten up the loose end
         del weight_dict
@@ -293,11 +295,11 @@ class Llama:
         # clean kv cache. All the tokens generated so far are kept in a list and fed to the model at each turn
         # as the context. Therefore the generating the first token in each turn is a bit slower than having the
         # continuous dialog mode.
-        chat_format = ChatFormat(self.tokenizer)
+        chat_format = GetChatFormat(self.tokenizer)
         preemptive_diaglog = [
             {"role": "system", "content": "Always answer precisely."},
-            {"role": "user", "content": "Let's get started."},
-            {"role": "assistant", "content": "I am ready to help you. Let's start."},
+            #{"role": "user", "content": "Let's get started."},
+            #{"role": "assistant", "content": "I am ready to help you. Let's start."},
         ]
         all_tokens = []
         while True:

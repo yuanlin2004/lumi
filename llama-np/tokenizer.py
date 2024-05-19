@@ -54,7 +54,7 @@ class Tokenizer_Llama3:
 
     pat_str = r"(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\r\n\p{L}\p{N}]?\p{L}+|\p{N}{1,3}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s*[\r\n]+|\s+(?!\S)|\s+"  # noqa: E501
 
-    def __init__(self, model_str: str):
+    def __init__(self, model_name: str, model_str: str):
         """
         Initializes the Tokenizer with a Tiktoken model.
 
@@ -63,33 +63,42 @@ class Tokenizer_Llama3:
         """
 
         # copied from https://github.com/openai/tiktoken/blob/1b9faf2779855124f05174adf1383e53689ed94b/tiktoken/load.py#L148C5-L151C6
-        import base64 
+        import base64
+
         mergeable_ranks = {
             base64.b64decode(token): int(rank)
             for token, rank in (line.split() for line in model_str.splitlines() if line)
         }
 
         num_base_tokens = len(mergeable_ranks)
-        special_tokens = [
-            "<|begin_of_text|>",
-            "<|end_of_text|>",
-            "<|reserved_special_token_0|>",
-            "<|reserved_special_token_1|>",
-            "<|reserved_special_token_2|>",
-            "<|reserved_special_token_3|>",
-            "<|start_header_id|>",
-            "<|end_header_id|>",
-            "<|reserved_special_token_4|>",
-            "<|eot_id|>",  # end of turn
-        ] + [
-            f"<|reserved_special_token_{i}|>"
-            for i in range(5, self.num_reserved_special_tokens - 5)
-        ]
+        self.model_name = model_name
+        if model_name == "qwen1.5-7b-chat":
+            special_tokens = [
+                "<|endoftext|>",
+                "<|im_start|>",
+                "<|im_end|>",
+            ]
+        else:
+            special_tokens = [
+                "<|begin_of_text|>",
+                "<|end_of_text|>",
+                "<|reserved_special_token_0|>",
+                "<|reserved_special_token_1|>",
+                "<|reserved_special_token_2|>",
+                "<|reserved_special_token_3|>",
+                "<|start_header_id|>",
+                "<|end_header_id|>",
+                "<|reserved_special_token_4|>",
+                "<|eot_id|>",  # end of turn
+            ] + [
+                f"<|reserved_special_token_{i}|>"
+                for i in range(5, self.num_reserved_special_tokens - 5)
+            ]
         self.special_tokens = {
             token: num_base_tokens + i for i, token in enumerate(special_tokens)
         }
         self.model = tiktoken.Encoding(
-            name="llama3",
+            name=model_name,
             pat_str=self.pat_str,
             mergeable_ranks=mergeable_ranks,
             special_tokens=self.special_tokens,
@@ -98,13 +107,21 @@ class Tokenizer_Llama3:
 
         self.n_words: int = self.model.n_vocab
         # BOS / EOS token IDs
-        self.bos_id: int = self.special_tokens["<|begin_of_text|>"]
-        self.eos_id: int = self.special_tokens["<|end_of_text|>"]
-        self.pad_id: int = -1
-        self.stop_tokens = {
-            self.special_tokens["<|end_of_text|>"],
-            self.special_tokens["<|eot_id|>"],
-        }
+        if model_name == "qwen1.5-7b-chat":
+            self.bos_id: int = self.special_tokens["<|endoftext|>"]
+            self.eos_id: int = self.special_tokens["<|endoftext|>"]
+            self.stop_tokens = {
+                self.special_tokens["<|endoftext|>"],
+                self.special_tokens["<|im_end|>"],
+            }
+        else:
+            self.bos_id: int = self.special_tokens["<|begin_of_text|>"]
+            self.eos_id: int = self.special_tokens["<|end_of_text|>"]
+            self.pad_id: int = -1
+            self.stop_tokens = {
+                self.special_tokens["<|end_of_text|>"],
+                self.special_tokens["<|eot_id|>"],
+            }
         logger.debug(
             f"#words: {self.n_words} - BOS ID: {self.bos_id} - EOS ID: {self.eos_id}"
         )
@@ -214,6 +231,40 @@ class Tokenizer_Llama3:
         yield s[slice_start:]
 
 
+def GetChatFormat(tokenizer: Tokenizer_Llama3):
+    if tokenizer.model_name == "qwen1.5-7b-chat":
+        return ChatFormat_QWen(tokenizer)
+    else:
+        return ChatFormat(tokenizer)
+
+
+class ChatFormat_QWen:
+    def __init__(self, tokenizer: Tokenizer_Llama3):
+        self.tokenizer = tokenizer
+
+    def encode_header(self, message: Message) -> List[int]:
+        tokens = []
+        tokens.append(self.tokenizer.special_tokens["<|im_start|>"])
+        tokens.extend(self.tokenizer.encode(message["role"], bos=False, eos=False))
+        return tokens
+
+    def encode_message(self, message: Message) -> List[int]:
+        tokens = self.encode_header(message)
+        tokens.extend(
+            self.tokenizer.encode(message["content"].strip(), bos=False, eos=False)
+        )
+        tokens.append(self.tokenizer.special_tokens["<|im_end|>"])
+        return tokens
+
+    def encode_dialog_prompt(self, dialog: Dialog) -> List[int]:
+        tokens = []
+        for message in dialog:
+            tokens.extend(self.encode_message(message))
+        # Add the start of an assistant message for the model to complete.
+        tokens.extend(self.encode_header({"role": "assistant", "content": ""}))
+        return tokens
+
+
 class ChatFormat:
     def __init__(self, tokenizer: Tokenizer_Llama3):
         self.tokenizer = tokenizer
@@ -284,5 +335,5 @@ class Tokenizer_Llama2:
         return t
 
     def decode(self, t: List[int], skip_bos=False) -> str:
-        # skip_bos is used in llama3 tokenizer. Add it here to make the interface consistent. 
+        # skip_bos is used in llama3 tokenizer. Add it here to make the interface consistent.
         return self.sp_model.decode(t)

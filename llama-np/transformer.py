@@ -1,4 +1,5 @@
 import math
+
 import cupy
 import numpy
 import nvtx
@@ -18,22 +19,22 @@ class Linear:
         if use_cupy:
             # no need to make a copy
             if bf16:
-                # Do the transpose before the `view`. `view`` requires the last dimension 
+                # Do the transpose before the `view`. `view`` requires the last dimension
                 # to be contiguous. If `weight` is already a view of a transpose, the `view`
-                # will fail.  
+                # will fail.
                 w16 = weight.T.view(dtype=np.int16)
                 if bias is not None:
                     b16 = bias.view(dtype=np.int16)
                 if gpuw:
                     self.weight = cupy.asarray(w16[:, 1::2])
                     if bias is not None:
-                        self.bias = cupy.asarray(b16[1::2]) 
+                        self.bias = cupy.asarray(b16[1::2])
                     else:
                         self.bias = None
                 else:
                     self.weight = w16[:, 1::2].copy()
                     if bias is not None:
-                        self.bias = b16[1::2].copy() 
+                        self.bias = b16[1::2].copy()
                     else:
                         self.bias = None
             else:
@@ -51,11 +52,11 @@ class Linear:
                         self.bias = None
         else:
             weight_t = weight.T
-            # Performance Trick: 
+            # Performance Trick:
             # - Transpose is a view.
             # - numpy.matmul is faster when the last dimension of the first matrix is contiguous.
             # - So we make a copy if the last dimension is not contiguous.
-            if weight_t.flags['C_CONTIGUOUS']:
+            if weight_t.flags["C_CONTIGUOUS"]:
                 # Note that in most cases, the weight is already a transposed view itself, so the
                 # double-transpose cancel out. This should be the common path.
                 self.weight = weight_t
@@ -84,16 +85,16 @@ class Linear:
                 sp = list(weight.shape)
                 sp.append(2)
                 w = cupy.ndarray(sp, dtype=np.int16)
-                w[:,:,1] = weight
-                w[:,:,0] = 0
+                w[:, :, 1] = weight
+                w[:, :, 0] = 0
                 w = w.view(dtype=np.float32).squeeze()
 
                 if bias is not None:
                     sp = list(bias.shape)
                     sp.append(2)
                     b = cupy.ndarray(sp, dtype=np.int16)
-                    b[...,1] = bias
-                    b[...,0] = 0
+                    b[..., 1] = bias
+                    b[..., 0] = 0
                     b = b.view(dtype=np.float32).squeeze()
             else:
                 w = weight
@@ -123,10 +124,16 @@ class SiLU:
 
 class FeedForward:
     def __init__(self, w1, w2, w3, layer_id, exp_args):
-        #self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=(layer_id %2 ==0), bf16=True)
-        self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=(layer_id %4 ==0), bf16=True)
-        self.w2 = Linear(w2, use_cupy=exp_args.use_cupy, gpuw=(layer_id %4 ==0), bf16=True)
-        self.w3 = Linear(w3, use_cupy=exp_args.use_cupy, gpuw=(layer_id %4 ==0), bf16=True)
+        # self.w1 = Linear(w1, use_cupy=exp_args.use_cupy, gpuw=(layer_id %2 ==0), bf16=True)
+        self.w1 = Linear(
+            w1, use_cupy=exp_args.use_cupy, gpuw=(layer_id % 4 == 0), bf16=True
+        )
+        self.w2 = Linear(
+            w2, use_cupy=exp_args.use_cupy, gpuw=(layer_id % 4 == 0), bf16=True
+        )
+        self.w3 = Linear(
+            w3, use_cupy=exp_args.use_cupy, gpuw=(layer_id % 4 == 0), bf16=True
+        )
         self.silu = SiLU()
         return
 
@@ -160,30 +167,37 @@ class RMSNorm:
 
 
 class RoPE:
-    def __init__(self, theta=10000):
+    def __init__(self, theta=10000, rotate_half=False):
         self.theta = np.asarray(np.float32(theta))
+        self.rotate_half = rotate_half
 
     @decotimer
     def __call__(self, x, start_pos=0):
         dim = x.shape[-1]
         s = x.shape[-2]
-        theta = self.theta ** (np.float32(-2.0) * np.array([np.float32(t // 2) for t in range(dim)]) / dim)
+        theta = self.theta ** (
+            np.float32(-2.0) * np.array([np.float32(t // 2) for t in range(dim)]) / dim
+        )
         m = np.arange(start_pos, s + start_pos, dtype=np.int32).reshape(-1, 1)
         m_theta = np.multiply(m, theta, dtype=np.float32)
         cos = np.cos(m_theta)
         sin = np.sin(m_theta)
         y = np.empty_like(x)
-        y[..., 1::2] = x[..., 0::2]  # in-place update
-        y[..., 0::2] = -x[..., 1::2]  # in-place update
+        if self.rotate_half:
+            y[..., : dim // 2] = -x[..., dim // 2 :]  # in-place update
+            y[..., dim // 2 :] = x[..., : dim // 2]  # in-place update
+        else:
+            y[..., 0::2] = -x[..., 1::2]  # in-place update
+            y[..., 1::2] = x[..., 0::2]  # in-place update
         result = x * cos + y * sin
         return result
 
 
 @decotimer
 def Softmax(x, use=None):
-    if use == 'numpy':
+    if use == "numpy":
         nnp = numpy
-    elif use == 'cupy':
+    elif use == "cupy":
         nnp = cupy
     else:  # None
         # whatever the global setting is
@@ -213,11 +227,19 @@ class Attention:
     ):
         self.n_heads = n_heads
         self.n_kv_heads = n_kv_heads
-                
-        self.wq_matmul = Linear(wq_weight, bias=wq_bias, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
-        self.wk_matmul = Linear(wk_weight, bias=wk_bias,use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
-        self.wv_matmul = Linear(wv_weight, bias=wv_bias, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
-        self.wo_matmul = Linear(wo_weight, bias=wo_bias, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True)
+
+        self.wq_matmul = Linear(
+            wq_weight, bias=wq_bias, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True
+        )
+        self.wk_matmul = Linear(
+            wk_weight, bias=wk_bias, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True
+        )
+        self.wv_matmul = Linear(
+            wv_weight, bias=wv_bias, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True
+        )
+        self.wo_matmul = Linear(
+            wo_weight, bias=wo_bias, use_cupy=exp_args.use_cupy, gpuw=True, bf16=True
+        )
         self.pos_emb = pos_emb
 
         self.max_seq_len = max_seq_len
@@ -232,10 +254,12 @@ class Attention:
         if not self.no_kv_cache:
             if self.use_in_place_kv_cache:
                 self.k_cache = np.zeros(
-                    [self.n_kv_heads, self.head_size, self.max_seq_len], dtype=np.float32
+                    [self.n_kv_heads, self.head_size, self.max_seq_len],
+                    dtype=np.float32,
                 )
                 self.v_cache = np.zeros(
-                    [self.n_kv_heads, self.max_seq_len, self.head_size], dtype=np.float32
+                    [self.n_kv_heads, self.max_seq_len, self.head_size],
+                    dtype=np.float32,
                 )
 
     def reset_kvcache(self):
@@ -258,6 +282,10 @@ class Attention:
 
         (seq, dim) = xq.shape  # [seq, dim]
         head_size = dim // self.n_heads
+
+        #        xq = self.pos_emb(xq, start_pos)
+        #        xk = self.pos_emb(xk, start_pos)
+
         xxq = np.reshape(xq, (-1, self.n_heads, head_size)).transpose(
             1, 0, 2
         )  # (n_heads, s, head_size)
@@ -335,9 +363,10 @@ class TransformerBlock:
         w_ffd_w3,
         w_ffd_norm,
         max_seq_len: int,
+        rotate_half,
         rope_theta,
         exp_args,
-        layer_id
+        layer_id,
     ):
         self.att_rmsnorm = RMSNorm(w_att_norm, use_cupy=exp_args.use_cupy, gpuw=True)
         self.attention = Attention(
@@ -351,7 +380,7 @@ class TransformerBlock:
             wb_o,
             max_seq_len,
             exp_args,
-            RoPE(rope_theta),
+            RoPE(rope_theta, rotate_half=rotate_half),
             n_heads,
             n_kv_heads,
         )
@@ -383,17 +412,17 @@ class TransformerBlock:
 
 
 class Transformer:
-    def __init__(self, params, weight_dict, max_seq_len, exp_args):
+    def __init__(self, params, weight_dict, max_seq_len, rotate_half, exp_args):
         if exp_args.use_cupy:
             global np
             np = cupy
 
-            #pool = cupy.cuda.MemoryPool(cupy.cuda.malloc_managed)
-            #cupy.cuda.set_allocator(pool.malloc)
-            #cupy.cuda.set_allocator(cupy.cuda.MemoryAsyncPool().malloc)
-            #pinned_memory_pool = cupy.cuda.PinnedMemoryPool()
-            #cupy.cuda.set_pinned_memory_allocator(pinned_memory_pool.malloc)
-            #cupy.cuda.set_allocator(cupy.cuda.malloc_async)
+            # pool = cupy.cuda.MemoryPool(cupy.cuda.malloc_managed)
+            # cupy.cuda.set_allocator(pool.malloc)
+            # cupy.cuda.set_allocator(cupy.cuda.MemoryAsyncPool().malloc)
+            # pinned_memory_pool = cupy.cuda.PinnedMemoryPool()
+            # cupy.cuda.set_pinned_memory_allocator(pinned_memory_pool.malloc)
+            # cupy.cuda.set_allocator(cupy.cuda.malloc_async)
 
         # To do
         # - instead of deleting the weight_dict key-val here, we
@@ -424,9 +453,10 @@ class Transformer:
                 weight_dict[f"layers.{i}.feed_forward.w3.weight"],
                 weight_dict[f"layers.{i}.ffn_norm.weight"],
                 max_seq_len,
+                rotate_half,
                 params["rope_theta"],
                 exp_args,
-                i
+                i,
             )
             del weight_dict[f"layers.{i}.attention.wq.weight"]
             del weight_dict[f"layers.{i}.attention.wk.weight"]
@@ -442,7 +472,10 @@ class Transformer:
             weight_dict["norm.weight"], use_cupy=exp_args.use_cupy, gpuw=True
         )
         self.lm_head = Linear(
-            weight_dict["output.weight"], use_cupy=exp_args.use_cupy, gpuw=True, bf16=True
+            weight_dict["output.weight"],
+            use_cupy=exp_args.use_cupy,
+            gpuw=True,
+            bf16=True,
         )
         del weight_dict["output.weight"]
         return
@@ -453,9 +486,9 @@ class Transformer:
 
     @nvtx.annotate("transformer_call", color="red")
     def __call__(self, input_tokens, start_pos, print_dot, no_masking, use_cupy):
-        '''
+        """
         Return a 2D logits tensor [seq, vocab_size]
-        '''
+        """
         if use_cupy:
             global np
             np = cupy
@@ -474,15 +507,17 @@ class Transformer:
 
         # The shape of x is [seq, embedding_dim]. Seq is > 1 if the prefill stage, and 1 if the generation stage.
         #
-        # In inference, since we actually generate one token at a time, we only need the logits for last token, 
+        # In inference, since we actually generate one token at a time, we only need the logits for last token,
         # the rest will be discarded. Normally, we would return the logits for all tokens and the caller would
         # pick the last one from the returned result. But this is not efficient for speed, and will increase
         # the memory foot print which may result in OOM if the memory budget is tight. If we calculate the logits
-        # of all tokens, the result will be a 2D tensor of shape [seq, vocab_size]. 
+        # of all tokens, the result will be a 2D tensor of shape [seq, vocab_size].
         #
-        # This optimization affects the prefill stage only. 
+        # This optimization affects the prefill stage only.
         x1 = x[-1]
-        x1 = x1.reshape(1, -1) # reshape back to 2D tensor, so we don't need to change the caller code.
+        x1 = x1.reshape(
+            1, -1
+        )  # reshape back to 2D tensor, so we don't need to change the caller code.
         result = self.lm_head(self.rmsnorm(x1))
         if use_cupy:
             result = cupy.asnumpy(result)

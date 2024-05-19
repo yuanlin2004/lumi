@@ -1,12 +1,20 @@
 import struct
 import time
-import numpy as np
 
-from sysutil import lumi_logging, lumi_logger
+import numpy as np
 from lumi_type import LumiDType
+
+from sysutil import lumi_logger, lumi_logging
 
 
 logger = lumi_logging.getLogger(__name__)
+
+
+def read_padded_string(file):
+    length_bytes = file.read(4)
+    length = struct.unpack("I", length_bytes)[0]
+    string_bytes = file.read(length)
+    return string_bytes.decode().rstrip()  # Decode and remove any padding
 
 
 def read_lumi(model_path, n_records=-1, skip_weight=False):
@@ -26,9 +34,9 @@ def read_lumi(model_path, n_records=-1, skip_weight=False):
     version = struct.unpack("I", file.read(4))[0]
     logger.debug(lambda: f"Version {version}")
 
-    # 3. model version
-    model_version = struct.unpack("I", file.read(4))[0]
-    logger.debug(lambda: f"Model version {model_version}")
+    # 3. model name
+    model_name = read_padded_string(file)
+    logger.debug(lambda: f"Model name {model_name}")
 
     # 4. params
     lumi_params = {}
@@ -45,10 +53,10 @@ def read_lumi(model_path, n_records=-1, skip_weight=False):
     lumi_params["norm_eps"] = p[8]
 
     # 5. tokenizer model
-    tokenizer_model_size = struct.unpack("I", file.read(4))[0] 
+    tokenizer_model_size = struct.unpack("I", file.read(4))[0]
     logger.debug(lambda: f"tokenizer model size {tokenizer_model_size}")
     tokenizer_model = file.read(tokenizer_model_size)
-    # Skip the padding 
+    # Skip the padding
     padding_length = 4 - len(tokenizer_model) % 4
     file.seek(file.tell() + padding_length)
 
@@ -68,10 +76,7 @@ def read_lumi(model_path, n_records=-1, skip_weight=False):
         file.seek(original_pos)
 
         # length_of_padded_name, padded_name_string
-        length_bytes = file.read(4)
-        length = struct.unpack("I", length_bytes)[0]
-        string_bytes = file.read(length)
-        name = string_bytes.decode().rstrip()  # Decode and remove any padding
+        name = read_padded_string(file)
         logger.debug(lambda: f"Reading weight {name}")
 
         # num of shape dim, size of each dim
@@ -112,7 +117,7 @@ def read_lumi(model_path, n_records=-1, skip_weight=False):
                 w[..., 0] = 0
                 weight = w.view(dtype=np.float32).squeeze()
             if transposed:
-                weight = weight.transpose() # keep this as a view
+                weight = weight.transpose()  # keep this as a view
         dict[name] = weight
 
         n += 1
@@ -125,4 +130,4 @@ def read_lumi(model_path, n_records=-1, skip_weight=False):
     end_time = time.perf_counter()
     print(f" {end_time-start_time:0.4f} seconds")
 
-    return lumi_params, tokenizer_model, dict, model_version
+    return lumi_params, tokenizer_model, dict, model_name
