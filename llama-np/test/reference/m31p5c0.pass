@@ -1,86 +1,86 @@
-Reading model file ..................................................................................................................................................................................................................................................................................................... 10.0400 seconds
+Reading model file ..................................................................................................................................................................................................................................................................................................... 11.6899 seconds
 Building the network . 0.0003 seconds
 
 [max seq length: 28   length of input prompt: 9]
-................................17821 1.8700 seconds
+................................17821 1.8750 seconds
 
 The US president in 2020 is unlikely
 
-................................311 0.7120 seconds
+................................311 0.7174 seconds
 
 The US president in 2020 is unlikely to
 
-................................387 0.7135 seconds
+................................387 0.7169 seconds
 
 The US president in 2020 is unlikely to be
 
-................................279 0.7123 seconds
+................................279 0.7156 seconds
 
 The US president in 2020 is unlikely to be the
 
-................................1890 0.7152 seconds
+................................1890 0.7157 seconds
 
 The US president in 2020 is unlikely to be the same
 
-................................439 0.7134 seconds
+................................439 0.7170 seconds
 
 The US president in 2020 is unlikely to be the same as
 
-................................279 0.7132 seconds
+................................279 0.7185 seconds
 
 The US president in 2020 is unlikely to be the same as the
 
-................................832 0.7155 seconds
+................................832 0.7158 seconds
 
 The US president in 2020 is unlikely to be the same as the one
 
-................................889 0.7138 seconds
+................................889 0.7165 seconds
 
 The US president in 2020 is unlikely to be the same as the one who
 
-................................5097 0.7125 seconds
+................................5097 0.7167 seconds
 
 The US president in 2020 is unlikely to be the same as the one who takes
 
-................................279 0.7177 seconds
+................................279 0.7139 seconds
 
 The US president in 2020 is unlikely to be the same as the one who takes the
 
-................................49042 0.7149 seconds
+................................49042 0.7164 seconds
 
 The US president in 2020 is unlikely to be the same as the one who takes the oath
 
-................................315 0.7143 seconds
+................................315 0.7166 seconds
 
 The US president in 2020 is unlikely to be the same as the one who takes the oath of
 
-................................5274 0.7141 seconds
+................................5274 0.7179 seconds
 
 The US president in 2020 is unlikely to be the same as the one who takes the oath of office
 
-................................304 0.7145 seconds
+................................304 0.7199 seconds
 
 The US president in 2020 is unlikely to be the same as the one who takes the oath of office in
 
-................................220 0.7134 seconds
+................................220 0.7214 seconds
 
 The US president in 2020 is unlikely to be the same as the one who takes the oath of office in 
 
-................................679 0.7134 seconds
+................................679 0.7266 seconds
 
 The US president in 2020 is unlikely to be the same as the one who takes the oath of office in 201
 
-................................22 0.7125 seconds
+................................22 0.7642 seconds
 
 The US president in 2020 is unlikely to be the same as the one who takes the oath of office in 2017
 
-................................11 0.7141 seconds
+................................11 0.7367 seconds
 
 The US president in 2020 is unlikely to be the same as the one who takes the oath of office in 2017,
 
-................................4184 0.7140 seconds
+................................4184 0.7253 seconds
 
 The US president in 2020 is unlikely to be the same as the one who takes the oath of office in 2017, according
 
-[1.2957 tok/s]
+[1.2833 tok/s]
 max 28 tokens reached

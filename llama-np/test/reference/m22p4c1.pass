@@ -1,0 +1,106 @@
+Reading model file ........................................................... 0.0365 seconds
+Building the network . 0.0942 seconds
+
+[max seq length: 28   length of input prompt: 4]
+......338 0.0721 seconds
+
+你好 is
+
+......263 0.0162 seconds
+
+你好 is a
+
+......2217 0.0092 seconds
+
+你好 is a little
+
+......7826 0.0093 seconds
+
+你好 is a little girl
+
+......1058 0.0090 seconds
+
+你好 is a little girl who
+
+......12355 0.0089 seconds
+
+你好 is a little girl who lov
+
+......267 0.0090 seconds
+
+你好 is a little girl who loves
+
+......304 0.0094 seconds
+
+你好 is a little girl who loves to
+
+......1371 0.0090 seconds
+
+你好 is a little girl who loves to help
+
+......2305 0.0089 seconds
+
+你好 is a little girl who loves to help people
+
+......29889 0.0090 seconds
+
+你好 is a little girl who loves to help people.
+
+......2296 0.0089 seconds
+
+你好 is a little girl who loves to help people. She
+
+......4188 0.0089 seconds
+
+你好 is a little girl who loves to help people. She lik
+
+......267 0.0090 seconds
+
+你好 is a little girl who loves to help people. She likes
+
+......304 0.0090 seconds
+
+你好 is a little girl who loves to help people. She likes to
+
+......10714 0.0090 seconds
+
+你好 is a little girl who loves to help people. She likes to dress
+
+......701 0.0088 seconds
+
+你好 is a little girl who loves to help people. She likes to dress up
+
+......297 0.0091 seconds
+
+你好 is a little girl who loves to help people. She likes to dress up in
+
+......5051 0.0090 seconds
+
+你好 is a little girl who loves to help people. She likes to dress up in pretty
+
+......22095 0.0091 seconds
+
+你好 is a little girl who loves to help people. She likes to dress up in pretty clothes
+
+......322 0.0090 seconds
+
+你好 is a little girl who loves to help people. She likes to dress up in pretty clothes and
+
+......1809 0.0089 seconds
+
+你好 is a little girl who loves to help people. She likes to dress up in pretty clothes and sing
+
+......9796 0.0090 seconds
+
+你好 is a little girl who loves to help people. She likes to dress up in pretty clothes and sing happy
+
+......12516 0.0089 seconds
+
+你好 is a little girl who loves to help people. She likes to dress up in pretty clothes and sing happy songs
+
+......29889 0.0089 seconds
+
+你好 is a little girl who loves to help people. She likes to dress up in pretty clothes and sing happy songs.
+
+[84.3646 tok/s]
+max 28 tokens reached

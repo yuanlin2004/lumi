@@ -1,70 +1,70 @@
-Reading model file ..................................................................................................................................................................................................................................................................................................... 10.0612 seconds
+Reading model file ..................................................................................................................................................................................................................................................................................................... 45.5154 seconds
 Building the network . 0.0003 seconds
 
 [max seq length: 19   length of input prompt: 4]
-................................311 1.3080 seconds
+................................311 1.2963 seconds
 
 It is easy to
 
-................................636 0.7085 seconds
+................................636 0.7525 seconds
 
 It is easy to get
 
-................................5675 0.7073 seconds
+................................5675 0.7513 seconds
 
 It is easy to get lost
 
-................................304 0.7110 seconds
+................................304 0.7500 seconds
 
 It is easy to get lost in
 
-................................279 0.7089 seconds
+................................279 0.7530 seconds
 
 It is easy to get lost in the
 
-................................1917 0.7116 seconds
+................................1917 0.7528 seconds
 
 It is easy to get lost in the world
 
-................................315 0.7102 seconds
+................................315 0.7842 seconds
 
 It is easy to get lost in the world of
 
-................................15135 0.7101 seconds
+................................15135 0.7616 seconds
 
 It is easy to get lost in the world of interior
 
-................................2955 0.7113 seconds
+................................2955 0.7537 seconds
 
 It is easy to get lost in the world of interior design
 
-................................13 0.7100 seconds
+................................13 0.7528 seconds
 
 It is easy to get lost in the world of interior design.
 
-................................2684 0.7112 seconds
+................................2684 0.7522 seconds
 
 It is easy to get lost in the world of interior design. There
 
-................................527 0.7130 seconds
+................................527 0.7550 seconds
 
 It is easy to get lost in the world of interior design. There are
 
-................................779 0.7121 seconds
+................................779 0.7539 seconds
 
 It is easy to get lost in the world of interior design. There are so
 
-................................1690 0.7141 seconds
+................................1690 0.7556 seconds
 
 It is easy to get lost in the world of interior design. There are so many
 
-................................2671 0.7117 seconds
+................................2671 0.8019 seconds
 
 It is easy to get lost in the world of interior design. There are so many options
 
-................................323 0.7123 seconds
+................................323 0.7565 seconds
 
 It is easy to get lost in the world of interior design. There are so many options and
 
-[1.3364 tok/s]
+[1.2614 tok/s]
 max 19 tokens reached

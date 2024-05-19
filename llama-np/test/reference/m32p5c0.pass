@@ -1,117 +1,117 @@
-Reading model file ..................................................................................................................................................................................................................................................................................................... 10.0491 seconds
+Reading model file ..................................................................................................................................................................................................................................................................................................... 11.6964 seconds
 Building the network . 0.0003 seconds
 
 [max seq length: 28   length of input prompt: 9]
-................................9522 1.9175 seconds
+................................9522 1.8843 seconds
 
 The US president in 2020 is...
 
 
-................................791 0.7130 seconds
+................................791 0.7212 seconds
 
 The US president in 2020 is...
 The
 
-................................2326 0.7167 seconds
+................................2326 0.7186 seconds
 
 The US president in 2020 is...
 The US
 
-................................4872 0.7147 seconds
+................................4872 0.7161 seconds
 
 The US president in 2020 is...
 The US president
 
-................................304 0.7156 seconds
+................................304 0.7183 seconds
 
 The US president in 2020 is...
 The US president in
 
-................................220 0.7154 seconds
+................................220 0.7151 seconds
 
 The US president in 2020 is...
 The US president in 
 
-................................2366 0.7150 seconds
+................................2366 0.7177 seconds
 
 The US president in 2020 is...
 The US president in 202
 
-................................15 0.7161 seconds
+................................15 0.7200 seconds
 
 The US president in 2020 is...
 The US president in 2020
 
-................................374 0.7161 seconds
+................................374 0.7217 seconds
 
 The US president in 2020 is...
 The US president in 2020 is
 
-................................9522 0.7152 seconds
+................................9522 0.7291 seconds
 
 The US president in 2020 is...
 The US president in 2020 is...
 
 
-................................644 0.7156 seconds
+................................644 0.7305 seconds
 
 The US president in 2020 is...
 The US president in 2020 is...
 In
 
-................................220 0.7134 seconds
+................................220 0.7221 seconds
 
 The US president in 2020 is...
 The US president in 2020 is...
 In 
 
-................................2366 0.7167 seconds
+................................2366 0.7226 seconds
 
 The US president in 2020 is...
 The US president in 2020 is...
 In 202
 
-................................15 0.7159 seconds
+................................15 0.7215 seconds
 
 The US president in 2020 is...
 The US president in 2020 is...
 In 2020
 
-................................11 0.7148 seconds
+................................11 0.7195 seconds
 
 The US president in 2020 is...
 The US president in 2020 is...
 In 2020,
 
-................................279 0.7153 seconds
+................................279 0.7241 seconds
 
 The US president in 2020 is...
 The US president in 2020 is...
 In 2020, the
 
-................................4900 0.7142 seconds
+................................4900 0.7223 seconds
 
 The US president in 2020 is...
 The US president in 2020 is...
 In 2020, the President
 
-................................315 0.7162 seconds
+................................315 0.7221 seconds
 
 The US president in 2020 is...
 The US president in 2020 is...
 In 2020, the President of
 
-................................279 0.7157 seconds
+................................279 0.7215 seconds
 
 The US president in 2020 is...
 The US president in 2020 is...
 In 2020, the President of the
 
-................................3723 0.7151 seconds
+................................3723 0.7225 seconds
 
 The US president in 2020 is...
 The US president in 2020 is...
 In 2020, the President of the United
 
-[1.2895 tok/s]
+[1.2827 tok/s]
 max 28 tokens reached

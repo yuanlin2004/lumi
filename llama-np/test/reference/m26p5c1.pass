@@ -1,89 +1,89 @@
-Reading model file ........................................................................................................................................................................................................... 1.3497 seconds
-Building the network . 0.5076 seconds
+Reading model file ........................................................................................................................................................................................................... 1.2624 seconds
+Building the network . 0.4840 seconds
 
 [max seq length: 28   length of input prompt: 11]
-......................5517 0.1575 seconds
+......................5517 0.1759 seconds
 
 The US president in 2020 is likely
 
-......................304 0.0913 seconds
+......................304 0.1111 seconds
 
 The US president in 2020 is likely to
 
-......................367 0.0889 seconds
+......................367 0.1082 seconds
 
 The US president in 2020 is likely to be
 
-......................11131 0.0890 seconds
+......................11131 0.1075 seconds
 
 The US president in 2020 is likely to be Joe
 
-......................350 0.0887 seconds
+......................350 0.1079 seconds
 
 The US president in 2020 is likely to be Joe B
 
-......................3615 0.0887 seconds
+......................3615 0.1081 seconds
 
 The US president in 2020 is likely to be Joe Biden
 
-......................29889 0.0891 seconds
+......................29889 0.1079 seconds
 
 The US president in 2020 is likely to be Joe Biden.
 
-......................13 0.0889 seconds
+......................13 0.1082 seconds
 
 The US president in 2020 is likely to be Joe Biden.
 
 
-......................29967 0.0883 seconds
+......................29967 0.1083 seconds
 
 The US president in 2020 is likely to be Joe Biden.
 J
 
-......................7297 0.0887 seconds
+......................7297 0.1082 seconds
 
 The US president in 2020 is likely to be Joe Biden.
 Joe
 
-......................350 0.0890 seconds
+......................350 0.1083 seconds
 
 The US president in 2020 is likely to be Joe Biden.
 Joe B
 
-......................3615 0.0890 seconds
+......................3615 0.1074 seconds
 
 The US president in 2020 is likely to be Joe Biden.
 Joe Biden
 
-......................756 0.0887 seconds
+......................756 0.1078 seconds
 
 The US president in 2020 is likely to be Joe Biden.
 Joe Biden has
 
-......................1063 0.0888 seconds
+......................1063 0.1081 seconds
 
 The US president in 2020 is likely to be Joe Biden.
 Joe Biden has been
 
-......................28442 0.0889 seconds
+......................28442 0.1086 seconds
 
 The US president in 2020 is likely to be Joe Biden.
 Joe Biden has been nominated
 
-......................408 0.0888 seconds
+......................408 0.1083 seconds
 
 The US president in 2020 is likely to be Joe Biden.
 Joe Biden has been nominated as
 
-......................278 0.0893 seconds
+......................278 0.1085 seconds
 
 The US president in 2020 is likely to be Joe Biden.
 Joe Biden has been nominated as the
 
-......................19083 0.0901 seconds
+......................19083 0.1079 seconds
 
 The US president in 2020 is likely to be Joe Biden.
 Joe Biden has been nominated as the Democratic
 
-[10.7615 tok/s]
+[8.9223 tok/s]
 max 28 tokens reached

@@ -1,0 +1,92 @@
+Reading model file ..................................................................................................................................................................................................................................................................................................................................................................................................... 11.4899 seconds
+Building the network . 0.0003 seconds
+
+[max seq length: 38   length of input prompt: 19]
+................................700 1.4203 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out
+
+................................315 0.6739 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of
+
+................................279 0.6731 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the
+
+................................8968 0.6745 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag
+
+................................11 0.6752 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag,
+
+................................1128 0.6727 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what
+
+................................374 0.6779 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is
+
+................................279 0.6735 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is the
+
+................................18927 0.6735 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is the probability
+
+................................429 0.6743 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is the probability that
+
+................................279 0.6742 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is the probability that the
+
+................................4935 0.6730 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is the probability that the ball
+
+................................358 0.6749 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is the probability that the ball I
+
+................................1896 0.6733 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is the probability that the ball I take
+
+................................700 0.6735 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is the probability that the ball I take out
+
+................................374 0.6738 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is the probability that the ball I take out is
+
+................................2518 0.6735 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is the probability that the ball I take out is red
+
+................................1939 0.6735 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is the probability that the ball I take out is red?
+
+
+
+................................785 0.6740 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is the probability that the ball I take out is red?
+
+The
+
+................................18927 0.6730 seconds
+
+There are three red balls and four blue balls in a bag. If I take one ball out of the bag, what is the probability that the ball I take out is red?
+
+The probability
+
+[1.4058 tok/s]
+max 38 tokens reached

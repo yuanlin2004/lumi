@@ -1,0 +1,106 @@
+Reading model file ............................................................................. 0.0842 seconds
+Building the network . 0.0001 seconds
+
+[max seq length: 28   length of input prompt: 4]
+........388 0.0129 seconds
+
+你好ay
+
+........347 0.0094 seconds
+
+你好ayie
+
+........471 0.0092 seconds
+
+你好ayie was
+
+........263 0.0091 seconds
+
+你好ayie was a
+
+........1407 0.0090 seconds
+
+你好ayie was a very
+
+........13052 0.0088 seconds
+
+你好ayie was a very intellig
+
+........296 0.0089 seconds
+
+你好ayie was a very intelligent
+
+........2211 0.0088 seconds
+
+你好ayie was a very intelligent three
+
+........29899 0.0089 seconds
+
+你好ayie was a very intelligent three-
+
+........6360 0.0088 seconds
+
+你好ayie was a very intelligent three-year
+
+........29899 0.0089 seconds
+
+你好ayie was a very intelligent three-year-
+
+........1025 0.0089 seconds
+
+你好ayie was a very intelligent three-year-old
+
+........29889 0.0091 seconds
+
+你好ayie was a very intelligent three-year-old.
+
+........2296 0.0088 seconds
+
+你好ayie was a very intelligent three-year-old. She
+
+........471 0.0090 seconds
+
+你好ayie was a very intelligent three-year-old. She was
+
+........8743 0.0090 seconds
+
+你好ayie was a very intelligent three-year-old. She was playing
+
+........297 0.0090 seconds
+
+你好ayie was a very intelligent three-year-old. She was playing in
+
+........278 0.0090 seconds
+
+你好ayie was a very intelligent three-year-old. She was playing in the
+
+........14089 0.0090 seconds
+
+你好ayie was a very intelligent three-year-old. She was playing in the park
+
+........411 0.0090 seconds
+
+你好ayie was a very intelligent three-year-old. She was playing in the park with
+
+........902 0.0089 seconds
+
+你好ayie was a very intelligent three-year-old. She was playing in the park with her
+
+........16823 0.0091 seconds
+
+你好ayie was a very intelligent three-year-old. She was playing in the park with her mom
+
+........746 0.0091 seconds
+
+你好ayie was a very intelligent three-year-old. She was playing in the park with her mom when
+
+........1183 0.0091 seconds
+
+你好ayie was a very intelligent three-year-old. She was playing in the park with her mom when she
+
+........4446 0.0091 seconds
+
+你好ayie was a very intelligent three-year-old. She was playing in the park with her mom when she saw
+
+[108.7518 tok/s]
+max 28 tokens reached

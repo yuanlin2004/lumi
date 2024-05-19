@@ -1,70 +1,70 @@
-Reading model file ...................................................................................................................................................................................................................................................................................................... 8.5411 seconds
-Building the network . 2.9048 seconds
+Reading model file ...................................................................................................................................................................................................................................................................................................... 9.8935 seconds
+Building the network . 2.9042 seconds
 
 [max seq length: 19   length of input prompt: 4]
-................................304 0.6334 seconds
+................................304 0.7361 seconds
 
 It is easy to
 
-................................1369 0.4542 seconds
+................................1369 0.5079 seconds
 
 It is easy to start
 
-................................263 0.4413 seconds
+................................263 0.5022 seconds
 
 It is easy to start a
 
-................................716 0.4418 seconds
+................................716 0.5012 seconds
 
 It is easy to start a new
 
-................................5381 0.4415 seconds
+................................5381 0.5022 seconds
 
 It is easy to start a new business
 
-................................322 0.4402 seconds
+................................322 0.5020 seconds
 
 It is easy to start a new business and
 
-................................21994 0.4404 seconds
+................................21994 0.5014 seconds
 
 It is easy to start a new business and operate
 
-................................372 0.4415 seconds
+................................372 0.5020 seconds
 
 It is easy to start a new business and operate it
 
-................................29892 0.4410 seconds
+................................29892 0.5014 seconds
 
 It is easy to start a new business and operate it,
 
-................................541 0.4411 seconds
+................................541 0.5020 seconds
 
 It is easy to start a new business and operate it, but
 
-................................278 0.4416 seconds
+................................278 0.5020 seconds
 
 It is easy to start a new business and operate it, but the
 
-................................2898 0.4400 seconds
+................................2898 0.5012 seconds
 
 It is easy to start a new business and operate it, but the hard
 
-................................760 0.4404 seconds
+................................760 0.5024 seconds
 
 It is easy to start a new business and operate it, but the hard part
 
-................................338 0.4405 seconds
+................................338 0.5021 seconds
 
 It is easy to start a new business and operate it, but the hard part is
 
-................................12515 0.4416 seconds
+................................12515 0.5023 seconds
 
 It is easy to start a new business and operate it, but the hard part is keeping
 
-................................372 0.4401 seconds
+................................372 0.5021 seconds
 
 It is easy to start a new business and operate it, but the hard part is keeping it
 
-[2.2034 tok/s]
+[1.9344 tok/s]
 max 19 tokens reached

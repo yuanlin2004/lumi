@@ -1,0 +1,113 @@
+Reading model file ...................................................................................................................................................................................................................................................................................................... 9.6815 seconds
+Building the network . 2.8670 seconds
+
+[max seq length: 28   length of input prompt: 4]
+................................29991 0.6659 seconds
+
+你好!
+
+................................306 0.5096 seconds
+
+你好! I
+
+................................29915 0.5035 seconds
+
+你好! I'
+
+................................29885 0.5029 seconds
+
+你好! I'm
+
+................................263 0.5032 seconds
+
+你好! I'm a
+
+................................1522 0.5033 seconds
+
+你好! I'm a Be
+
+................................823 0.5036 seconds
+
+你好! I'm a Beij
+
+................................292 0.5431 seconds
+
+你好! I'm a Beijing
+
+................................29899 0.5034 seconds
+
+你好! I'm a Beijing-
+
+................................6707 0.5033 seconds
+
+你好! I'm a Beijing-based
+
+................................7417 0.5044 seconds
+
+你好! I'm a Beijing-based independent
+
+................................1842 0.5038 seconds
+
+你好! I'm a Beijing-based independent document
+
+................................653 0.5041 seconds
+
+你好! I'm a Beijing-based independent documentary
+
+................................2706 0.5041 seconds
+
+你好! I'm a Beijing-based independent documentary film
+
+................................28107 0.5036 seconds
+
+你好! I'm a Beijing-based independent documentary filmmaker
+
+................................322 0.5032 seconds
+
+你好! I'm a Beijing-based independent documentary filmmaker and
+
+................................7664 0.5033 seconds
+
+你好! I'm a Beijing-based independent documentary filmmaker and artist
+
+................................29889 0.5039 seconds
+
+你好! I'm a Beijing-based independent documentary filmmaker and artist.
+
+................................13 0.5039 seconds
+
+你好! I'm a Beijing-based independent documentary filmmaker and artist.
+
+
+................................29902 0.5035 seconds
+
+你好! I'm a Beijing-based independent documentary filmmaker and artist.
+I
+
+................................29915 0.5030 seconds
+
+你好! I'm a Beijing-based independent documentary filmmaker and artist.
+I'
+
+................................345 0.5033 seconds
+
+你好! I'm a Beijing-based independent documentary filmmaker and artist.
+I've
+
+................................1754 0.5046 seconds
+
+你好! I'm a Beijing-based independent documentary filmmaker and artist.
+I've made
+
+................................901 0.5037 seconds
+
+你好! I'm a Beijing-based independent documentary filmmaker and artist.
+I've made more
+
+................................1135 0.5030 seconds
+
+你好! I'm a Beijing-based independent documentary filmmaker and artist.
+I've made more than
+
+[1.9533 tok/s]
+max 28 tokens reached

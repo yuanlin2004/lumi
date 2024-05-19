@@ -1,0 +1,110 @@
+Reading model file ................................................................................................................. 0.1862 seconds
+Building the network . 0.0002 seconds
+
+[max seq length: 28   length of input prompt: 4]
+............29915 0.0242 seconds
+
+你好'
+
+............29879 0.0185 seconds
+
+你好's
+
+............16823 0.0185 seconds
+
+你好's mom
+
+............471 0.0186 seconds
+
+你好's mom was
+
+............297 0.0186 seconds
+
+你好's mom was in
+
+............278 0.0181 seconds
+
+你好's mom was in the
+
+............29181 0.0179 seconds
+
+你好's mom was in the kitchen
+
+............3907 0.0180 seconds
+
+你好's mom was in the kitchen making
+
+............263 0.0183 seconds
+
+你好's mom was in the kitchen making a
+
+............11982 0.0184 seconds
+
+你好's mom was in the kitchen making a sand
+
+............16416 0.0181 seconds
+
+你好's mom was in the kitchen making a sandwich
+
+............29889 0.0185 seconds
+
+你好's mom was in the kitchen making a sandwich.
+
+............2296 0.0185 seconds
+
+你好's mom was in the kitchen making a sandwich. She
+
+............471 0.0187 seconds
+
+你好's mom was in the kitchen making a sandwich. She was
+
+............3907 0.0186 seconds
+
+你好's mom was in the kitchen making a sandwich. She was making
+
+............372 0.0187 seconds
+
+你好's mom was in the kitchen making a sandwich. She was making it
+
+............297 0.0183 seconds
+
+你好's mom was in the kitchen making a sandwich. She was making it in
+
+............278 0.0186 seconds
+
+你好's mom was in the kitchen making a sandwich. She was making it in the
+
+............1424 0.0185 seconds
+
+你好's mom was in the kitchen making a sandwich. She was making it in the fr
+
+............5525 0.0182 seconds
+
+你好's mom was in the kitchen making a sandwich. She was making it in the fridge
+
+............29889 0.0183 seconds
+
+你好's mom was in the kitchen making a sandwich. She was making it in the fridge.
+
+............13 0.0183 seconds
+
+你好's mom was in the kitchen making a sandwich. She was making it in the fridge.
+
+
+............29924 0.0186 seconds
+
+你好's mom was in the kitchen making a sandwich. She was making it in the fridge.
+M
+
+............290 0.0186 seconds
+
+你好's mom was in the kitchen making a sandwich. She was making it in the fridge.
+Mom
+
+............29901 0.0185 seconds
+
+你好's mom was in the kitchen making a sandwich. She was making it in the fridge.
+Mom:
+
+[53.5008 tok/s]
+max 28 tokens reached

@@ -1,0 +1,112 @@
+Reading model file ..................................................................................................................................................................................................................................................................................................................................................................................................... 11.1021 seconds
+Building the network . 3.6995 seconds
+
+[max seq length: 38   length of input prompt: 19]
+................................537 0.7263 seconds
+
+List all the prime numbers between 100 and 200. They are not
+
+................................2686 0.5446 seconds
+
+List all the prime numbers between 100 and 200. They are not less
+
+................................1091 0.5377 seconds
+
+List all the prime numbers between 100 and 200. They are not less than
+
+................................220 0.5375 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 
+
+................................17 0.5383 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 2
+
+................................15 0.5377 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 20
+
+................................15 0.5380 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200
+
+................................382 0.5376 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200.
+
+
+
+................................2582 0.5383 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200.
+
+Response
+
+................................25 0.5362 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200.
+
+Response:
+
+................................5692 0.5361 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200.
+
+Response: Here
+
+................................525 0.5375 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200.
+
+Response: Here are
+
+................................279 0.5380 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200.
+
+Response: Here are the
+
+................................10250 0.5353 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200.
+
+Response: Here are the prime
+
+................................5109 0.5369 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200.
+
+Response: Here are the prime numbers
+
+................................1948 0.5381 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200.
+
+Response: Here are the prime numbers between
+
+................................220 0.5380 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200.
+
+Response: Here are the prime numbers between 
+
+................................16 0.5369 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200.
+
+Response: Here are the prime numbers between 1
+
+................................15 0.5381 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200.
+
+Response: Here are the prime numbers between 10
+
+................................15 0.5386 seconds
+
+List all the prime numbers between 100 and 200. They are not less than 200.
+
+Response: Here are the prime numbers between 100
+
+[1.8270 tok/s]
+max 38 tokens reached

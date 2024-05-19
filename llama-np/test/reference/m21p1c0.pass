@@ -1,8 +1,8 @@
-Reading model file .................................................. 0.0042 seconds
+Reading model file .................................................. 0.0011 seconds
 Building the network . 0.0001 seconds
 
 [max seq length: 48   length of input prompt: 9]
-.....426 0.0037 seconds
+.....426 0.0041 seconds
 
 It is easy.
 
@@ -74,7 +74,7 @@ It is easy. It was very fast. As he was cold
 
 It is easy. It was very fast. As he was cold,
 
-.....281 0.0005 seconds
+.....281 0.0006 seconds
 
 It is easy. It was very fast. As he was cold, he
 
@@ -162,5 +162,5 @@ It is easy. It was very fast. As he was cold, he saw a small hill with many book
 
 It is easy. It was very fast. As he was cold, he saw a small hill with many books. The book
 
-[1570.2868 tok/s]
+[1661.5187 tok/s]
 max 48 tokens reached

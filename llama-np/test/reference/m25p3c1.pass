@@ -1,115 +1,115 @@
-Reading model file ........................................................................................................................................................................................................... 1.3824 seconds
-Building the network . 0.6722 seconds
+Reading model file ........................................................................................................................................................................................................... 1.3577 seconds
+Building the network . 0.6716 seconds
 
 [max seq length: 38   length of input prompt: 19]
-......................13 0.1605 seconds
+......................13 0.1892 seconds
 
 List all the prime numbers between 100 and 200. They are
 
 
-......................259 0.0886 seconds
+......................259 0.1123 seconds
 
 List all the prime numbers between 100 and 200. They are
   
 
-......................334 0.0838 seconds
+......................334 0.1081 seconds
 
 List all the prime numbers between 100 and 200. They are
    *
 
-......................10372 0.0844 seconds
+......................10372 0.1070 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered
 
-......................515 0.0841 seconds
+......................515 0.1075 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from
 
-......................9939 0.0844 seconds
+......................9939 0.1079 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest
 
-......................304 0.0842 seconds
+......................304 0.1082 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to
 
-......................19604 0.0842 seconds
+......................19604 0.1079 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to lowest
 
-......................29892 0.0843 seconds
+......................29892 0.1080 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to lowest,
 
-......................515 0.0840 seconds
+......................515 0.1077 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to lowest, from
 
-......................19087 0.0843 seconds
+......................19087 0.1077 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to lowest, from smallest
 
-......................304 0.0842 seconds
+......................304 0.1073 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to lowest, from smallest to
 
-......................10150 0.0843 seconds
+......................10150 0.1074 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to lowest, from smallest to largest
 
-......................29889 0.0843 seconds
+......................29889 0.1078 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to lowest, from smallest to largest.
 
-......................13 0.0844 seconds
+......................13 0.1077 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to lowest, from smallest to largest.
 
 
-......................259 0.0844 seconds
+......................259 0.1077 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to lowest, from smallest to largest.
   
 
-......................334 0.0840 seconds
+......................334 0.1082 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to lowest, from smallest to largest.
    *
 
-......................13 0.0843 seconds
+......................13 0.1069 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to lowest, from smallest to largest.
    *
 
 
-......................259 0.0840 seconds
+......................259 0.1073 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to lowest, from smallest to largest.
    *
   
 
-......................334 0.0840 seconds
+......................334 0.1078 seconds
 
 List all the prime numbers between 100 and 200. They are
    * ordered from highest to lowest, from smallest to largest.
    *
    *
 
-[11.3255 tok/s]
+[8.9251 tok/s]
 max 38 tokens reached

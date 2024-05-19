@@ -1,126 +1,126 @@
-Reading model file ..................................................................................................................................................................................................................................................................................................... 10.0550 seconds
+Reading model file ..................................................................................................................................................................................................................................................................................................... 11.6473 seconds
 Building the network . 0.0003 seconds
 
 [max seq length: 38   length of input prompt: 15]
-................................512 1.7566 seconds
+................................512 1.6755 seconds
 
 List all the prime numbers between 100 and 200. They are:
 
 
-................................4645 0.7137 seconds
+................................4645 0.7179 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101
 
-................................11 0.7142 seconds
+................................11 0.7177 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101,
 
-................................220 0.7149 seconds
+................................220 0.7170 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 
 
-................................6889 0.7144 seconds
+................................6889 0.7180 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103
 
-................................11 0.7167 seconds
+................................11 0.7166 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103,
 
-................................220 0.7165 seconds
+................................220 0.7203 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 
 
-................................7699 0.7173 seconds
+................................7699 0.7215 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107
 
-................................11 0.7169 seconds
+................................11 0.7302 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107,
 
-................................220 0.7158 seconds
+................................220 0.7363 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 
 
-................................7743 0.7180 seconds
+................................7743 0.7200 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109
 
-................................11 0.7176 seconds
+................................11 0.7211 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109,
 
-................................220 0.7183 seconds
+................................220 0.7229 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109, 
 
-................................8190 0.7175 seconds
+................................8190 0.7226 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109, 113
 
-................................11 0.7202 seconds
+................................11 0.7232 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109, 113,
 
-................................220 0.7219 seconds
+................................220 0.7232 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109, 113, 
 
-................................6804 0.7192 seconds
+................................6804 0.7219 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109, 113, 127
 
-................................11 0.7168 seconds
+................................11 0.7810 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109, 113, 127,
 
-................................220 0.7186 seconds
+................................220 0.7374 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109, 113, 127, 
 
-................................9263 0.7195 seconds
+................................9263 0.7328 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109, 113, 127, 131
 
-................................11 0.7208 seconds
+................................11 0.7270 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109, 113, 127, 131,
 
-................................220 0.7220 seconds
+................................220 0.7245 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109, 113, 127, 131, 
 
-................................10148 0.7214 seconds
+................................10148 0.7242 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109, 113, 127, 131, 137
 
-................................11 0.7213 seconds
+................................11 0.7232 seconds
 
 List all the prime numbers between 100 and 200. They are:
 101, 103, 107, 109, 113, 127, 131, 137,
 
-[1.3135 tok/s]
+[1.3059 tok/s]
 max 38 tokens reached

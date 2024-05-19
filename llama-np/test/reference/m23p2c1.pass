@@ -1,95 +1,95 @@
-Reading model file ............................................................................. 0.0799 seconds
-Building the network . 0.1120 seconds
+Reading model file ............................................................................. 0.0844 seconds
+Building the network . 0.1169 seconds
 
 [max seq length: 38   length of input prompt: 19]
-........322 0.0824 seconds
+........322 0.0793 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and
 
-........3013 0.0164 seconds
+........3013 0.0177 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep
 
-........372 0.0128 seconds
+........372 0.0134 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it
 
-........29892 0.0123 seconds
+........29892 0.0137 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it,
 
-........306 0.0122 seconds
+........306 0.0131 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I
 
-........674 0.0120 seconds
+........674 0.0129 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will
 
-........5401 0.0120 seconds
+........5401 0.0128 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win
 
-........263 0.0120 seconds
+........263 0.0126 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win a
 
-........26836 0.0119 seconds
+........26836 0.0126 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win a prize
 
-........3850 0.0121 seconds
+........3850 0.0127 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win a prize!"
 
-........29871 0.0121 seconds
+........29871 0.0126 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win a prize!" 
 
-........13 0.0130 seconds
+........13 0.0125 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win a prize!" 
 
 
-........1576 0.0122 seconds
+........1576 0.0126 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win a prize!" 
 The
 
-........2654 0.0122 seconds
+........2654 0.0125 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win a prize!" 
 The red
 
-........8287 0.0122 seconds
+........8287 0.0125 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win a prize!" 
 The red ball
 
-........471 0.0124 seconds
+........471 0.0126 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win a prize!" 
 The red ball was
 
-........1407 0.0124 seconds
+........1407 0.0125 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win a prize!" 
 The red ball was very
 
-........5172 0.0124 seconds
+........5172 0.0126 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win a prize!" 
 The red ball was very fast
 
-........322 0.0120 seconds
+........322 0.0125 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win a prize!" 
 The red ball was very fast and
 
-........372 0.0121 seconds
+........372 0.0126 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball and keep it, I will win a prize!" 
 The red ball was very fast and it
 
-[62.5537 tok/s]
+[61.1435 tok/s]
 max 38 tokens reached

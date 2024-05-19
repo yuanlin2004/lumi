@@ -1,5 +1,5 @@
-Reading model file .................................................. 0.0011 seconds
-Building the network . 0.0776 seconds
+Reading model file .................................................. 0.0012 seconds
+Building the network . 0.0827 seconds
 
 [max seq length: 48   length of input prompt: 9]
 .....426 0.0784 seconds
@@ -10,7 +10,7 @@ It is easy.
 
 It is easy. I
 
-.....413 0.0071 seconds
+.....413 0.0072 seconds
 
 It is easy. It
 
@@ -26,7 +26,7 @@ It is easy. It was very
 
 It is easy. It was very f
 
-.....412 0.0070 seconds
+.....412 0.0072 seconds
 
 It is easy. It was very fa
 
@@ -34,11 +34,11 @@ It is easy. It was very fa
 
 It is easy. It was very fast
 
-.....426 0.0071 seconds
+.....426 0.0070 seconds
 
 It is easy. It was very fast.
 
-.....410 0.0070 seconds
+.....410 0.0071 seconds
 
 It is easy. It was very fast. 
 
@@ -46,7 +46,7 @@ It is easy. It was very fast.
 
 It is easy. It was very fast. A
 
-.....419 0.0071 seconds
+.....419 0.0070 seconds
 
 It is easy. It was very fast. As
 
@@ -58,7 +58,7 @@ It is easy. It was very fast. As he
 
 It is easy. It was very fast. As he was
 
-.....262 0.0072 seconds
+.....262 0.0071 seconds
 
 It is easy. It was very fast. As he was s
 
@@ -74,7 +74,7 @@ It is easy. It was very fast. As he was see
 
 It is easy. It was very fast. As he was see 
 
-.....447 0.0071 seconds
+.....447 0.0070 seconds
 
 It is easy. It was very fast. As he was see A
 
@@ -90,7 +90,7 @@ It is easy. It was very fast. As he was see Ann
 
 It is easy. It was very fast. As he was see Anna
 
-.....432 0.0071 seconds
+.....432 0.0070 seconds
 
 It is easy. It was very fast. As he was see Anna,
 
@@ -98,15 +98,15 @@ It is easy. It was very fast. As he was see Anna,
 
 It is easy. It was very fast. As he was see Anna, a
 
-.....280 0.0069 seconds
+.....280 0.0068 seconds
 
 It is easy. It was very fast. As he was see Anna, a c
 
-.....260 0.0067 seconds
+.....260 0.0066 seconds
 
 It is easy. It was very fast. As he was see Anna, a che
 
-.....285 0.0066 seconds
+.....285 0.0065 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheer
 
@@ -114,7 +114,7 @@ It is easy. It was very fast. As he was see Anna, a cheer
 
 It is easy. It was very fast. As he was see Anna, a cheerf
 
-.....425 0.0064 seconds
+.....425 0.0063 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerfu
 
@@ -126,7 +126,7 @@ It is easy. It was very fast. As he was see Anna, a cheerful
 
 It is easy. It was very fast. As he was see Anna, a cheerful do
 
-.....428 0.0062 seconds
+.....428 0.0061 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog
 
@@ -134,11 +134,11 @@ It is easy. It was very fast. As he was see Anna, a cheerful dog
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named
 
-.....392 0.0062 seconds
+.....392 0.0061 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named M
 
-.....412 0.0062 seconds
+.....412 0.0063 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named Ma
 
@@ -150,7 +150,7 @@ It is easy. It was very fast. As he was see Anna, a cheerful dog named Max
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named Max.
 
-.....392 0.0063 seconds
+.....392 0.0062 seconds
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named Max. M
 
@@ -162,5 +162,5 @@ It is easy. It was very fast. As he was see Anna, a cheerful dog named Max. Ma
 
 It is easy. It was very fast. As he was see Anna, a cheerful dog named Max. Max
 
-[114.3687 tok/s]
+[114.6400 tok/s]
 max 48 tokens reached

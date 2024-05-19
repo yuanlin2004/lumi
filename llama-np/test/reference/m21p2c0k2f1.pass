@@ -58,7 +58,7 @@ There are three red balls and
 
 There are three red balls and f
 
-.....314 0.0005 seconds
+.....314 0.0004 seconds
 
 There are three red balls and fou
 
@@ -82,7 +82,7 @@ There are three red balls and four blu
 
 There are three red balls and four blue
 
-.....272 0.0004 seconds
+.....272 0.0005 seconds
 
 There are three red balls and four blue b
 
@@ -274,7 +274,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them c
 
-.....414 0.0005 seconds
+.....414 0.0004 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was not like anyone. It wanted to make them co
 
@@ -418,5 +418,5 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 "Oh no!" the balloon shouted.
 The ball went
 
-[2216.3062 tok/s]
+[2243.6890 tok/s]
 max 96 tokens reached

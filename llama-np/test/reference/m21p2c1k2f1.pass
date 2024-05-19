@@ -1,8 +1,8 @@
 Reading model file .................................................. 0.0011 seconds
-Building the network . 0.0701 seconds
+Building the network . 0.0790 seconds
 
 [max seq length: 96   length of input prompt: 40]
-.....403 0.0698 seconds
+.....403 0.0717 seconds
 
 The
 
@@ -10,7 +10,7 @@ The
 
 There
 
-.....382 0.0063 seconds
+.....382 0.0064 seconds
 
 There a
 
@@ -18,63 +18,63 @@ There a
 
 There are
 
-.....265 0.0066 seconds
+.....265 0.0067 seconds
 
 There are th
 
-.....276 0.0063 seconds
+.....276 0.0062 seconds
 
 There are thre
 
-.....411 0.0061 seconds
+.....411 0.0078 seconds
 
 There are three
 
-.....348 0.0061 seconds
+.....348 0.0075 seconds
 
 There are three r
 
-.....379 0.0061 seconds
+.....379 0.0070 seconds
 
 There are three red
 
-.....308 0.0061 seconds
+.....308 0.0063 seconds
 
 There are three red b
 
-.....414 0.0061 seconds
+.....414 0.0062 seconds
 
 There are three red ball
 
-.....426 0.0061 seconds
+.....426 0.0062 seconds
 
 There are three red balls
 
-.....269 0.0061 seconds
+.....269 0.0062 seconds
 
 There are three red balls and
 
-.....265 0.0063 seconds
+.....265 0.0062 seconds
 
 There are three red balls and f
 
-.....314 0.0061 seconds
+.....314 0.0062 seconds
 
 There are three red balls and fou
 
-.....264 0.0064 seconds
+.....264 0.0063 seconds
 
 There are three red balls and four
 
-.....432 0.0061 seconds
+.....432 0.0065 seconds
 
 There are three red balls and four b
 
-.....414 0.0063 seconds
+.....414 0.0064 seconds
 
 There are three red balls and four bl
 
-.....425 0.0061 seconds
+.....425 0.0063 seconds
 
 There are three red balls and four blu
 
@@ -82,51 +82,51 @@ There are three red balls and four blu
 
 There are three red balls and four blue
 
-.....272 0.0061 seconds
+.....272 0.0063 seconds
 
 There are three red balls and four blue b
 
-.....421 0.0063 seconds
+.....421 0.0065 seconds
 
 There are three red balls and four blue ball
 
-.....426 0.0061 seconds
+.....426 0.0064 seconds
 
 There are three red balls and four blue balls
 
-.....426 0.0064 seconds
+.....426 0.0062 seconds
 
 There are three red balls and four blue balls in
 
-.....265 0.0061 seconds
+.....265 0.0062 seconds
 
 There are three red balls and four blue balls in a
 
-.....270 0.0064 seconds
+.....270 0.0062 seconds
 
 There are three red balls and four blue balls in a b
 
-.....388 0.0061 seconds
+.....388 0.0062 seconds
 
 There are three red balls and four blue balls in a ba
 
-.....419 0.0064 seconds
+.....419 0.0061 seconds
 
 There are three red balls and four blue balls in a bag
 
-.....426 0.0061 seconds
+.....426 0.0062 seconds
 
 There are three red balls and four blue balls in a bag.
 
-.....342 0.0063 seconds
+.....342 0.0061 seconds
 
 There are three red balls and four blue balls in a bag. I
 
-.....413 0.0061 seconds
+.....413 0.0062 seconds
 
 There are three red balls and four blue balls in a bag. If
 
-.....265 0.0064 seconds
+.....265 0.0062 seconds
 
 There are three red balls and four blue balls in a bag. If I
 
@@ -134,7 +134,7 @@ There are three red balls and four blue balls in a bag. If I
 
 There are three red balls and four blue balls in a bag. If I t
 
-.....325 0.0063 seconds
+.....325 0.0061 seconds
 
 There are three red balls and four blue balls in a bag. If I ta
 
@@ -142,23 +142,23 @@ There are three red balls and four blue balls in a bag. If I ta
 
 There are three red balls and four blue balls in a bag. If I take
 
-.....265 0.0063 seconds
+.....265 0.0062 seconds
 
 There are three red balls and four blue balls in a bag. If I take on
 
-.....411 0.0061 seconds
+.....411 0.0062 seconds
 
 There are three red balls and four blue balls in a bag. If I take one
 
-.....280 0.0064 seconds
+.....280 0.0062 seconds
 
 There are three red balls and four blue balls in a bag. If I take one b
 
-.....420 0.0061 seconds
+.....420 0.0062 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball
 
-.....419 0.0064 seconds
+.....419 0.0063 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls
 
@@ -166,7 +166,7 @@ There are three red balls and four blue balls in a bag. If I take one balls
 
 There are three red balls and four blue balls in a bag. If I take one balls,
 
-.....265 0.0064 seconds
+.....265 0.0061 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the
 
@@ -174,7 +174,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the b
 
-.....388 0.0064 seconds
+.....388 0.0062 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the ball
 
@@ -182,7 +182,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the ballo
 
-.....289 0.0063 seconds
+.....289 0.0061 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon
 
@@ -190,7 +190,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was
 
-.....268 0.0063 seconds
+.....268 0.0061 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was b
 
@@ -198,7 +198,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was bu
 
-.....420 0.0064 seconds
+.....420 0.0061 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was bur
 
@@ -214,7 +214,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning d
 
-.....327 0.0064 seconds
+.....327 0.0063 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning dow
 
@@ -222,7 +222,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down
 
-.....265 0.0064 seconds
+.....265 0.0063 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the
 
@@ -230,7 +230,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the r
 
-.....414 0.0064 seconds
+.....414 0.0063 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the ro
 
@@ -238,7 +238,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room
 
-.....426 0.0064 seconds
+.....426 0.0063 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room.
 
@@ -258,11 +258,11 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red b
 
-.....388 0.0061 seconds
+.....388 0.0063 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red ball
 
-.....414 0.0063 seconds
+.....414 0.0062 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red ballo
 
@@ -278,7 +278,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons want
 
-.....266 0.0064 seconds
+.....266 0.0063 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons wanted
 
@@ -294,7 +294,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons wanted to tr
 
-.....422 0.0064 seconds
+.....422 0.0063 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons wanted to try
 
@@ -306,7 +306,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons wanted to try the b
 
-.....388 0.0061 seconds
+.....388 0.0062 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons wanted to try the ball
 
@@ -330,7 +330,7 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons wanted to try the ball and find a
 
-.....270 0.0061 seconds
+.....270 0.0062 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons wanted to try the ball and find a h
 
@@ -356,12 +356,12 @@ There are three red balls and four blue balls in a bag. If I take one balls, the
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons wanted to try the ball and find a hole.
 O
 
-.....416 0.0061 seconds
+.....416 0.0063 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons wanted to try the ball and find a hole.
 On
 
-.....411 0.0063 seconds
+.....411 0.0062 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons wanted to try the ball and find a hole.
 One
@@ -371,7 +371,7 @@ One
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons wanted to try the ball and find a hole.
 One day
 
-.....432 0.0063 seconds
+.....432 0.0062 seconds
 
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons wanted to try the ball and find a hole.
 One day,
@@ -396,5 +396,5 @@ One day, a bir
 There are three red balls and four blue balls in a bag. If I take one balls, the balloon was burning down the room. The red balloons wanted to try the ball and find a hole.
 One day, a bird
 
-[144.5573 tok/s]
+[143.2061 tok/s]
 max 96 tokens reached

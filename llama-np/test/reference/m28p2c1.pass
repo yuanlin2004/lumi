@@ -1,95 +1,95 @@
-Reading model file ...................................................................................................................................................................................................................................................................................................... 8.5586 seconds
-Building the network . 2.9237 seconds
+Reading model file ...................................................................................................................................................................................................................................................................................................... 9.6941 seconds
+Building the network . 2.8570 seconds
 
 [max seq length: 38   length of input prompt: 19]
-................................472 0.6372 seconds
+................................472 0.7131 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at
 
-................................4036 0.4582 seconds
+................................4036 0.5091 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random
 
-................................515 0.4419 seconds
+................................515 0.5035 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from
 
-................................278 0.4409 seconds
+................................278 0.5034 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the
 
-................................19548 0.4408 seconds
+................................19548 0.5032 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag
 
-................................29892 0.4401 seconds
+................................29892 0.5035 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag,
 
-................................825 0.4410 seconds
+................................825 0.5028 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what
 
-................................338 0.4410 seconds
+................................338 0.5031 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is
 
-................................278 0.4410 seconds
+................................278 0.5026 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is the
 
-................................6976 0.4410 seconds
+................................6976 0.5048 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is the probability
 
-................................393 0.4401 seconds
+................................393 0.5043 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is the probability that
 
-................................372 0.4407 seconds
+................................372 0.5033 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is the probability that it
 
-................................338 0.4413 seconds
+................................338 0.5039 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is the probability that it is
 
-................................7254 0.4417 seconds
+................................7254 0.5042 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is the probability that it is blue
 
-................................29973 0.4405 seconds
+................................29973 0.5047 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is the probability that it is blue?
 
-................................13 0.4414 seconds
-
-There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is the probability that it is blue?
-
-
-................................13 0.4408 seconds
+................................13 0.5028 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is the probability that it is blue?
 
 
+................................13 0.5043 seconds
 
-................................8439 0.4406 seconds
+There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is the probability that it is blue?
+
+
+
+................................8439 0.5041 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is the probability that it is blue?
 
 There
 
-................................526 0.4410 seconds
+................................526 0.5041 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is the probability that it is blue?
 
 There are
 
-................................2211 0.4418 seconds
+................................2211 0.5029 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball at random from the bag, what is the probability that it is blue?
 
 There are three
 
-[2.2138 tok/s]
+[1.9438 tok/s]
 max 38 tokens reached

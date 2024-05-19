@@ -1,78 +1,78 @@
-Reading model file ...................................................................................................................................................................................................................................................................................................... 8.6060 seconds
-Building the network . 2.9204 seconds
+Reading model file ...................................................................................................................................................................................................................................................................................................... 9.6176 seconds
+Building the network . 2.8601 seconds
 
 [max seq length: 28   length of input prompt: 11]
-................................731 0.6391 seconds
+................................731 0.7130 seconds
 
 The US president in 2020 is set
 
-................................304 0.4550 seconds
+................................304 0.5089 seconds
 
 The US president in 2020 is set to
 
-................................505 0.4410 seconds
+................................505 0.5023 seconds
 
 The US president in 2020 is set to have
 
-................................263 0.4416 seconds
+................................263 0.5033 seconds
 
 The US president in 2020 is set to have a
 
-................................7282 0.4408 seconds
+................................7282 0.5032 seconds
 
 The US president in 2020 is set to have a significant
 
-................................10879 0.4416 seconds
+................................10879 0.5026 seconds
 
 The US president in 2020 is set to have a significant impact
 
-................................373 0.4416 seconds
+................................373 0.5034 seconds
 
 The US president in 2020 is set to have a significant impact on
 
-................................278 0.4416 seconds
+................................278 0.5027 seconds
 
 The US president in 2020 is set to have a significant impact on the
 
-................................26504 0.4416 seconds
+................................26504 0.5030 seconds
 
 The US president in 2020 is set to have a significant impact on the economy
 
-................................322 0.4416 seconds
+................................322 0.5031 seconds
 
 The US president in 2020 is set to have a significant impact on the economy and
 
-................................18161 0.4417 seconds
+................................18161 0.5026 seconds
 
 The US president in 2020 is set to have a significant impact on the economy and financial
 
-................................2791 0.4418 seconds
+................................2791 0.5028 seconds
 
 The US president in 2020 is set to have a significant impact on the economy and financial mark
 
-................................1691 0.4402 seconds
+................................1691 0.5027 seconds
 
 The US president in 2020 is set to have a significant impact on the economy and financial markets
 
-................................29889 0.4414 seconds
+................................29889 0.5028 seconds
 
 The US president in 2020 is set to have a significant impact on the economy and financial markets.
 
-................................450 0.4405 seconds
+................................450 0.5025 seconds
 
 The US president in 2020 is set to have a significant impact on the economy and financial markets. The
 
-................................10879 0.4411 seconds
+................................10879 0.5026 seconds
 
 The US president in 2020 is set to have a significant impact on the economy and financial markets. The impact
 
-................................338 0.4410 seconds
+................................338 0.5033 seconds
 
 The US president in 2020 is set to have a significant impact on the economy and financial markets. The impact is
 
-................................5517 0.4414 seconds
+................................5517 0.5022 seconds
 
 The US president in 2020 is set to have a significant impact on the economy and financial markets. The impact is likely
 
-[2.2070 tok/s]
+[1.9422 tok/s]
 max 28 tokens reached

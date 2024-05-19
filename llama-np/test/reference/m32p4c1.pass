@@ -1,0 +1,160 @@
+Reading model file ..................................................................................................................................................................................................................................................................................................... 11.7443 seconds
+Building the network . 3.5304 seconds
+
+[max seq length: 28   length of input prompt: 3]
+................................0 0.8611 seconds
+
+你好!
+
+................................320 0.7021 seconds
+
+你好! (
+
+................................77 0.6825 seconds
+
+你好! (n
+
+................................124562 0.6780 seconds
+
+你好! (nǐ
+
+................................305 0.6952 seconds
+
+你好! (nǐ h
+
+................................119608 0.6817 seconds
+
+你好! (nǐ hǎ
+
+................................78 0.6843 seconds
+
+你好! (nǐ hǎo
+
+................................8 0.6972 seconds
+
+你好! (nǐ hǎo)
+
+................................482 0.6788 seconds
+
+你好! (nǐ hǎo) -
+
+................................22691 0.6779 seconds
+
+你好! (nǐ hǎo) - Hello
+
+................................2268 0.6788 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+
+
+................................14262 0.7075 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome
+
+................................311 0.6834 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to
+
+................................279 0.6798 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to the
+
+................................1917 0.6920 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to the world
+
+................................315 0.6874 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to the world of
+
+................................8620 0.6791 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to the world of Chinese
+
+................................2268 0.7043 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to the world of Chinese!
+
+
+
+................................644 0.6770 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to the world of Chinese!
+
+In
+
+................................420 0.6743 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to the world of Chinese!
+
+In this
+
+................................3388 0.6734 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to the world of Chinese!
+
+In this course
+
+................................11 0.6727 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to the world of Chinese!
+
+In this course,
+
+................................584 0.6729 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to the world of Chinese!
+
+In this course, we
+
+................................3358 0.6758 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to the world of Chinese!
+
+In this course, we'll
+
+................................13488 0.6784 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to the world of Chinese!
+
+In this course, we'll explore
+
+................................279 0.6713 seconds
+
+你好! (nǐ hǎo) - Hello!
+
+Welcome to the world of Chinese!
+
+In this course, we'll explore the
+
+[1.4486 tok/s]
+max 28 tokens reached

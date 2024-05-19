@@ -1,78 +1,78 @@
-Reading model file ............................................................................. 0.0802 seconds
-Building the network . 0.1171 seconds
+Reading model file ............................................................................. 0.0840 seconds
+Building the network . 0.1097 seconds
 
 [max seq length: 28   length of input prompt: 11]
-........4359 0.0874 seconds
+........4359 0.0862 seconds
 
 The US president in 2020 is almost
 
-........727 0.0164 seconds
+........727 0.0170 seconds
 
 The US president in 2020 is almost there
 
-........29889 0.0128 seconds
+........29889 0.0133 seconds
 
 The US president in 2020 is almost there.
 
-........3118 0.0121 seconds
+........3118 0.0127 seconds
 
 The US president in 2020 is almost there. One
 
-........2462 0.0121 seconds
+........2462 0.0131 seconds
 
 The US president in 2020 is almost there. One day
 
-........29892 0.0131 seconds
+........29892 0.0136 seconds
 
 The US president in 2020 is almost there. One day,
 
-........670 0.0121 seconds
+........670 0.0127 seconds
 
 The US president in 2020 is almost there. One day, his
 
-........5637 0.0121 seconds
+........5637 0.0128 seconds
 
 The US president in 2020 is almost there. One day, his mother
 
-........3614 0.0120 seconds
+........3614 0.0126 seconds
 
 The US president in 2020 is almost there. One day, his mother took
 
-........1075 0.0121 seconds
+........1075 0.0126 seconds
 
 The US president in 2020 is almost there. One day, his mother took him
 
-........304 0.0120 seconds
+........304 0.0127 seconds
 
 The US president in 2020 is almost there. One day, his mother took him to
 
-........263 0.0120 seconds
+........263 0.0127 seconds
 
 The US president in 2020 is almost there. One day, his mother took him to a
 
-........4802 0.0120 seconds
+........4802 0.0127 seconds
 
 The US president in 2020 is almost there. One day, his mother took him to a big
 
-........12529 0.0121 seconds
+........12529 0.0126 seconds
 
 The US president in 2020 is almost there. One day, his mother took him to a big factory
 
-........29889 0.0124 seconds
+........29889 0.0127 seconds
 
 The US president in 2020 is almost there. One day, his mother took him to a big factory.
 
-........940 0.0123 seconds
+........940 0.0126 seconds
 
 The US president in 2020 is almost there. One day, his mother took him to a big factory. He
 
-........4446 0.0125 seconds
+........4446 0.0127 seconds
 
 The US president in 2020 is almost there. One day, his mother took him to a big factory. He saw
 
-........1784 0.0125 seconds
+........1784 0.0127 seconds
 
 The US president in 2020 is almost there. One day, his mother took him to a big factory. He saw many
 
-[59.8581 tok/s]
+[58.3470 tok/s]
 max 28 tokens reached

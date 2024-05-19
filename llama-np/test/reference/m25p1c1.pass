@@ -1,54 +1,54 @@
-Reading model file ........................................................................................................................................................................................................... 1.3726 seconds
-Building the network . 0.6879 seconds
+Reading model file ........................................................................................................................................................................................................... 1.3546 seconds
+Building the network . 0.6819 seconds
 
 [max seq length: 19   length of input prompt: 4]
-......................304 0.1590 seconds
+......................304 0.1999 seconds
 
 It is easy to
 
-......................9758 0.0883 seconds
+......................9758 0.1203 seconds
 
 It is easy to spot
 
-......................278 0.0830 seconds
+......................278 0.1156 seconds
 
 It is easy to spot the
 
-......................25713 0.0831 seconds
+......................25713 0.1156 seconds
 
 It is easy to spot the fake
 
-......................6743 0.0828 seconds
+......................6743 0.1157 seconds
 
 It is easy to spot the fake ones
 
-......................29892 0.0823 seconds
+......................29892 0.1159 seconds
 
 It is easy to spot the fake ones,
 
-......................1363 0.0835 seconds
+......................1363 0.1165 seconds
 
 It is easy to spot the fake ones, because
 
-......................896 0.0831 seconds
+......................896 0.1165 seconds
 
 It is easy to spot the fake ones, because they
 
-......................1106 0.0827 seconds
+......................1106 0.1167 seconds
 
 It is easy to spot the fake ones, because they look
 
-......................901 0.0821 seconds
+......................901 0.1163 seconds
 
 It is easy to spot the fake ones, because they look more
 
-......................19390 0.0833 seconds
+......................19390 0.1163 seconds
 
 It is easy to spot the fake ones, because they look more expensive
 
-......................29889 0.0829 seconds
+......................29889 0.1161 seconds
 
 It is easy to spot the fake ones, because they look more expensive.
 
-......................2 0.0828 seconds
-[11.2117 tok/s]
+......................2 0.1155 seconds
+[8.1371 tok/s]

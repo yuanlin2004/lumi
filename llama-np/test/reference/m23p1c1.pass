@@ -1,70 +1,70 @@
-Reading model file ............................................................................. 0.0806 seconds
-Building the network . 0.1188 seconds
+Reading model file ............................................................................. 0.0839 seconds
+Building the network . 0.1198 seconds
 
 [max seq length: 19   length of input prompt: 4]
-........322 0.0816 seconds
+........322 0.0810 seconds
 
 It is easy and
 
-........11785 0.0181 seconds
+........11785 0.0178 seconds
 
 It is easy and bright
 
-........29892 0.0142 seconds
+........29892 0.0137 seconds
 
 It is easy and bright,
 
-........541 0.0138 seconds
+........541 0.0130 seconds
 
 It is easy and bright, but
 
-........697 0.0137 seconds
+........697 0.0131 seconds
 
 It is easy and bright, but one
 
-........2462 0.0137 seconds
+........2462 0.0130 seconds
 
 It is easy and bright, but one day
 
-........263 0.0147 seconds
+........263 0.0134 seconds
 
 It is easy and bright, but one day a
 
-........8023 0.0139 seconds
+........8023 0.0130 seconds
 
 It is easy and bright, but one day a boy
 
-........471 0.0137 seconds
+........471 0.0129 seconds
 
 It is easy and bright, but one day a boy was
 
-........1407 0.0137 seconds
+........1407 0.0139 seconds
 
 It is easy and bright, but one day a boy was very
 
-........23407 0.0138 seconds
+........23407 0.0129 seconds
 
 It is easy and bright, but one day a boy was very tired
 
-........29889 0.0139 seconds
+........29889 0.0131 seconds
 
 It is easy and bright, but one day a boy was very tired.
 
-........940 0.0139 seconds
+........940 0.0133 seconds
 
 It is easy and bright, but one day a boy was very tired. He
 
-........750 0.0137 seconds
+........750 0.0129 seconds
 
 It is easy and bright, but one day a boy was very tired. He had
 
-........1063 0.0137 seconds
+........1063 0.0128 seconds
 
 It is easy and bright, but one day a boy was very tired. He had been
 
-........8743 0.0138 seconds
+........8743 0.0128 seconds
 
 It is easy and bright, but one day a boy was very tired. He had been playing
 
-[54.3814 tok/s]
+[56.4839 tok/s]
 max 19 tokens reached

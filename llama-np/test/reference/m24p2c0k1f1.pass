@@ -1,32 +1,32 @@
-Reading model file ................................................................................................................. 0.1679 seconds
+Reading model file ................................................................................................................. 0.2077 seconds
 Building the network . 0.0002 seconds
 
 [max seq length: 38   length of input prompt: 19]
-............9038 0.0187 seconds
+............9038 0.0209 seconds
 
 There
 
-............471 0.0205 seconds
+............471 0.0218 seconds
 
 There are
 
-............1023 0.0189 seconds
+............1023 0.0203 seconds
 
 There are three
 
-............2217 0.0204 seconds
+............2217 0.0217 seconds
 
 There are three red
 
-............14954 0.0177 seconds
+............14954 0.0182 seconds
 
 There are three red balls
 
-............297 0.0190 seconds
+............297 0.0195 seconds
 
 There are three red balls and
 
-............1023 0.0200 seconds
+............1023 0.0207 seconds
 
 There are three red balls and four
 
@@ -34,51 +34,51 @@ There are three red balls and four
 
 There are three red balls and four blue
 
-............26563 0.0189 seconds
+............26563 0.0195 seconds
 
 There are three red balls and four blue balls
 
-............29889 0.0195 seconds
+............29889 0.0202 seconds
 
 There are three red balls and four blue balls in
 
-............278 0.0206 seconds
+............278 0.0216 seconds
 
 There are three red balls and four blue balls in a
 
-............4802 0.0227 seconds
+............4802 0.0234 seconds
 
 There are three red balls and four blue balls in a bag
 
-............29889 0.0229 seconds
+............29889 0.0232 seconds
 
 There are three red balls and four blue balls in a bag.
 
-............2688 0.0235 seconds
+............2688 0.0237 seconds
 
 There are three red balls and four blue balls in a bag. If
 
-............366 0.0236 seconds
+............366 0.0239 seconds
 
 There are three red balls and four blue balls in a bag. If I
 
-............528 0.0238 seconds
+............528 0.0240 seconds
 
 There are three red balls and four blue balls in a bag. If I take
 
-............278 0.0239 seconds
+............278 0.0241 seconds
 
 There are three red balls and four blue balls in a bag. If I take one
 
-............29892 0.0242 seconds
+............29892 0.0244 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball
 
-............29892 0.0248 seconds
+............29892 0.0253 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball,
 
-............306 0.0239 seconds
+............306 0.0244 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I
 
@@ -86,7 +86,7 @@ There are three red balls and four blue balls in a bag. If I take one ball, I
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will
 
-............505 0.0249 seconds
+............505 0.0252 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have
 
@@ -94,65 +94,65 @@ There are three red balls and four blue balls in a bag. If I take one ball, I wi
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one
 
-............2654 0.0254 seconds
+............2654 0.0256 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red
 
-............8287 0.0255 seconds
+............8287 0.0259 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball
 
-............29889 0.0260 seconds
+............29889 0.0266 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball.
 
-............960 0.0269 seconds
+............960 0.0272 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If
 
-............306 0.0259 seconds
+............306 0.0263 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I
 
-............2125 0.0267 seconds
+............2125 0.0273 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take
 
-............697 0.0269 seconds
+............697 0.0273 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one
 
-............7254 0.0275 seconds
+............7254 0.0277 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue
 
-............8287 0.0274 seconds
+............8287 0.0277 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball
 
-............29892 0.0277 seconds
+............29892 0.0279 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball,
 
-............306 0.0277 seconds
+............306 0.0280 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I
 
-............674 0.0283 seconds
+............674 0.0288 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I will
 
-............505 0.0279 seconds
+............505 0.0282 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I will have
 
-............697 0.0287 seconds
+............697 0.0304 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I will have one
 
-............2654 0.0285 seconds
+............2654 0.0321 seconds
 
 There are three red balls and four blue balls in a bag. If I take one ball, I will have one red ball. If I take one blue ball, I will have one red
 
-[41.5259 tok/s]
+[40.4896 tok/s]
 max 38 tokens reached

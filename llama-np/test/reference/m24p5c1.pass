@@ -1,78 +1,78 @@
-Reading model file ................................................................................................................. 0.1761 seconds
-Building the network . 0.1774 seconds
+Reading model file ................................................................................................................. 0.1858 seconds
+Building the network . 0.1721 seconds
 
 [max seq length: 28   length of input prompt: 11]
-............278 0.0883 seconds
+............278 0.0909 seconds
 
 The US president in 2020 is the
 
-............15040 0.0265 seconds
+............15040 0.0261 seconds
 
 The US president in 2020 is the smart
 
-............342 0.0207 seconds
+............342 0.0215 seconds
 
 The US president in 2020 is the smartest
 
-............310 0.0201 seconds
+............310 0.0214 seconds
 
 The US president in 2020 is the smartest of
 
-............963 0.0202 seconds
+............963 0.0212 seconds
 
 The US president in 2020 is the smartest of them
 
-............599 0.0203 seconds
+............599 0.0212 seconds
 
 The US president in 2020 is the smartest of them all
 
-............29889 0.0201 seconds
+............29889 0.0211 seconds
 
 The US president in 2020 is the smartest of them all.
 
-............940 0.0200 seconds
+............940 0.0213 seconds
 
 The US president in 2020 is the smartest of them all. He
 
-............471 0.0199 seconds
+............471 0.0214 seconds
 
 The US president in 2020 is the smartest of them all. He was
 
-............2183 0.0199 seconds
+............2183 0.0211 seconds
 
 The US president in 2020 is the smartest of them all. He was given
 
-............278 0.0207 seconds
+............278 0.0211 seconds
 
 The US president in 2020 is the smartest of them all. He was given the
 
-............18766 0.0204 seconds
+............18766 0.0211 seconds
 
 The US president in 2020 is the smartest of them all. He was given the challenge
 
-............491 0.0204 seconds
+............491 0.0211 seconds
 
 The US president in 2020 is the smartest of them all. He was given the challenge by
 
-............670 0.0200 seconds
+............670 0.0212 seconds
 
 The US president in 2020 is the smartest of them all. He was given the challenge by his
 
-............4783 0.0200 seconds
+............4783 0.0212 seconds
 
 The US president in 2020 is the smartest of them all. He was given the challenge by his father
 
-............322 0.0201 seconds
+............322 0.0211 seconds
 
 The US president in 2020 is the smartest of them all. He was given the challenge by his father and
 
-............540 0.0201 seconds
+............540 0.0211 seconds
 
 The US president in 2020 is the smartest of them all. He was given the challenge by his father and he
 
-............471 0.0201 seconds
+............471 0.0211 seconds
 
 The US president in 2020 is the smartest of them all. He was given the challenge by his father and he was
 
-[41.0444 tok/s]
+[39.3805 tok/s]
 max 28 tokens reached
