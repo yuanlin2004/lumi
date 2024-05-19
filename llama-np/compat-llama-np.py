@@ -14,7 +14,7 @@ class Linear:
 
     def __call__(self, x):
         y = np.matmul(x, self.weight)
-        return y + self.bias if self.bias else y
+        return y + self.bias if self.bias is not None else y
 
 
 class SiLU:
@@ -41,8 +41,9 @@ class RMSNorm:
 
 
 class RoPE:
-    def __init__(self, theta=10000):
+    def __init__(self, theta=10000, rotate_half=False):
         self.theta = np.asarray(np.float32(theta))
+        self.rotate_half = rotate_half
 
     def __call__(self, x, start_pos=0):
         dim, s = x.shape[-1], x.shape[-2]
@@ -51,8 +52,12 @@ class RoPE:
         m_theta = np.multiply(m, theta, dtype=np.float32)  # outer product
         cos, sin = np.cos(m_theta), np.sin(m_theta)
         y = np.empty_like(x)
-        y[..., 1::2] = x[..., 0::2]  # in-place update
-        y[..., 0::2] = -x[..., 1::2]  # in-place update
+        if self.rotate_half:
+            y[..., : dim // 2] = -x[..., dim // 2 :]  # in-place update
+            y[..., dim // 2 :] = x[..., : dim // 2]  # in-place update
+        else:
+            y[..., 0::2] = -x[..., 1::2]  # in-place update
+            y[..., 1::2] = x[..., 0::2]  # in-place update
         return x * cos + y * sin
 
 
@@ -63,11 +68,11 @@ class Softmax:
 
 
 class Attention:
-    def __init__(self, wq_weight, wk_weight, wv_weight, wo_weight, pos_emb, n_heads, n_kv_heads):
+    def __init__(self, wq_weight, wq_bias, wk_weight, wk_bias, wv_weight, wv_bias, wo_weight, wo_bias, pos_emb, n_heads, n_kv_heads):
         self.n_heads, self.n_kv_heads = n_heads, n_kv_heads
         self.softmax, self.pos_emb = Softmax(), pos_emb
-        self.wq, self.wk = Linear(wq_weight), Linear(wk_weight)
-        self.wv, self.wo = Linear(wv_weight), Linear(wo_weight)
+        self.wq, self.wk = Linear(wq_weight, bias=wq_bias), Linear(wk_weight, bias=wk_bias)
+        self.wv, self.wo = Linear(wv_weight, bias=wv_bias), Linear(wo_weight, bias=wo_bias)
         self.k_cache, self.v_cache = None, None
 
     def __call__(self, q, start_pos):
@@ -121,17 +126,22 @@ class TransformerBlock:
         n_heads,
         n_kv_heads,
         w_q,
+        wb_q,
         w_k,
+        wb_k,
         w_v,
+        wb_v,
         w_o,
+        wb_o,
         w_ffd_w1,
         w_ffd_w2,
         w_ffd_w3,
         w_ffd_norm,
+        rotate_half,
         rope_theta,
     ):
         self.att_rmsnorm = RMSNorm(w_att_norm)
-        self.attention = Attention(w_q, w_k, w_v, w_o, RoPE(rope_theta), n_heads, n_kv_heads)
+        self.attention = Attention(w_q, wb_q, w_k, wb_k, w_v, wb_v, w_o, wb_o, RoPE(rope_theta, rotate_half), n_heads, n_kv_heads)
         self.ffd_rmsnorm = RMSNorm(w_ffd_norm)
         self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3)
 
@@ -141,7 +151,7 @@ class TransformerBlock:
 
 
 class Transformer:
-    def __init__(self, params, weight_dict):
+    def __init__(self, params, weight_dict, rotate_half=False):
         self.embedding_tab = weight_dict["tok_embeddings.weight"]
         self.n_layers = params["n_layers"]
         self.transformer_blocks = []
@@ -151,13 +161,18 @@ class Transformer:
                 params["n_heads"],
                 params["n_kv_heads"],
                 weight_dict[f"layers.{i}.attention.wq.weight"],
+                weight_dict.get(f"layers.{i}.attention.wq.bias"),
                 weight_dict[f"layers.{i}.attention.wk.weight"],
+                weight_dict.get(f"layers.{i}.attention.wk.bias"),
                 weight_dict[f"layers.{i}.attention.wv.weight"],
+                weight_dict.get(f"layers.{i}.attention.wv.bias"),
                 weight_dict[f"layers.{i}.attention.wo.weight"],
+                weight_dict.get(f"layers.{i}.attention.w0.bias"),
                 weight_dict[f"layers.{i}.feed_forward.w1.weight"],
                 weight_dict[f"layers.{i}.feed_forward.w2.weight"],
                 weight_dict[f"layers.{i}.feed_forward.w3.weight"],
                 weight_dict[f"layers.{i}.ffn_norm.weight"],
+                rotate_half,
                 params["rope_theta"]
             )
             self.transformer_blocks.append(tf_block)
@@ -175,13 +190,14 @@ class Transformer:
 class Llama:
     def __init__(self, model_path, max_seq_len, seed=34):
         random.seed(seed)
-        params, tokenizer_model, weight_dict, llama_version = read_lumi(model_path)
-        if llama_version == 3:
-            self.tokenizer = Tokenizer_Llama3(tokenizer_model)
+        params, tokenizer_model, weight_dict, model_name = read_lumi(model_path)
+        if model_name in ['llama-3-8b', 'llama-3-8b-instruct', 'qwen1.5-7b-chat']:
+            self.tokenizer = Tokenizer_Llama3(model_name, tokenizer_model)
         else:
             self.tokenizer = Tokenizer_Llama2(tokenizer_model)
+        rotate_half = True if model_name in ['qwen1.5-7b-chat'] else False
         self.params = params
-        self.model = Transformer(params, weight_dict)
+        self.model = Transformer(params, weight_dict, rotate_half)
         self.max_seq_len = max_seq_len
 
     def generate(self, input_tokens, start_pos):
