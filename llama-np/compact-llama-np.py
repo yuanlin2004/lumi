@@ -191,11 +191,11 @@ class Llama:
     def __init__(self, model_path, max_seq_len, seed=34):
         random.seed(seed)
         params, tokenizer_model, weight_dict, model_name = read_lumi(model_path)
-        if model_name in ['llama-3-8b', 'llama-3-8b-instruct', 'qwen1.5-7b-chat']:
+        if model_name in ['llama-3-8b', 'llama-3-8b-instruct', 'qwen1.0-7b-chat']:
             self.tokenizer = Tokenizer_Llama3(model_name, tokenizer_model)
         else:
             self.tokenizer = Tokenizer_Llama2(tokenizer_model)
-        rotate_half = True if model_name in ['qwen1.5-7b-chat'] else False
+        rotate_half = True if model_name in ['qwen1.0-7b-chat'] else False
         self.params = params
         self.model = Transformer(params, weight_dict, rotate_half)
         self.max_seq_len = max_seq_len
