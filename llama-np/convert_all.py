@@ -14,11 +14,11 @@ Table = """
 | Llama-2-Chat     | 7B   | /mnt/data1t-2/DL-Models/Llama/Llama2/llama-2-7b-chat         | /mnt/data1t-2/DL-Models/Llama/Llama2/tokenizer.model                  | llama-2-7b-chat          |
 | Llama-3          | 8B   | /mnt/data1t/DL-Models/llama3/Meta-Llama-3-8B                 | /mnt/data1t/DL-Models/llama3/Meta-Llama-3-8B/tokenizer.model          | llama-3-8b               |
 | Llama-3-Instruct | 8B   | /mnt/data1t/DL-Models/llama3/Meta-Llama-3-8B-Instruct        | /mnt/data1t/DL-Models/llama3/Meta-Llama-3-8B-Instruct/tokenizer.model | llama-3-8b-instruct      |
-| Qwen1.5-7B-Chat  | 7B   | /mnt/data1t/DL-Models/Qwen1.5/Qwen1.5-7B-Chat                | /mnt/data1t/DL-Models/Qwen1.5/Qwen1.5-7B-Chat/qwen.tiktoken           | qwen1.5-7b-chat          | 
+| Qwen1.0-7B-Chat  | 7B   | /mnt/data1t/DL-Models/Qwen/Qwen-7B-Chat                      | /mnt/data1t/DL-Models/Qwen/Qwen-7B-Chat/qwen.tiktoken                 | qwen1.0-7b-chat          | 
 """
 
 # Adjust the output directory based on your settings
-LumiDir = "/home/yuan/DLModels/lumi2"
+LumiDir = "/home/yuan/DLModels/lumi"
 
 import os
 

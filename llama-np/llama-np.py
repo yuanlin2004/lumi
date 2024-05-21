@@ -100,11 +100,11 @@ class Llama:
 
         params, tokenizer_model, weight_dict, model_name = read_lumi(model_path)
 
-        if model_name in ['llama-3-8b', 'llama-3-8b-instruct', 'qwen1.5-7b-chat']:
+        if model_name in ['llama-3-8b', 'llama-3-8b-instruct', 'qwen1.0-7b-chat']:
             self.tokenizer = Tokenizer_Llama3(model_name, tokenizer_model)
         else: 
             self.tokenizer = Tokenizer_Llama2(tokenizer_model)
-        if model_name in ['qwen1.5-7b-chat']:
+        if model_name in ['qwen1.0-7b-chat']:
             rotate_half = True
         else:
             rotate_half = False
@@ -176,6 +176,7 @@ class Llama:
         print(
             f"[max seq length: {self.max_seq_len}   length of input prompt: {len_prompt}]"
         )
+
         if exp_args.one_a_time:
             # feed the token in the prompt one a time
             output_tokens = [input_tokens[0]]
@@ -213,6 +214,7 @@ class Llama:
 
             logger.debug(lambda: f"generated token: {generated_token}")
             if generated_token in self.tokenizer.stop_tokens:
+                output_tokens.append(generated_token)
                 break
             if exp_args.one_a_time:
                 if i < (len_prompt - 1):
@@ -297,14 +299,16 @@ class Llama:
         # continuous dialog mode.
         chat_format = GetChatFormat(self.tokenizer)
         preemptive_diaglog = [
-            {"role": "system", "content": "Always answer precisely."},
+            {"role": "system", "content": "Perform the task to the best of your ability."},
             #{"role": "user", "content": "Let's get started."},
             #{"role": "assistant", "content": "I am ready to help you. Let's start."},
         ]
         all_tokens = []
         while True:
 
-            command = input("> ").lstrip()
+            command = ""
+            while len(command) == 0:  # ignore empty returns
+                command = input("> ").lstrip()
             if command[0] == "#":
                 # command mode
                 if command.lower() in ["#restart", "#reset", "#new"]:
@@ -381,6 +385,12 @@ if __name__ == "__main__":
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-i", type=str, help="prompt string")
     group.add_argument("-f", type=str, help="prompt file")
+    group.add_argument(
+        "--chat",
+        action="store_true",
+        default=False,
+        help="chat mode. Default is text completion.",
+    )
 
     parser.add_argument(
         "--temp",
@@ -401,12 +411,6 @@ if __name__ == "__main__":
         help="seed for the random number generator",
     )
 
-    parser.add_argument(
-        "--chat",
-        action="store_true",
-        default=False,
-        help="chat mode. Default is text completion.",
-    )
     parser.add_argument(
         "--fill1",
         action="store_true",
@@ -477,9 +481,10 @@ if __name__ == "__main__":
 
     weight_file = args.w
 
+    input_str = ""
     if args.i:
         input_str = args.i
-    else:
+    elif args.f is not None:
         with open(args.f, "r") as f:
             input_str = f.read()
 

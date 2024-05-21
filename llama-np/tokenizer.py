@@ -246,6 +246,7 @@ class ChatFormat_QWen:
         tokens = []
         tokens.append(self.tokenizer.special_tokens["<|im_start|>"])
         tokens.extend(self.tokenizer.encode(message["role"], bos=False, eos=False))
+        tokens.extend(self.tokenizer.encode("\n", bos=False, eos=False))
         return tokens
 
     def encode_message(self, message: Message) -> List[int]:
@@ -254,6 +255,7 @@ class ChatFormat_QWen:
             self.tokenizer.encode(message["content"].strip(), bos=False, eos=False)
         )
         tokens.append(self.tokenizer.special_tokens["<|im_end|>"])
+        tokens.extend(self.tokenizer.encode("\n", bos=False, eos=False))
         return tokens
 
     def encode_dialog_prompt(self, dialog: Dialog) -> List[int]:

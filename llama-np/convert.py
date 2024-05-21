@@ -524,8 +524,8 @@ if __name__ == "__main__":
         meta_params, tokenizer_model, meta_dict = read_tinyllama(
             args.input_model, args.tokenizer_model
         )
-    elif "qwen1.5-7b-chat" in args.model_name.lower():
-        print("Reading Qwen model 1.5 7B Chat")
+    elif "qwen1.0-7b-chat" in args.model_name.lower():
+        print("Reading Qwen model 1.0 7B Chat")
         meta_params, tokenizer_model, meta_dict = read_qwen(
             args.input_model, args.tokenizer_model
         )
