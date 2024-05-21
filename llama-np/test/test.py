@@ -29,7 +29,6 @@ llama3_models = [
     (model_dir + "llama-3-8b.lmw", 1.2, "m31"),
     (model_dir + "llama-3-8b-instruct.lmw", 1.2, "m32"),
     (model_dir + "qwen1.0-7b-chat.lmw", 1.2, "m33"),
-
 ]
 
 # (prompt, seqlength, id)
@@ -144,9 +143,9 @@ def iterate_l0(func, ccheck=None):
 
 
 def iterate_l1(func, ccheck=None):
-#    iterate_l0(func, ccheck)
+    #    iterate_l0(func, ccheck)
 
-    '''
+    """
     for m in [find_model("stories15m.lmw"), find_model("llama-3-8b-instruct.lmw")]:
         for p in [prompts[1]]:
             for c in cupy_options:
@@ -163,7 +162,7 @@ def iterate_l1(func, ccheck=None):
                     f"-w {m[0]} {p[0]} --seqlength {int(m[1]*p[1])} {c[0]}",
                     m[-1] + p[-1] + c[-1],
                 )
-    '''
+    """
 
     for m in [find_model("qw")]:
         for p in [prompts[3]]:
@@ -173,7 +172,7 @@ def iterate_l1(func, ccheck=None):
                     m[-1] + p[-1] + c[-1],
                 )
 
-    '''
+    """
     m = find_model("llama-3-8b-instruct.lmw") 
     p = prompts[0]
     for o in output_options:
@@ -182,8 +181,7 @@ def iterate_l1(func, ccheck=None):
                 f"-w {m[0]} {p[0]} --seqlength {int(m[1]*p[1])} {o[0]} {s[0]}",
                 m[-1] + p[-1] + o[-1] + s[-1],
             )
-    '''
-
+    """
 
 
 def show(str1, str2):
@@ -228,10 +226,10 @@ def test_one(cmd, ids):
         miscompare.append((command, ids))
 
     if exists is not None:
-        #skip the test
+        # skip the test
         text = f"[{current}/{total_number_of_tests}]:old {exists} {command}"
         print(text)
-        return compare_result, output+"."+exists
+        return compare_result, output + "." + exists
 
     status = "Testing"
     local_time1 = strftime("%H:%M:%S", localtime())
@@ -285,10 +283,11 @@ def cross_check(all_outputs):
     global cross_failed
     cross_failed = []
     # compare all the outputs pairwise
-    for i in range(0, len(all_outputs)-1):
+    for i in range(0, len(all_outputs) - 1):
         for j in range(i + 1, len(all_outputs)):
             compare_result = compare(
-                all_outputs[i], all_outputs[j],
+                all_outputs[i],
+                all_outputs[j],
             )
             if compare_result == 0:
                 print(f"Cross compare passed: {all_outputs[i]} {all_outputs[j]}")
@@ -353,7 +352,11 @@ if __name__ == "__main__":
         help="l1: fast check, finish in less than 10 minutes.",
     )
 
-    parser.add_argument("-noclear", action="store_true", help="Do not clear the output directory.")
+    parser.add_argument(
+        "-noclear",
+        action="store_true",
+        help="do not clear the output directory. Useful for skipping some tests.",
+    )
 
     args = parser.parse_args()
 
