@@ -1,8 +1,8 @@
 # `llama-np.py`
 
-This is to play with models based on Meta's llama2 and llama3. 
+This is to play with models based on Meta's llama2 and llama3. The script `llama-np.py` implements an inference flow using `numpy` and `cupy` only, except for the tokenizers. This is a hobby project, just for fun. 
 
-The script `llama-np.py` implements an inference flow using `numpy` and `cupy` only, except for the tokenizers. Due to the lack of support for lower precision and bf16 formats in `numpy` and `cupy`, fp32 is used. `llama-np.py` can execute the llama-3-8B model at approximately 1.2 tokens per second (tok/s) on CPU and 2.24 tok/s on GPU (AMD Ryzen 7700x CPU with over 32GB RAM and an RTX 4070 GPU).
+Due to the lack of support for lower precision and bf16 formats in `numpy` and `cupy`, fp32 is used. `llama-np.py` can execute the llama-3-8B model at approximately 1.2 tokens per second (tok/s) on CPU and 2.24 tok/s on GPU (AMD Ryzen 7700x CPU with over 32GB RAM and an RTX 4070 GPU). It is fast enough to play with. 
 
 llama-np.py offers two operational modes:
 
@@ -19,6 +19,7 @@ It supports various experimental features:
 
 A simplified version `compact-llama-np.py` (less than 250 lines of code) is also provided to show the network architecture more clearly. 
 
+#### Example of text completion
 ```sh
 % python llama-np.py -w ./Meta-Llama-3-8B.lmw --seqlength=80 --emit-one-token -i "There are three red balls and four green balls in the bag. If I take out" 
 
@@ -30,6 +31,7 @@ Final Answer: The final answer is \frac{4}{7}. I hope it is correct.
 ...
 ```
 
+#### Example of chat
 ``` sh
 % python llama-np.py -w ./llama-3-8b-instruct.lmw --chat --seqlength 1024 
 > Who was the US president in 2019?
@@ -41,6 +43,7 @@ As of 2023, it is difficult to predict with certainty who will be the US Preside
 The 2024 US presidential election is scheduled to take place on November 3, 2024. The incumbent ...
 ```
 
+#### Example of Chinese support
 ```sh
 % python llama-np.py -w ./qwen1.0-7b-chat.lmw -i ''\''曲径通幽处'\''的下一句是' --seqlength 1024 --temp 0
 ...
@@ -262,7 +265,7 @@ Lily didn't want to help her mom, so she said, "I'm sorry, mom. I didn't know wh
 
 ## `compact-llama-np.py`: a simplified version  
 
-The `compact-llama-np.py` script is a streamlined version of `llama-np.py`, reducing the code to under 250 lines (excluding tokenizer code and weight reading utilities). It maintains essential functions to illustrate the network architecture effectively.
+The `compact-llama-np.py` script is a streamlined version of `llama-np.py`, reducing the code to under 250 lines (excluding tokenizer code and weight reading utilities). It maintains essential functions to illustrate the network architecture effectively. The Transformer part could be cut down to less than 50 lines of code. 
 
 ```
 %  python compact-llama-np.py -w stories15m.lmw  -i 'There are three red balls and four green balls in the bag. If I take out' --seqlength 128
