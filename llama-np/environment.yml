@@ -1,0 +1,14 @@
+name: lumi
+channels:
+- defaults
+- conda-forge
+dependencies:
+- python=3.11
+- safetensors
+- pytorch
+- psutil
+- sentencepiece
+- conda-forge::tiktoken
+- conda-forge::cupy
+- nvtx
+- psutil
