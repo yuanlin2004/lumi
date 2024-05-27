@@ -68,6 +68,27 @@ The 2024 US presidential election is scheduled to take place on November 3, 2024
 | Qwen1.0-7B-Chat  | 7B   | qwen1.0-7b-chat          | 
 
 
+## Dependencies
+
+The following packages are needed.
+
+- python=3.11
+- safetensors
+- pytorch
+- psutil
+- sentencepiece
+- conda-forge::tiktoken
+- conda-forge::cupy
+- nvtx
+- psutil
+
+Pytorch and safetensors are needed for model conversion only.
+
+```sh
+% conda create -f environment.yml
+% conda activate lumi
+```
+
 ## How to Run the Models
 Running a model involves two primary steps: converting the weights into a compatible format and running the model itself.
 
