@@ -290,59 +290,104 @@ def read_tinystories_pt(model_path, tokenizer_model):
     return params, tokenizer_model_buffer, state_dict
 
 
-def read_tinyllama(model_path, tokenizer_model):
+def read_qwen15_tinyllama_data(model_path, tokenizer_model, revert_hf_per):
     start_time = time.time()
-    if "Chat" in model_path:
-        params_path = os.path.join(model_path, "model.safetensors")
-        log(f"reading {params_path}")
+    tokenizer_model_buffer = read_tokenizer_model(tokenizer_model)
+
+    model_paths = sorted(glob.glob(os.path.join(model_path, "model-*safetensors")))
+    log(f"reading {model_paths}")
+
+    state_dict = {}
+    for params_path in model_paths:
         model = safetensors.torch.load_file(params_path)
-    else:
-        # params_path = os.path.join(model_path, "pytorch_model.bin")
-        # log(f"reading {params_path}")
-        # model = torch.load(params_path, map_location="cpu")
-        params_path = os.path.join(model_path, "model.safetensors")
-        log(f"reading {params_path}")
-        model = safetensors.torch.load_file(params_path)
+
+        for name in sorted(list(model)):
+            if name == "lm_head.weight":
+                state_dict["output.weight"] = model[name]
+            elif name == "model.embed_tokens.weight":
+                state_dict["tok_embeddings.weight"] = model[name]
+            elif name == "model.norm.weight":
+                state_dict["norm.weight"] = model[name]
+            elif "layers" in name:
+                t = name.split(".")
+                if t[3] == "input_layernorm":
+                    state_dict["layers." + t[2] + ".attention_norm.weight"] = model[
+                        name
+                    ]
+                if t[3] == "post_attention_layernorm":
+                    state_dict["layers." + t[2] + ".ffn_norm.weight"] = model[name]
+                elif t[4] == "q_proj":
+                    if t[5] == "weight":
+                        if revert_hf_per:
+                            state_dict["layers." + t[2] + ".attention.wq.weight"] = (
+                                revert_hf_permute(model[name], 32)
+                            )
+                        else:
+                            state_dict["layers." + t[2] + ".attention.wq.weight"] = (
+                                model[name]
+                            )
+                    else:
+                        state_dict["layers." + t[2] + ".attention.wq.bias"] = model[
+                            name
+                        ]
+                elif t[4] == "k_proj":
+                    if t[5] == "weight":
+                        if revert_hf_per:
+                            state_dict["layers." + t[2] + ".attention.wk.weight"] = (
+                                revert_hf_permute(model[name], 4)
+                            )
+                        else:
+                            state_dict["layers." + t[2] + ".attention.wk.weight"] = (
+                                model[name]
+                            )
+                    else:
+                        state_dict["layers." + t[2] + ".attention.wk.bias"] = model[
+                            name
+                        ]
+                elif t[4] == "v_proj":
+                    if t[5] == "weight":
+                        state_dict["layers." + t[2] + ".attention.wv.weight"] = model[
+                            name
+                        ]
+                    else:
+                        state_dict["layers." + t[2] + ".attention.wv.bias"] = model[
+                            name
+                        ]
+                elif t[4] == "o_proj":
+                    if t[5] == "weight":
+                        state_dict["layers." + t[2] + ".attention.wo.weight"] = model[
+                            name
+                        ]
+                    else:
+                        state_dict["layers." + t[2] + ".attention.wo.bias"] = model[
+                            name
+                        ]
+                elif t[4] == "gate_proj":
+                    state_dict["layers." + t[2] + ".feed_forward.w1.weight"] = model[
+                        name
+                    ]
+                elif t[4] == "up_proj":
+                    state_dict["layers." + t[2] + ".feed_forward.w3.weight"] = model[
+                        name
+                    ]
+                elif t[4] == "down_proj":
+                    state_dict["layers." + t[2] + ".feed_forward.w2.weight"] = model[
+                        name
+                    ]
+            else:
+                print(f"unknown weight {name}")
+                exit()
+
     elapsed_time = time.time() - start_time
     log(f"... {elapsed_time:.2f} seconds.")
 
-    tokenizer_model_buffer = read_tokenizer_model(tokenizer_model)
+    return tokenizer_model_buffer, state_dict
 
-    state_dict = {}
-    for name in sorted(list(model)):
-        if name == "lm_head.weight":
-            state_dict["output.weight"] = model[name]
-        elif name == "model.embed_tokens.weight":
-            state_dict["tok_embeddings.weight"] = model[name]
-        elif name == "model.norm.weight":
-            state_dict["norm.weight"] = model[name]
-        elif "layers" in name:
-            t = name.split(".")
-            if t[3] == "input_layernorm":
-                state_dict["layers." + t[2] + ".attention_norm.weight"] = model[name]
-            if t[3] == "post_attention_layernorm":
-                state_dict["layers." + t[2] + ".ffn_norm.weight"] = model[name]
-            elif t[4] == "q_proj":
-                state_dict["layers." + t[2] + ".attention.wq.weight"] = (
-                    revert_hf_permute(model[name], 32)
-                )
-            elif t[4] == "k_proj":
-                state_dict["layers." + t[2] + ".attention.wk.weight"] = (
-                    revert_hf_permute(model[name], 4)
-                )
-            elif t[4] == "v_proj":
-                state_dict["layers." + t[2] + ".attention.wv.weight"] = model[name]
-            elif t[4] == "o_proj":
-                state_dict["layers." + t[2] + ".attention.wo.weight"] = model[name]
-            elif t[4] == "gate_proj":
-                state_dict["layers." + t[2] + ".feed_forward.w1.weight"] = model[name]
-            elif t[4] == "up_proj":
-                state_dict["layers." + t[2] + ".feed_forward.w3.weight"] = model[name]
-            elif t[4] == "down_proj":
-                state_dict["layers." + t[2] + ".feed_forward.w2.weight"] = model[name]
-        else:
-            print(f"unknown weight {name}")
-            exit()
+
+def read_tinyllama(model_path, tokenizer_model):
+    tokenizer_model_buffer, state_dict = read_qwen15_tinyllama_data(
+        model_path, tokenizer_model, True
+    )
 
     params = {}
     params["dim"] = 2048
@@ -350,7 +395,7 @@ def read_tinyllama(model_path, tokenizer_model):
     params["n_heads"] = 32
     params["n_kv_heads"] = 4
     params["multiple_of"] = 8  # just a guess
-    params["vocab_size"] = model["model.embed_tokens.weight"].shape[0]
+    params["vocab_size"] = state_dict["tok_embeddings.weight"].shape[0]
     params["max_seq_len"] = 1024  # just a guess
     params["norm_eps"] = 1e-05
     patch_params(params)
@@ -358,7 +403,7 @@ def read_tinyllama(model_path, tokenizer_model):
     return params, tokenizer_model_buffer, state_dict
 
 
-def read_qwen(model_path, tokenizer_model):
+def read_qwen10(model_path, tokenizer_model):
     start_time = time.time()
 
     tokenizer_model_buffer = read_tokenizer_model(tokenizer_model)
@@ -426,6 +471,26 @@ def read_qwen(model_path, tokenizer_model):
 
     elapsed_time = time.time() - start_time
     log(f"... {elapsed_time:.2f} seconds.")
+
+    params = {}
+    params["dim"] = state_dict["tok_embeddings.weight"].shape[1]
+    params["n_layers"] = 32
+    params["n_heads"] = 32
+    params["n_kv_heads"] = 32
+    params["multiple_of"] = 8  # just a guess
+    params["vocab_size"] = state_dict["tok_embeddings.weight"].shape[0]
+    params["max_seq_len"] = 8192  # just a guess
+    params["norm_eps"] = 1e-06
+    params["rope_theta"] = 1000000
+    patch_params(params)
+
+    return params, tokenizer_model_buffer, state_dict
+
+
+def read_qwen15(model_path, tokenizer_model):
+    tokenizer_model_buffer, state_dict = read_qwen15_tinyllama_data(
+        model_path, tokenizer_model, False
+    )
 
     params = {}
     params["dim"] = state_dict["tok_embeddings.weight"].shape[1]
@@ -526,7 +591,12 @@ if __name__ == "__main__":
         )
     elif "qwen1.0-7b-chat" in args.model_name.lower():
         print("Reading Qwen model 1.0 7B Chat")
-        meta_params, tokenizer_model, meta_dict = read_qwen(
+        meta_params, tokenizer_model, meta_dict = read_qwen10(
+            args.input_model, args.tokenizer_model
+        )
+    elif "qwen1.5-7b-chat" in args.model_name.lower():
+        print("Reading Qwen model 1.5 7B Chat")
+        meta_params, tokenizer_model, meta_dict = read_qwen15(
             args.input_model, args.tokenizer_model
         )
     else:
