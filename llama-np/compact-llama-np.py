@@ -80,33 +80,23 @@ class Attention:
 
         (seq, dim) = xq.shape  # [seq, dim]
         head_size = dim // self.n_heads
-        xxq = np.reshape(xq, (-1, self.n_heads, head_size)).transpose(
-            1, 0, 2
-        )  # (n_heads, s, head_size)
-        xxk = np.reshape(xk, (-1, self.n_kv_heads, head_size)).transpose(
-            1, 0, 2
-        )  # (n_heads, s, head_size)
-        xxv = np.reshape(xv, (-1, self.n_kv_heads, head_size)).transpose(
-            1, 0, 2
-        )  # (n_heads, s, head_size)
+        xxq = np.reshape(xq, (-1, self.n_heads, head_size)).transpose( 1, 0, 2)  # (n_heads, s, head_size)
+        xxk = np.reshape(xk, (-1, self.n_kv_heads, head_size)).transpose( 1, 0, 2)  # (n_heads, s, head_size)
+        xxv = np.reshape(xv, (-1, self.n_kv_heads, head_size)).transpose( 1, 0, 2)  # (n_heads, s, head_size)
 
         xxq = self.pos_emb(xxq, start_pos)
         xxk = self.pos_emb(xxk, start_pos)
 
-        xxk = np.moveaxis(
-            xxk, -1, -2
-        )  # same as xxk.transpose([0,2,1]) (n_heads, head_size, s)
+        xxk = np.moveaxis( xxk, -1, -2)  # same as xxk.transpose([0,2,1]) (n_heads, head_size, s)
 
         if self.k_cache is not None:
             xxk = np.concatenate((self.k_cache, xxk), axis=2)  # k is transposed
             xxv = np.concatenate((self.v_cache, xxv), axis=1)
-        self.k_cache = xxk
-        self.v_cache = xxv
+        self.k_cache, self.v_cache = xxk, xxv
 
         if self.n_kv_heads != self.n_heads:
             rep = self.n_heads // self.n_kv_heads
-            xxk = np.repeat(xxk, rep, axis=0)
-            xxv = np.repeat(xxv, rep, axis=0)
+            xxk, xxv = np.repeat(xxk, rep, axis=0), np.repeat(xxv, rep, axis=0)
 
         scores = np.matmul(xxq, xxk)
 
@@ -120,29 +110,10 @@ class Attention:
 
 
 class TransformerBlock:
-    def __init__(
-        self,
-        w_att_norm,
-        n_heads,
-        n_kv_heads,
-        w_q,
-        wb_q,
-        w_k,
-        wb_k,
-        w_v,
-        wb_v,
-        w_o,
-        wb_o,
-        w_ffd_w1,
-        w_ffd_w2,
-        w_ffd_w3,
-        w_ffd_norm,
-        rotate_half,
-        rope_theta,
-    ):
-        self.att_rmsnorm = RMSNorm(w_att_norm)
+    def __init__( self, w_att_norm, n_heads, n_kv_heads, w_q, wb_q, w_k, wb_k, w_v, wb_v, w_o, wb_o, 
+                 w_ffd_w1, w_ffd_w2, w_ffd_w3, w_ffd_norm, rotate_half, rope_theta,):
+        self.att_rmsnorm, self.ffd_rmsnorm = RMSNorm(w_att_norm), RMSNorm(w_ffd_norm)
         self.attention = Attention(w_q, wb_q, w_k, wb_k, w_v, wb_v, w_o, wb_o, RoPE(rope_theta, rotate_half), n_heads, n_kv_heads)
-        self.ffd_rmsnorm = RMSNorm(w_ffd_norm)
         self.feedforward = FeedForward(w_ffd_w1, w_ffd_w2, w_ffd_w3)
 
     def __call__(self, x, start_pos):
@@ -157,23 +128,16 @@ class Transformer:
         self.transformer_blocks = []
         for i in range(self.n_layers):
             tf_block = TransformerBlock(
-                weight_dict[f"layers.{i}.attention_norm.weight"],
-                params["n_heads"],
-                params["n_kv_heads"],
-                weight_dict[f"layers.{i}.attention.wq.weight"],
-                weight_dict.get(f"layers.{i}.attention.wq.bias"),
-                weight_dict[f"layers.{i}.attention.wk.weight"],
-                weight_dict.get(f"layers.{i}.attention.wk.bias"),
-                weight_dict[f"layers.{i}.attention.wv.weight"],
-                weight_dict.get(f"layers.{i}.attention.wv.bias"),
-                weight_dict[f"layers.{i}.attention.wo.weight"],
-                weight_dict.get(f"layers.{i}.attention.w0.bias"),
+                weight_dict[f"layers.{i}.attention_norm.weight"], params["n_heads"], params["n_kv_heads"],
+                weight_dict[f"layers.{i}.attention.wq.weight"], weight_dict.get(f"layers.{i}.attention.wq.bias"),
+                weight_dict[f"layers.{i}.attention.wk.weight"], weight_dict.get(f"layers.{i}.attention.wk.bias"),
+                weight_dict[f"layers.{i}.attention.wv.weight"], weight_dict.get(f"layers.{i}.attention.wv.bias"),
+                weight_dict[f"layers.{i}.attention.wo.weight"], weight_dict.get(f"layers.{i}.attention.w0.bias"),
                 weight_dict[f"layers.{i}.feed_forward.w1.weight"],
                 weight_dict[f"layers.{i}.feed_forward.w2.weight"],
                 weight_dict[f"layers.{i}.feed_forward.w3.weight"],
                 weight_dict[f"layers.{i}.ffn_norm.weight"],
-                rotate_half,
-                params["rope_theta"]
+                rotate_half, params["rope_theta"]
             )
             self.transformer_blocks.append(tf_block)
         self.rmsnorm = RMSNorm(weight_dict["norm.weight"])
@@ -208,7 +172,6 @@ class Llama:
 
     def text_completion(self, prompt_str):
         input_tokens = self.tokenizer.encode(prompt_str, bos=True, eos=False)
-
         len_prompt = len(input_tokens)
         output_tokens = input_tokens[:]
         in_tokens = input_tokens[:]
@@ -217,7 +180,6 @@ class Llama:
         all_start_time = time.perf_counter()
         while i < self.max_seq_len:
             generated_token = int(self.generate(in_tokens, i))
-
             if generated_token in self.tokenizer.stop_tokens:
                 break
             i = i + (len_prompt if i == 0 else 1)
