@@ -394,9 +394,9 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--temp",
-        type=arg_fp_range(0, 1),
+        type=arg_fp_range(0, 2),
         default=0.6,
-        help="temperature (value in [0.0, 1.0]) for the topp sampler, default 0.6. 0 will use argmax.",
+        help="temperature (value in [0.0, 2.0]) for the topp sampler, default 0.6. 0 will use argmax.",
     )
     parser.add_argument(
         "--topp",
