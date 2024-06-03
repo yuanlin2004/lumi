@@ -18,3 +18,6 @@ class ExperimentArgs:
 
     # save sample history
     sample_history: str = None
+
+    # use hf tokenizer
+    use_hf_tokenizer: bool = False

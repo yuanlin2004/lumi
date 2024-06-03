@@ -42,6 +42,22 @@ class Message(TypedDict):
 
 Dialog = Sequence[Message]
 
+class HF_Tokenizer:
+
+    def __init__(self, model_path: str):
+        from transformers import AutoTokenizer
+        self.tokenizer = AutoTokenizer.from_pretrained(model_path, resume_download=True)
+        self.stop_tokens = {self.tokenizer.eos_token_id}
+
+    def encode(self, s: str, bos: bool, eos: bool) -> List[int]:
+        t = self.tokenizer.encode(s, add_special_tokens=False)
+        if eos:
+            t = t + [self.tokenizer.eos_token_id]
+        return t
+
+    def decode(self, t: List[int], skip_bos=False) -> str:
+        return self.tokenizer.decode(t)
+    
 
 class Tokenizer_Llama3:
     """
@@ -69,6 +85,7 @@ class Tokenizer_Llama3:
             base64.b64decode(token): int(rank)
             for token, rank in (line.split() for line in model_str.splitlines() if line)
         }
+
         num_base_tokens = len(mergeable_ranks)
         self.model_name = model_name
         if model_name == "qwen1.5-7b-chat":

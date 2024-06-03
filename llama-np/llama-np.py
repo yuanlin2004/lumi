@@ -13,7 +13,7 @@ from typing import List, Literal, Optional, Tuple, TypedDict
 import numpy as np
 
 from read_lumi import read_lumi
-from tokenizer import GetChatFormat, Tokenizer_Llama2, Tokenizer_Llama3
+from tokenizer import GetChatFormat, Tokenizer_Llama2, Tokenizer_Llama3, HF_Tokenizer
 from transformer import *
 from sysutil import *
 from config import *
@@ -104,9 +104,13 @@ class Llama:
             "llama-3-8b",
             "llama-3-8b-instruct",
             "qwen1.0-7b-chat",
-            "qwen1.5-7b-chat",
         ]:
             self.tokenizer = Tokenizer_Llama3(model_name, tokenizer_model)
+        elif model_name in ["qwen1.5-7b-chat"]: 
+            if exp_args.use_hf_tokenizer:
+                self.tokenizer = HF_Tokenizer("Qwen/Qwen1.5-7B-Chat")
+            else:
+                self.tokenizer = Tokenizer_Llama3(model_name, tokenizer_model)
         else:
             self.tokenizer = Tokenizer_Llama2(tokenizer_model)
         if model_name in ["qwen1.0-7b-chat"]:
@@ -183,6 +187,7 @@ class Llama:
         print(
             f"[max seq length: {self.max_seq_len}   length of input prompt: {len_prompt}]"
         )
+        print(f"tokens: {input_tokens} ")
 
         if exp_args.one_a_time:
             # feed the token in the prompt one a time
@@ -482,6 +487,13 @@ if __name__ == "__main__":
         default=None,
         help="emit all tokens, default for llama 2 models",
     )
+    group.add_argument(
+        "--hft",
+        action="store_true",
+        dest="use_hft",
+        default=False,
+        help="use huggingface tokenizer",
+    )
 
     args = parser.parse_args()
 
@@ -512,6 +524,7 @@ if __name__ == "__main__":
         use_in_place_kv_cache=args.useinplacekvcache,
         use_cupy=args.cupy,
         sample_history=args.sample_history,
+        use_hf_tokenizer=args.use_hft,
     )
 
     if exp_args.report_mem:
