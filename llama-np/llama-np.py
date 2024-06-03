@@ -92,7 +92,7 @@ class Llama:
         topp,
         you_pick,
         exp_args,
-        seed, 
+        seed,
     ) -> "Llama":
         if seed is not None:
             random.seed(seed)
@@ -100,11 +100,16 @@ class Llama:
 
         params, tokenizer_model, weight_dict, model_name = read_lumi(model_path)
 
-        if model_name in ['llama-3-8b', 'llama-3-8b-instruct', 'qwen1.0-7b-chat']:
+        if model_name in [
+            "llama-3-8b",
+            "llama-3-8b-instruct",
+            "qwen1.0-7b-chat",
+            "qwen1.5-7b-chat",
+        ]:
             self.tokenizer = Tokenizer_Llama3(model_name, tokenizer_model)
-        else: 
+        else:
             self.tokenizer = Tokenizer_Llama2(tokenizer_model)
-        if model_name in ['qwen1.0-7b-chat']:
+        if model_name in ["qwen1.0-7b-chat"]:
             rotate_half = True
         else:
             rotate_half = False
@@ -115,7 +120,9 @@ class Llama:
         self.params = params
         # Note: some weights in weight_dict will be 'del'ed in the following call,
         # to keep the memory footprint small, as transposed copies will be made.
-        self.model = Transformer(params, weight_dict, max_seq_len, rotate_half, exp_args)
+        self.model = Transformer(
+            params, weight_dict, max_seq_len, rotate_half, exp_args
+        )
 
         # just to tighten up the loose end
         del weight_dict
@@ -218,8 +225,8 @@ class Llama:
                 break
             if exp_args.one_a_time:
                 if i < (len_prompt - 1):
-                    # Still in the fill stage, discard the generated token and use the next 
-                    # token from the prompt instead. 
+                    # Still in the fill stage, discard the generated token and use the next
+                    # token from the prompt instead.
                     generated_token = input_tokens[i + 1]
                     # Reset the random seed to the original value. So to make sure the
                     # behavior is consistent with the case where all tokens are fed in at once.
@@ -299,9 +306,12 @@ class Llama:
         # continuous dialog mode.
         chat_format = GetChatFormat(self.tokenizer)
         preemptive_diaglog = [
-            {"role": "system", "content": "Perform the task to the best of your ability."},
-            #{"role": "user", "content": "Let's get started."},
-            #{"role": "assistant", "content": "I am ready to help you. Let's start."},
+            {
+                "role": "system",
+                "content": "Perform the task to the best of your ability.",
+            },
+            # {"role": "user", "content": "Let's get started."},
+            # {"role": "assistant", "content": "I am ready to help you. Let's start."},
         ]
         all_tokens = []
         while True:
