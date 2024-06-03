@@ -54,11 +54,7 @@ class Tokenizer_Llama3:
 
     pat_str = r"(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\r\n\p{L}\p{N}]?\p{L}+|\p{N}{1,3}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s*[\r\n]+|\s+(?!\S)|\s+"  # noqa: E501
 
-    #pat_str = r"""(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\r\n\p{L}\p{N}]?\p{L}+|\p{N}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s*[\r\n]+|\s+(?!\S)|\s+"""
-
-
     def __init__(self, model_name: str, model_str: str):
-        import json
         """
         Initializes the Tokenizer with a Tiktoken model.
 
@@ -67,14 +63,12 @@ class Tokenizer_Llama3:
         """
 
         # copied from https://github.com/openai/tiktoken/blob/1b9faf2779855124f05174adf1383e53689ed94b/tiktoken/load.py#L148C5-L151C6
-    #    import base64
+        import base64
 
-    #    mergeable_ranks = {
-    #        base64.b64decode(token): int(rank)
-    #        for token, rank in (line.split() for line in model_str.splitlines() if line)
-    #    }
-        mergeable_ranks = json.loads(model_str)
-        mergeable_ranks = {token.encode("utf-8"): int(rank) for token, rank in mergeable_ranks.items()}
+        mergeable_ranks = {
+            base64.b64decode(token): int(rank)
+            for token, rank in (line.split() for line in model_str.splitlines() if line)
+        }
         num_base_tokens = len(mergeable_ranks)
         self.model_name = model_name
         if model_name == "qwen1.5-7b-chat":
