@@ -108,12 +108,12 @@ class Llama:
             self.tokenizer = Tokenizer_Llama3(model_name, tokenizer_model)
         elif model_name in ["qwen1.5-7b-chat"]: 
             if exp_args.use_hf_tokenizer:
-                self.tokenizer = HF_Tokenizer("Qwen/Qwen1.5-7B-Chat")
+                self.tokenizer = HF_Tokenizer("Qwen/Qwen1.5-7B-Chat", model_name)
             else:
                 self.tokenizer = Tokenizer_Llama3(model_name, tokenizer_model)
         else:
             self.tokenizer = Tokenizer_Llama2(tokenizer_model)
-        if model_name in ["qwen1.0-7b-chat"]:
+        if model_name in ["qwen1.0-7b-chat", "qwen1.5-7b-chat"]:
             rotate_half = True
         else:
             rotate_half = False
@@ -313,7 +313,7 @@ class Llama:
         preemptive_diaglog = [
             {
                 "role": "system",
-                "content": "Perform the task to the best of your ability.",
+                "content": "You are a helpful assistant.",
             },
             # {"role": "user", "content": "Let's get started."},
             # {"role": "assistant", "content": "I am ready to help you. Let's start."},

@@ -44,10 +44,13 @@ Dialog = Sequence[Message]
 
 class HF_Tokenizer:
 
-    def __init__(self, model_path: str):
+    def __init__(self, model_path: str, model_name: str):
         from transformers import AutoTokenizer
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, resume_download=True)
         self.stop_tokens = {self.tokenizer.eos_token_id}
+        # all the special tokens are added by the AutoTokenizer already
+        self.model_name = model_name
+        self.special_tokens = dict(zip(self.tokenizer.all_special_tokens, self.tokenizer.all_special_ids)) 
 
     def encode(self, s: str, bos: bool, eos: bool) -> List[int]:
         t = self.tokenizer.encode(s, add_special_tokens=False)
@@ -254,6 +257,11 @@ def GetChatFormat(tokenizer: Tokenizer_Llama3):
         return ChatFormat(tokenizer)
 
 
+#<|im_start|>system
+#You are a helpful assistant.<|im_end|>
+#<|im_start|>user
+#message<|im_end|>
+#<|im_start|>assistant
 class ChatFormat_QWen:
     def __init__(self, tokenizer: Tokenizer_Llama3):
         self.tokenizer = tokenizer
