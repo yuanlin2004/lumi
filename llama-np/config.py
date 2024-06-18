@@ -21,3 +21,6 @@ class ExperimentArgs:
 
     # use hf tokenizer
     use_hf_tokenizer: bool = False
+
+    # print input tokens
+    print_input_tokens: bool = False

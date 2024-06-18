@@ -187,7 +187,8 @@ class Llama:
         print(
             f"[max seq length: {self.max_seq_len}   length of input prompt: {len_prompt}]"
         )
-        print(f"tokens: {input_tokens} ")
+        if exp_args.print_input_tokens:
+            print(f"tokens: {input_tokens} ")
 
         if exp_args.one_a_time:
             # feed the token in the prompt one a time
@@ -494,6 +495,13 @@ if __name__ == "__main__":
         default=False,
         help="use huggingface tokenizer",
     )
+    group.add_argument(
+        "--print-input-tokens",
+        action="store_true",
+        dest="print_input_tokens",
+        default=False,
+        help="print input tokens",
+    )
 
     args = parser.parse_args()
 
@@ -525,6 +533,7 @@ if __name__ == "__main__":
         use_cupy=args.cupy,
         sample_history=args.sample_history,
         use_hf_tokenizer=args.use_hft,
+        print_input_tokens=args.print_input_tokens,
     )
 
     if exp_args.report_mem:
