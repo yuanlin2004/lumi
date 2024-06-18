@@ -5,7 +5,7 @@ import time
 
 import numpy as np
 from read_lumi import read_lumi
-from tokenizer import Tokenizer_Llama3, Tokenizer_Llama2
+from tokenizer import Tokenizer_Llama3, Tokenizer_Llama2, Tokenizer_Qwen1_5
 
 
 class Linear:
@@ -157,6 +157,8 @@ class Llama:
         params, tokenizer_model, weight_dict, model_name = read_lumi(model_path)
         if model_name in ['llama-3-8b', 'llama-3-8b-instruct', 'qwen1.0-7b-chat']:
             self.tokenizer = Tokenizer_Llama3(model_name, tokenizer_model)
+        elif model_name in ['qwen1.5-7b-chat']:
+            self.tokenizer = Tokenizer_Qwen1_5(model_name, tokenizer_model)
         else:
             self.tokenizer = Tokenizer_Llama2(tokenizer_model)
         rotate_half = True if model_name in ['qwen1.0-7b-chat'] else False
