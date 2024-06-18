@@ -13,7 +13,7 @@ from typing import List, Literal, Optional, Tuple, TypedDict
 import numpy as np
 
 from read_lumi import read_lumi
-from tokenizer import GetChatFormat, Tokenizer_Llama2, Tokenizer_Llama3, HF_Tokenizer
+from tokenizer import GetChatFormat, Tokenizer_Llama2, Tokenizer_Llama3, HF_Tokenizer, Tokenizer_Qwen1_5
 from transformer import *
 from sysutil import *
 from config import *
@@ -110,7 +110,7 @@ class Llama:
             if exp_args.use_hf_tokenizer:
                 self.tokenizer = HF_Tokenizer("Qwen/Qwen1.5-7B-Chat", model_name)
             else:
-                self.tokenizer = Tokenizer_Llama3(model_name, tokenizer_model)
+                self.tokenizer = Tokenizer_Qwen1_5(model_name, tokenizer_model)
         else:
             self.tokenizer = Tokenizer_Llama2(tokenizer_model)
         if model_name in ["qwen1.0-7b-chat", "qwen1.5-7b-chat"]:

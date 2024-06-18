@@ -21,6 +21,7 @@ from typing import (
     TypedDict,
     Union,
 )
+from functools import lru_cache
 
 import tiktoken
 from sentencepiece import SentencePieceProcessor
@@ -61,6 +62,193 @@ class HF_Tokenizer:
     def decode(self, t: List[int], skip_bos=False) -> str:
         return self.tokenizer.decode(t)
     
+
+@lru_cache()
+def bytes_to_unicode():
+    """
+    Returns list of utf-8 byte and a mapping to unicode strings. We specifically avoids mapping to whitespace/control
+    characters the bpe code barfs on.
+
+    The reversible bpe codes work on unicode strings. This means you need a large # of unicode characters in your vocab
+    if you want to avoid UNKs. When you're at something like a 10B token dataset you end up needing around 5K for
+    decent coverage. This is a significant percentage of your normal, say, 32K bpe vocab. To avoid that, we want lookup
+    tables between utf-8 bytes and unicode strings.
+    """
+    bs = (
+        list(range(ord("!"), ord("~") + 1)) + list(range(ord("¡"), ord("¬") + 1)) + list(range(ord("®"), ord("ÿ") + 1))
+    )
+    cs = bs[:]
+    n = 0
+    for b in range(2**8):
+        if b not in bs:
+            bs.append(b)
+            cs.append(2**8 + n)
+            n += 1
+    cs = [chr(n) for n in cs]
+    return dict(zip(bs, cs))
+
+class Tokenizer_Qwen1_5:
+    """
+    Tokenizing and encoding/decoding text using the Tiktoken tokenizer.
+    """
+
+    special_tokens: Dict[str, int]
+
+    num_reserved_special_tokens = 256
+
+    pat_str = r"(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\r\n\p{L}\p{N}]?\p{L}+|\p{N}{1,3}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s*[\r\n]+|\s+(?!\S)|\s+"  # noqa: E501
+
+
+
+    def __init__(self, model_name: str, model_str: str):
+        """
+        Initializes the Tokenizer with a Tiktoken model.
+
+        Args:
+            model_str (str): The str of the loaded Tiktoken model file.
+        """
+        import json
+        
+        bytes2unicode = bytes_to_unicode()
+        unicode2bytes = {v: k for k, v in bytes2unicode.items()}
+
+        data = json.loads(model_str)
+        mergeable_ranks = {bytes([unicode2bytes[c] for c in k]):v for k,v in data.items()}
+
+
+        num_base_tokens = len(mergeable_ranks)
+        self.model_name = model_name
+        special_tokens = [
+            "<|endoftext|>",
+            "<|im_start|>",
+            "<|im_end|>",
+        ]
+        self.special_tokens = {
+            token: num_base_tokens + i for i, token in enumerate(special_tokens)
+        }
+        self.model = tiktoken.Encoding(
+            name=model_name,
+            pat_str=self.pat_str,
+            mergeable_ranks=mergeable_ranks,
+            special_tokens=self.special_tokens,
+        )
+        logger.debug(f"Reloaded tiktoken model")
+
+        self.n_words: int = self.model.n_vocab
+        # BOS / EOS token IDs
+        self.bos_id: int = self.special_tokens["<|endoftext|>"]
+        self.eos_id: int = self.special_tokens["<|endoftext|>"]
+        self.stop_tokens = {
+            self.special_tokens["<|endoftext|>"],
+            self.special_tokens["<|im_end|>"],
+        }
+        logger.debug(
+            f"#words: {self.n_words} - BOS ID: {self.bos_id} - EOS ID: {self.eos_id}"
+        )
+
+    def encode(
+        self,
+        s: str,
+        *,
+        bos: bool,
+        eos: bool,
+        allowed_special: Union[Literal["all"], AbstractSet[str]] = set(),
+        disallowed_special: Union[Literal["all"], Collection[str]] = (),
+    ) -> List[int]:
+        """
+        Encodes a string into a list of token IDs.
+
+        Args:
+            s (str): The input string to be encoded.
+            bos (bool): Whether to prepend the beginning-of-sequence token.
+            eos (bool): Whether to append the end-of-sequence token.
+            allowed_tokens ("all"|set[str]): allowed special tokens in string
+            disallowed_tokens ("all"|set[str]): special tokens that raise an error when in string
+
+        Returns:
+            list[int]: A list of token IDs.
+
+        By default, setting disallowed_special=() encodes a string by ignoring
+        special tokens. Specifically:
+        - Setting `disallowed_special` to () will cause all text corresponding
+          to special tokens to be encoded as natural text (insteading of raising
+          an error).
+        - Setting `allowed_special` to "all" will treat all text corresponding
+          to special tokens to be encoded as special tokens.
+        """
+        assert type(s) is str
+
+        # The tiktoken tokenizer can handle <=400k chars without
+        # pyo3_runtime.PanicException.
+        TIKTOKEN_MAX_ENCODE_CHARS = 400_000
+
+        # https://github.com/openai/tiktoken/issues/195
+        # Here we iterate over subsequences and split if we exceed the limit
+        # of max consecutive non-whitespace or whitespace characters.
+        MAX_NO_WHITESPACES_CHARS = 25_000
+
+        substrs = (
+            substr
+            for i in range(0, len(s), TIKTOKEN_MAX_ENCODE_CHARS)
+            for substr in self._split_whitespaces_or_nonwhitespaces(
+                s[i : i + TIKTOKEN_MAX_ENCODE_CHARS], MAX_NO_WHITESPACES_CHARS
+            )
+        )
+        t: List[int] = []
+        for substr in substrs:
+            t.extend(
+                self.model.encode(
+                    substr,
+                    allowed_special=allowed_special,
+                    disallowed_special=disallowed_special,
+                )
+            )
+        if bos:
+            t.insert(0, self.bos_id)
+        if eos:
+            t.append(self.eos_id)
+        return t
+
+    def decode(self, t: Sequence[int], skip_bos=False) -> str:
+        """
+        Decodes a list of token IDs into a string.
+
+        Args:
+            t (List[int]): The list of token IDs to be decoded.
+
+        Returns:
+            str: The decoded string.
+        """
+        if skip_bos and t[0] == self.bos_id:
+            t = t[1:]
+        # Typecast is safe here. Tiktoken doesn't do anything list-related with the sequence.
+        return self.model.decode(cast(List[int], t))
+
+    @staticmethod
+    def _split_whitespaces_or_nonwhitespaces(
+        s: str, max_consecutive_slice_len: int
+    ) -> Iterator[str]:
+        """
+        Splits the string `s` so that each substring contains no more than `max_consecutive_slice_len`
+        consecutive whitespaces or consecutive non-whitespaces.
+        """
+        current_slice_len = 0
+        current_slice_is_space = s[0].isspace() if len(s) > 0 else False
+        slice_start = 0
+
+        for i in range(len(s)):
+            is_now_space = s[i].isspace()
+
+            if current_slice_is_space ^ is_now_space:
+                current_slice_len = 1
+                current_slice_is_space = is_now_space
+            else:
+                current_slice_len += 1
+                if current_slice_len > max_consecutive_slice_len:
+                    yield s[slice_start:i]
+                    slice_start = i
+                    current_slice_len = 1
+        yield s[slice_start:]
 
 class Tokenizer_Llama3:
     """
