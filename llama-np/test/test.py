@@ -29,6 +29,7 @@ llama3_models = [
     (model_dir + "llama-3-8b.lmw", 1.2, "m31"),
     (model_dir + "llama-3-8b-instruct.lmw", 1.2, "m32"),
     (model_dir + "qwen1.0-7b-chat.lmw", 1.2, "m33"),
+    (model_dir + "qwen1.5-7b-chat.lmw", 1.2, "m34"),
 ]
 
 # (prompt, seqlength, id)
@@ -145,7 +146,6 @@ def iterate_l0(func, ccheck=None):
 def iterate_l1(func, ccheck=None):
     #    iterate_l0(func, ccheck)
 
-    """
     for m in [find_model("stories15m.lmw"), find_model("llama-3-8b-instruct.lmw")]:
         for p in [prompts[1]]:
             for c in cupy_options:
@@ -162,9 +162,8 @@ def iterate_l1(func, ccheck=None):
                     f"-w {m[0]} {p[0]} --seqlength {int(m[1]*p[1])} {c[0]}",
                     m[-1] + p[-1] + c[-1],
                 )
-    """
 
-    for m in [find_model("qw")]:
+    for m in [find_model("qwen1.5")]:
         for p in [prompts[3]]:
             for c in cupy_options:
                 func(
@@ -172,7 +171,6 @@ def iterate_l1(func, ccheck=None):
                     m[-1] + p[-1] + c[-1],
                 )
 
-    """
     m = find_model("llama-3-8b-instruct.lmw") 
     p = prompts[0]
     for o in output_options:
@@ -181,7 +179,6 @@ def iterate_l1(func, ccheck=None):
                 f"-w {m[0]} {p[0]} --seqlength {int(m[1]*p[1])} {o[0]} {s[0]}",
                 m[-1] + p[-1] + o[-1] + s[-1],
             )
-    """
 
 
 def show(str1, str2):
