@@ -21,7 +21,6 @@ from typing import (
     TypedDict,
     Union,
 )
-from functools import lru_cache
 
 import tiktoken
 from sentencepiece import SentencePieceProcessor
@@ -63,29 +62,27 @@ class HF_Tokenizer:
         return self.tokenizer.decode(t)
     
 
-@lru_cache()
-def bytes_to_unicode():
-    """
-    Returns list of utf-8 byte and a mapping to unicode strings. We specifically avoids mapping to whitespace/control
-    characters the bpe code barfs on.
-
-    The reversible bpe codes work on unicode strings. This means you need a large # of unicode characters in your vocab
-    if you want to avoid UNKs. When you're at something like a 10B token dataset you end up needing around 5K for
-    decent coverage. This is a significant percentage of your normal, say, 32K bpe vocab. To avoid that, we want lookup
-    tables between utf-8 bytes and unicode strings.
-    """
-    bs = (
-        list(range(ord("!"), ord("~") + 1)) + list(range(ord("¡"), ord("¬") + 1)) + list(range(ord("®"), ord("ÿ") + 1))
-    )
-    cs = bs[:]
-    n = 0
+def unicode_to_bytes():
+    # This function is modified from HuggingFace's bytes_to_unicode() in tokenization_gpt2.py. 
+    # https://github.com/huggingface/transformers/blob/4fdf58afb72b0754da30037fc800b6044e7d9c99/src/transformers/models/gpt2/tokenization_gpt2.py#L38
+    # 
+    # HF's BPE tokenizer handles the control characters differently from Tiktoken. 
+    # - Tiktoken: control characters are mapped to the same byte value as the corresponding printable characters.
+    # - HF: control characters are mapped to the byte values + 2**8
+    # I do not fully understand why HF does this. Its comments says "avoids mapping to whitespace/control characters the bpe code barfs on."
+    #
+    # To use the vocab.json file from HF's GPT2 tokenizer with Tiktoken, I need to convert the byte values in the vocab.json file to the 
+    # ones that Tiktoken uses. See the use of this function in Tokenizer_Qwen1_5.__init__().
+    bs = list(range(ord("!"), ord("~") + 1)) + list(range(ord("¡"), ord("¬") + 1)) + list(range(ord("®"), ord("ÿ") + 1))
+    cs = bs.copy()
+    i = 0
     for b in range(2**8):
         if b not in bs:
             bs.append(b)
-            cs.append(2**8 + n)
-            n += 1
-    cs = [chr(n) for n in cs]
-    return dict(zip(bs, cs))
+            cs.append(2**8 + i)
+            i += 1
+    cs = [chr(i) for i in cs]
+    return dict(zip(cs, bs))
 
 class Tokenizer_Qwen1_5:
     """
@@ -98,8 +95,6 @@ class Tokenizer_Qwen1_5:
 
     pat_str = r"(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\r\n\p{L}\p{N}]?\p{L}+|\p{N}{1,3}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s*[\r\n]+|\s+(?!\S)|\s+"  # noqa: E501
 
-
-
     def __init__(self, model_name: str, model_str: str):
         """
         Initializes the Tokenizer with a Tiktoken model.
@@ -109,12 +104,10 @@ class Tokenizer_Qwen1_5:
         """
         import json
         
-        bytes2unicode = bytes_to_unicode()
-        unicode2bytes = {v: k for k, v in bytes2unicode.items()}
+        unicode2bytes = unicode_to_bytes() 
 
         data = json.loads(model_str)
         mergeable_ranks = {bytes([unicode2bytes[c] for c in k]):v for k,v in data.items()}
-
 
         num_base_tokens = len(mergeable_ranks)
         self.model_name = model_name
