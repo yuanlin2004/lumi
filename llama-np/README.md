@@ -66,6 +66,10 @@ The 2024 US presidential election is scheduled to take place on November 3, 2024
 | Llama-3          | 8B   | llama-3-8b               |
 | Llama-3-Instruct | 8B   | llama-3-8b-instruct      |
 | Qwen1.0-7B-Chat  | 7B   | qwen1.0-7b-chat          | 
+| Qwen1.5-7B-Chat  | 7B   | qwen1.5-7b-chat          | 
+| Qwen2-0.5B-Instruct | 0.5B   | qwen2-0.5b-instruct   | 
+| Qwen2-1.5B-Instruct | 1.5B   | qwen2-1.5b-instruct   | 
+| Qwen2-7B-Instruct | 7B   | qwen2-7b-instruct   | 
 
 
 ## Dependencies
