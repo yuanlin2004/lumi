@@ -167,7 +167,7 @@ class RMSNorm:
 
 
 class RoPE:
-    def __init__(self, theta=10000, rotate_half=False):
+    def __init__(self, theta, rotate_half=False):
         self.theta = np.asarray(np.float32(theta))
         self.rotate_half = rotate_half
 
@@ -175,9 +175,13 @@ class RoPE:
     def __call__(self, x, start_pos=0):
         dim = x.shape[-1]
         s = x.shape[-2]
-        theta = self.theta ** (
-            np.float32(-2.0) * np.array([np.float32(t // 2) for t in range(dim)]) / dim
-        )
+        if self.rotate_half:
+            theta = 1.0 / (self.theta ** (np.arange(0, dim, 2, dtype=np.float32)/dim))
+            theta = np.concatenate((theta, theta), axis=0)
+        else:
+            theta = self.theta ** (
+                np.float32(-2.0) * np.array([np.float32(t // 2) for t in range(dim)]) / dim
+            )
         m = np.arange(start_pos, s + start_pos, dtype=np.int32).reshape(-1, 1)
         m_theta = np.multiply(m, theta, dtype=np.float32)
         cos = np.cos(m_theta)
@@ -471,13 +475,18 @@ class Transformer:
         self.rmsnorm = RMSNorm(
             weight_dict["norm.weight"], use_cupy=exp_args.use_cupy, gpuw=True
         )
+        if weight_dict.get("output.weight") is not None:
+            output_weight = weight_dict["output.weight"]
+        else:
+            output_weight = weight_dict["tok_embeddings.weight"]
         self.lm_head = Linear(
-            weight_dict["output.weight"],
+            output_weight, 
             use_cupy=exp_args.use_cupy,
             gpuw=True,
             bf16=True,
         )
-        del weight_dict["output.weight"]
+        if weight_dict.get("output.weight") is not None:
+            del weight_dict["output.weight"]
         return
 
     def restart(self):

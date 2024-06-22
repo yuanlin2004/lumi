@@ -294,7 +294,7 @@ def read_qwen15_tinyllama_data(model_path, tokenizer_model, revert_hf_per):
     start_time = time.time()
     tokenizer_model_buffer = read_tokenizer_model(tokenizer_model)
 
-    model_paths = sorted(glob.glob(os.path.join(model_path, "model-*safetensors")))
+    model_paths = sorted(glob.glob(os.path.join(model_path, "model*safetensors")))
     log(f"reading {model_paths}")
 
     state_dict = {}
@@ -506,6 +506,47 @@ def read_qwen15(model_path, tokenizer_model):
 
     return params, tokenizer_model_buffer, state_dict
 
+def read_qwen20(model_path, tokenizer_model, model_name):
+    tokenizer_model_buffer, state_dict = read_qwen15_tinyllama_data(
+        model_path, tokenizer_model, False
+    )
+
+    params = {}
+    if model_name == "qwen2-0.5b-instruct":
+        params["dim"] = state_dict["tok_embeddings.weight"].shape[1]
+        params["n_layers"] = 24
+        params["n_heads"] = 14
+        params["n_kv_heads"] = 2
+        params["multiple_of"] = 8  # just a guess
+        params["vocab_size"] = state_dict["tok_embeddings.weight"].shape[0]
+        params["max_seq_len"] =   8192  # just a guess
+        params["norm_eps"] = 1e-06
+        params["rope_theta"] = 1000000
+    elif model_name == "qwen2-1.5b-instruct":
+        params["dim"] = state_dict["tok_embeddings.weight"].shape[1]
+        params["n_layers"] = 28
+        params["n_heads"] = 12
+        params["n_kv_heads"] = 2
+        params["multiple_of"] = 8  # just a guess
+        params["vocab_size"] = state_dict["tok_embeddings.weight"].shape[0]
+        params["max_seq_len"] =   8192  # just a guess
+        params["norm_eps"] = 1e-06
+        params["rope_theta"] = 1000000 
+    elif model_name == "qwen2-7b-instruct":
+        params["dim"] = state_dict["tok_embeddings.weight"].shape[1]
+        params["n_layers"] = 28
+        params["n_heads"] = 28
+        params["n_kv_heads"] = 4
+        params["multiple_of"] = 8  # just a guess
+        params["vocab_size"] = state_dict["tok_embeddings.weight"].shape[0]
+        params["max_seq_len"] =   8192  # just a guess
+        params["norm_eps"] = 1e-06
+    else:
+        print(f"unknown model {model_name}")
+        exit()
+    patch_params(params)
+
+    return params, tokenizer_model_buffer, state_dict
 
 def compare(meta_params, meta_dict, lumi_params, lumi_dict, n_records):
     for p in list(meta_params):
@@ -598,6 +639,11 @@ if __name__ == "__main__":
         print("Reading Qwen model 1.5 7B Chat")
         meta_params, tokenizer_model, meta_dict = read_qwen15(
             args.input_model, args.tokenizer_model
+        )
+    elif "qwen2-0.5b-instruct" in args.model_name.lower() or "qwen2-1.5b-instruct" in args.model_name.lower() or "qwen2-7b-instruct" in args.model_name.lower():
+        print(f"Reading Qwen model {args.model_name}Instruct")
+        meta_params, tokenizer_model, meta_dict = read_qwen20(
+            args.input_model, args.tokenizer_model, args.model_name
         )
     else:
         print("Unknown model type")

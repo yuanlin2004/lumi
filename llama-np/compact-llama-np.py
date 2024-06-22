@@ -47,7 +47,11 @@ class RoPE:
 
     def __call__(self, x, start_pos=0):
         dim, s = x.shape[-1], x.shape[-2]
-        theta = self.theta ** (np.float32(-2.0) * np.array([np.float32(t // 2) for t in range(dim)]) / dim)
+        if self.rotate_half:
+            theta = 1.0 / (self.theta ** (np.arange(0, dim, 2, dtype=np.float32)/dim))
+            theta = np.concatenate((theta, theta), axis=0)
+        else:
+            theta = self.theta ** (np.float32(-2.0) * np.array([np.float32(t // 2) for t in range(dim)]) / dim)
         m = np.arange(start_pos, s + start_pos, dtype=np.int32).reshape(-1, 1)
         m_theta = np.multiply(m, theta, dtype=np.float32)  # outer product
         cos, sin = np.cos(m_theta), np.sin(m_theta)
@@ -141,7 +145,7 @@ class Transformer:
             )
             self.transformer_blocks.append(tf_block)
         self.rmsnorm = RMSNorm(weight_dict["norm.weight"])
-        self.lm_head = Linear(weight_dict["output.weight"])
+        self.lm_head = Linear(weight_dict["output.weight"] if "output.weight" in weight_dict else weight_dict["tok_embeddings.weight"],)
 
     def __call__(self, input_tokens, start_pos):
         x = self.embedding_tab[input_tokens]
@@ -157,11 +161,11 @@ class Llama:
         params, tokenizer_model, weight_dict, model_name = read_lumi(model_path)
         if model_name in ['llama-3-8b', 'llama-3-8b-instruct', 'qwen1.0-7b-chat']:
             self.tokenizer = Tokenizer_Llama3(model_name, tokenizer_model)
-        elif model_name in ['qwen1.5-7b-chat']:
+        elif model_name in ['qwen1.5-7b-chat', 'qwen2-0.5b-instruct', 'qwen2-1.5b-instruct', 'qwen2-7b-instruct']:
             self.tokenizer = Tokenizer_Qwen1_5(model_name, tokenizer_model)
         else:
             self.tokenizer = Tokenizer_Llama2(tokenizer_model)
-        rotate_half = True if model_name in ['qwen1.0-7b-chat'] else False
+        rotate_half = True if model_name in ['qwen1.0-7b-chat', 'qwen1.5-7b-chat', 'qwen2-0.5b-instruct', 'qwen2-1.5b-instruct', 'qwen2-7b-instruct'] else False
         self.params = params
         self.model = Transformer(params, weight_dict, rotate_half)
         self.max_seq_len = max_seq_len

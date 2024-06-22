@@ -106,14 +106,21 @@ class Llama:
             "qwen1.0-7b-chat",
         ]:
             self.tokenizer = Tokenizer_Llama3(model_name, tokenizer_model)
-        elif model_name in ["qwen1.5-7b-chat"]: 
+        elif model_name in ["qwen1.5-7b-chat", "qwen2-0.5b-instruct", "qwen2-1.5b-instruct", "qwen2-7b-instruct"]:
             if exp_args.use_hf_tokenizer:
-                self.tokenizer = HF_Tokenizer("Qwen/Qwen1.5-7B-Chat", model_name)
+                if model_name in ["qwen1.5-7b-chat"]:
+                    self.tokenizer = HF_Tokenizer("Qwen/Qwen1.5-7B-Chat", model_name)
+                elif model_name in ["qwen2-0.5b-instruct"]:
+                    self.tokenizer = HF_Tokenizer("Qwen/Qwen2-0.5B-Instruct", model_name)
+                elif model_name in ["qwen2-1.5b-instruct"]:
+                    self.tokenizer = HF_Tokenizer("Qwen/Qwen2-1.5B-Instruct", model_name)
+                elif model_name in ["qwen2-7b-instruct"]:
+                    self.tokenizer = HF_Tokenizer("Qwen/Qwen2-7B-Instruct", model_name)
             else:
                 self.tokenizer = Tokenizer_Qwen1_5(model_name, tokenizer_model)
         else:
             self.tokenizer = Tokenizer_Llama2(tokenizer_model)
-        if model_name in ["qwen1.0-7b-chat", "qwen1.5-7b-chat"]:
+        if model_name in ["qwen1.0-7b-chat", "qwen1.5-7b-chat", "qwen2-0.5b-instruct", "qwen2-1.5b-instruct", "qwen2-7b-instruct"]:
             rotate_half = True
         else:
             rotate_half = False
@@ -472,6 +479,20 @@ if __name__ == "__main__":
         default=False,
         help="you pick the candidate in the sampler",
     )
+    parser.add_argument(
+        "--hft",
+        action="store_true",
+        dest="use_hft",
+        default=False,
+        help="use huggingface tokenizer",
+    )
+    parser.add_argument(
+        "--print-input-tokens",
+        action="store_true",
+        dest="print_input_tokens",
+        default=False,
+        help="print input tokens",
+    )
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
@@ -487,20 +508,6 @@ if __name__ == "__main__":
         dest="emit_one_token",
         default=None,
         help="emit all tokens, default for llama 2 models",
-    )
-    group.add_argument(
-        "--hft",
-        action="store_true",
-        dest="use_hft",
-        default=False,
-        help="use huggingface tokenizer",
-    )
-    group.add_argument(
-        "--print-input-tokens",
-        action="store_true",
-        dest="print_input_tokens",
-        default=False,
-        help="print input tokens",
     )
 
     args = parser.parse_args()

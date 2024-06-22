@@ -62,7 +62,7 @@ class HF_Tokenizer:
         return self.tokenizer.decode(t)
     
 
-def unicode_to_bytes():
+def hf_unicode_to_bytes():
     # This function is modified from HuggingFace's bytes_to_unicode() in tokenization_gpt2.py. 
     # https://github.com/huggingface/transformers/blob/4fdf58afb72b0754da30037fc800b6044e7d9c99/src/transformers/models/gpt2/tokenization_gpt2.py#L38
     # 
@@ -104,7 +104,7 @@ class Tokenizer_Qwen1_5:
         """
         import json
         
-        unicode2bytes = unicode_to_bytes() 
+        unicode2bytes = hf_unicode_to_bytes() 
 
         data = json.loads(model_str)
         mergeable_ranks = {bytes([unicode2bytes[c] for c in k]):v for k,v in data.items()}
@@ -129,14 +129,15 @@ class Tokenizer_Qwen1_5:
 
         self.n_words: int = self.model.n_vocab
         # BOS / EOS token IDs
-        self.bos_id: int = self.special_tokens["<|endoftext|>"]
+        #self.bos_id: int = self.special_tokens["<|endoftext|>"]
         self.eos_id: int = self.special_tokens["<|endoftext|>"]
         self.stop_tokens = {
             self.special_tokens["<|endoftext|>"],
             self.special_tokens["<|im_end|>"],
         }
         logger.debug(
-            f"#words: {self.n_words} - BOS ID: {self.bos_id} - EOS ID: {self.eos_id}"
+        #    f"#words: {self.n_words} - BOS ID: {self.bos_id} - EOS ID: {self.eos_id}"
+            f"#words: {self.n_words} - BOS ID: N/A - EOS ID: N/A"
         )
 
     def encode(
@@ -172,7 +173,7 @@ class Tokenizer_Qwen1_5:
         assert type(s) is str
 
         # The tiktoken tokenizer can handle <=400k chars without
-        # pyo3_runtime.PanicException.
+        # pyo2_runtime.PanicException.
         TIKTOKEN_MAX_ENCODE_CHARS = 400_000
 
         # https://github.com/openai/tiktoken/issues/195
@@ -196,10 +197,11 @@ class Tokenizer_Qwen1_5:
                     disallowed_special=disallowed_special,
                 )
             )
-        if bos:
-            t.insert(0, self.bos_id)
-        if eos:
-            t.append(self.eos_id)
+        # QWen models do not have bos_id and eos_id
+        #if bos:
+        #    t.insert(0, self.bos_id)
+        #if eos:
+        #    t.append(self.eos_id)
         return t
 
     def decode(self, t: Sequence[int], skip_bos=False) -> str:
@@ -212,8 +214,8 @@ class Tokenizer_Qwen1_5:
         Returns:
             str: The decoded string.
         """
-        if skip_bos and t[0] == self.bos_id:
-            t = t[1:]
+        #if skip_bos and t[0] == self.bos_id:
+        #    t = t[1:]
         # Typecast is safe here. Tiktoken doesn't do anything list-related with the sequence.
         return self.model.decode(cast(List[int], t))
 
@@ -432,7 +434,7 @@ class Tokenizer_Llama3:
 
 
 def GetChatFormat(tokenizer: Tokenizer_Llama3):
-    if tokenizer.model_name == "qwen1.5-7b-chat":
+    if tokenizer.model_name in ["qwen1.5-7b-chat", "qwen2-0.5b-instruct", "qwen2-1.5b-instruct", "qwen2-7b-instruct"]:
         return ChatFormat_QWen(tokenizer)
     else:
         return ChatFormat(tokenizer)
