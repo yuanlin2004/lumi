@@ -58,8 +58,10 @@ class Sampler:
         if self.you_pick:
             print(f"toop: {self.topp} temperature: {self.temp}")
             for i in range(n + 1):
+                tt = self.tokenizer.decode([int(indices[i])])
                 print(
-                    f"{i:3}: {self.tokenizer.decode([indices[i]]):20} @ {indices[i]:5} with {values[i]:.2f}"
+                    #f"{i:3}: {self.tokenizer.decode([indices[i]]):20} @ {indices[i]:5} with {values[i]:.2f}"
+                    f"{i:3}: {tt:20} @ {indices[i]:5} with {values[i]:.2f}"
                 )
             picked_index = -1
             while picked_index < 0 or picked_index > n:
